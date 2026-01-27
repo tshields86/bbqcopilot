@@ -1,6 +1,7 @@
-import { View, Text, Pressable } from 'react-native';
+import { View } from 'react-native';
 import { Link } from 'expo-router';
 import { Flame } from 'lucide-react-native';
+import { H1, Body, Button, Input, PasswordInput } from '@/components/ui';
 
 export default function LoginScreen() {
   return (
@@ -10,20 +11,32 @@ export default function LoginScreen() {
         <View className="bg-ember-500 p-4 rounded-full mb-4">
           <Flame size={48} color="#F5F5F0" />
         </View>
-        <Text className="text-4xl font-display text-ash">BBQCopilot</Text>
-        <Text className="text-char-400 font-body mt-2">Your AI-powered pitmaster</Text>
+        <H1>BBQCopilot</H1>
+        <Body color="muted" className="mt-2">
+          Your AI-powered pitmaster
+        </Body>
       </View>
 
-      {/* Login Form Placeholder */}
-      <View className="w-full max-w-sm">
-        <Pressable className="bg-ember-500 rounded-button p-4 items-center mb-4 active:bg-ember-600">
-          <Text className="text-ash font-body text-lg">Sign In</Text>
-        </Pressable>
+      {/* Login Form */}
+      <View className="w-full max-w-sm gap-4">
+        <Input
+          label="Email"
+          placeholder="your@email.com"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoComplete="email"
+        />
+
+        <PasswordInput label="Password" placeholder="Enter your password" />
+
+        <Button variant="primary" size="lg" fullWidth className="mt-2">
+          Sign In
+        </Button>
 
         <Link href="/(auth)/register" asChild>
-          <Pressable className="border border-char-500 rounded-button p-4 items-center active:bg-char-700">
-            <Text className="text-ash font-body text-lg">Create Account</Text>
-          </Pressable>
+          <Button variant="secondary" size="lg" fullWidth>
+            Create Account
+          </Button>
         </Link>
       </View>
     </View>

@@ -40,9 +40,20 @@ module.exports = {
         error: '#8B2635',
       },
       fontFamily: {
-        display: ['PlayfairDisplay', 'serif'],
-        body: ['SourceSansPro', 'sans-serif'],
-        mono: ['JetBrainsMono', 'monospace'],
+        // Display font for headers
+        display: ['PlayfairDisplay_400Regular'],
+        'display-medium': ['PlayfairDisplay_500Medium'],
+        'display-semibold': ['PlayfairDisplay_600SemiBold'],
+        'display-bold': ['PlayfairDisplay_700Bold'],
+        // Body font for text
+        body: ['SourceSans3_400Regular'],
+        'body-medium': ['SourceSans3_500Medium'],
+        'body-semibold': ['SourceSans3_600SemiBold'],
+        'body-bold': ['SourceSans3_700Bold'],
+        // Mono font for timers/temps
+        mono: ['JetBrainsMono_400Regular'],
+        'mono-medium': ['JetBrainsMono_500Medium'],
+        'mono-bold': ['JetBrainsMono_700Bold'],
       },
       borderRadius: {
         'card': '16px',

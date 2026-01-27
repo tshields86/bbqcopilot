@@ -1,8 +1,31 @@
 import '../global.css';
+import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import * as SplashScreen from 'expo-splash-screen';
+import {
+  useFonts,
+  PlayfairDisplay_400Regular,
+  PlayfairDisplay_500Medium,
+  PlayfairDisplay_600SemiBold,
+  PlayfairDisplay_700Bold,
+} from '@expo-google-fonts/playfair-display';
+import {
+  SourceSans3_400Regular,
+  SourceSans3_500Medium,
+  SourceSans3_600SemiBold,
+  SourceSans3_700Bold,
+} from '@expo-google-fonts/source-sans-3';
+import {
+  JetBrainsMono_400Regular,
+  JetBrainsMono_500Medium,
+  JetBrainsMono_700Bold,
+} from '@expo-google-fonts/jetbrains-mono';
+
+// Prevent splash screen from auto-hiding
+SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,6 +37,30 @@ const queryClient = new QueryClient({
 });
 
 export default function RootLayout() {
+  const [fontsLoaded, fontError] = useFonts({
+    PlayfairDisplay_400Regular,
+    PlayfairDisplay_500Medium,
+    PlayfairDisplay_600SemiBold,
+    PlayfairDisplay_700Bold,
+    SourceSans3_400Regular,
+    SourceSans3_500Medium,
+    SourceSans3_600SemiBold,
+    SourceSans3_700Bold,
+    JetBrainsMono_400Regular,
+    JetBrainsMono_500Medium,
+    JetBrainsMono_700Bold,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryClientProvider client={queryClient}>
@@ -25,7 +72,7 @@ export default function RootLayout() {
             },
             headerTintColor: '#F5F5F0',
             headerTitleStyle: {
-              fontWeight: '600',
+              fontFamily: 'SourceSans3_600SemiBold',
             },
             contentStyle: {
               backgroundColor: '#1A1A1A',
