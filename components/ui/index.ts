@@ -43,3 +43,6 @@ export {
 // Icon
 export { Icon, IconContainer } from './Icon';
 export type { IconSize, IconColor } from './Icon';
+
+// Dialog
+export { ConfirmDialog } from './ConfirmDialog';

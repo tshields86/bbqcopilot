@@ -5,13 +5,14 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import type { LucideIcon } from 'lucide-react-native';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'destructive';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
-interface ButtonProps extends Omit<PressableProps, 'children'> {
+export interface ButtonProps extends Omit<PressableProps, 'children'> {
   children: React.ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -19,6 +20,8 @@ interface ButtonProps extends Omit<PressableProps, 'children'> {
   disabled?: boolean;
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
+  leftIcon?: LucideIcon;
+  rightIcon?: LucideIcon;
   fullWidth?: boolean;
 }
 
@@ -64,6 +67,8 @@ export function Button({
   disabled = false,
   icon,
   iconPosition = 'left',
+  leftIcon: LeftIcon,
+  rightIcon: RightIcon,
   fullWidth = false,
   ...props
 }: ButtonProps) {
@@ -108,12 +113,14 @@ export function Button({
       ) : (
         <View className="flex-row items-center gap-2">
           {icon && iconPosition === 'left' && icon}
+          {LeftIcon && <LeftIcon size={size === 'sm' ? 16 : size === 'lg' ? 22 : 18} color={variant === 'ghost' ? '#F5F5F0' : '#F5F5F0'} />}
           <Text
             className={`font-body-semibold ${sizeStyle.text} ${variantStyle.text}`}
           >
             {children}
           </Text>
           {icon && iconPosition === 'right' && icon}
+          {RightIcon && <RightIcon size={size === 'sm' ? 16 : size === 'lg' ? 22 : 18} color={variant === 'ghost' ? '#F5F5F0' : '#F5F5F0'} />}
         </View>
       )}
     </AnimatedPressable>

@@ -4,7 +4,7 @@
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       profiles: {
@@ -35,6 +35,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       grills: {
         Row: {
@@ -73,6 +74,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       accessories: {
         Row: {
@@ -135,6 +137,15 @@ export interface Database {
           notes?: string | null;
           created_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: 'accessories_grill_id_fkey';
+            columns: ['grill_id'];
+            isOneToOne: false;
+            referencedRelation: 'grills';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       recipes: {
         Row: {
@@ -182,6 +193,15 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: 'recipes_grill_id_fkey';
+            columns: ['grill_id'];
+            isOneToOne: false;
+            referencedRelation: 'grills';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       favorites: {
         Row: {
@@ -202,6 +222,15 @@ export interface Database {
           recipe_id?: string;
           created_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: 'favorites_recipe_id_fkey';
+            columns: ['recipe_id'];
+            isOneToOne: false;
+            referencedRelation: 'recipes';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       cook_logs: {
         Row: {
@@ -246,6 +275,15 @@ export interface Database {
           actual_time_minutes?: number | null;
           created_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: 'cook_logs_recipe_id_fkey';
+            columns: ['recipe_id'];
+            isOneToOne: false;
+            referencedRelation: 'recipes';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       user_usage: {
         Row: {
@@ -275,6 +313,7 @@ export interface Database {
           last_request_at?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       subscriptions: {
         Row: {
@@ -310,7 +349,11 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
+    };
+    Views: {
+      [_ in never]: never;
     };
     Functions: {
       increment_recipe_usage: {
@@ -318,7 +361,7 @@ export interface Database {
           p_user_id: string;
           p_period_start: string;
         };
-        Returns: void;
+        Returns: undefined;
       };
     };
     Enums: {
@@ -339,8 +382,11 @@ export interface Database {
       skill_level: 'beginner' | 'intermediate' | 'advanced';
       subscription_tier: 'free' | 'pro' | 'unlimited';
     };
+    CompositeTypes: {
+      [_ in never]: never;
+    };
   };
-}
+};
 
 // Helper types for Supabase queries
 export type Tables<T extends keyof Database['public']['Tables']> =

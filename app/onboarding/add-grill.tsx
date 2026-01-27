@@ -1,39 +1,92 @@
-import { View, Text, Pressable } from 'react-native';
-import { router } from 'expo-router';
+import { useState } from 'react';
+import { View, Text, SafeAreaView } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useCreateGrill, useCompleteOnboarding } from '@/hooks';
+import { GrillForm } from '@/components/equipment';
+import { Button, H2, Body, ConfirmDialog } from '@/components/ui';
 
 export default function AddGrillScreen() {
-  return (
-    <View className="flex-1 bg-char-800 p-6">
-      <View className="flex-1 justify-center">
-        <Text className="text-3xl font-display text-ash text-center mb-4">
-          Add Your First Grill
-        </Text>
-        <Text className="text-char-400 font-body text-center mb-8">
-          Tell us about your grill so we can create personalized recipes
-        </Text>
+  const router = useRouter();
+  const createGrill = useCreateGrill();
+  const completeOnboarding = useCompleteOnboarding();
+  const [showSkipConfirm, setShowSkipConfirm] = useState(false);
 
-        {/* Placeholder for grill selection */}
-        <View className="bg-char-700 rounded-card p-6 mb-8">
-          <Text className="text-ash font-body text-center">
-            Grill selection form will go here
-          </Text>
+  const handleSubmit = async (data: {
+    name: string;
+    grill_type: 'kamado' | 'gas' | 'charcoal' | 'pellet' | 'offset' | 'kettle' | 'electric' | 'other';
+    brand: string;
+    model: string;
+    notes: string;
+  }) => {
+    try {
+      const grill = await createGrill.mutateAsync({
+        name: data.name,
+        grill_type: data.grill_type,
+        brand: data.brand || null,
+        model: data.model || null,
+        notes: data.notes || null,
+      });
+      // Navigate to add accessories for this grill
+      router.push(`/onboarding/add-accessories?grillId=${grill.id}&grillName=${encodeURIComponent(grill.name)}`);
+    } catch (error) {
+      console.error('Failed to create grill:', error);
+    }
+  };
+
+  const handleSkip = async () => {
+    try {
+      await completeOnboarding.mutateAsync();
+      router.replace('/(tabs)');
+    } catch (error) {
+      console.error('Failed to complete onboarding:', error);
+      // Navigate anyway
+      router.replace('/(tabs)');
+    }
+  };
+
+  return (
+    <SafeAreaView className="flex-1 bg-char-black">
+      <View className="flex-1">
+        {/* Header */}
+        <View className="p-6 pb-2">
+          <H2 className="text-center mb-2">
+            Add Your First Grill
+          </H2>
+          <Body className="text-smoke-gray text-center">
+            Tell us about your grill so we can create personalized recipes
+          </Body>
+        </View>
+
+        {/* Form */}
+        <GrillForm
+          onSubmit={handleSubmit}
+          isLoading={createGrill.isPending}
+          submitLabel="Continue"
+        />
+
+        {/* Skip Option */}
+        <View className="p-4 pb-8">
+          <Button
+            variant="ghost"
+            onPress={() => setShowSkipConfirm(true)}
+            fullWidth
+          >
+            Skip for now
+          </Button>
         </View>
       </View>
 
-      <View className="mb-8">
-        <Pressable
-          className="bg-ember-500 rounded-button p-4 items-center mb-4 active:bg-ember-600"
-          onPress={() => router.replace('/(tabs)')}
-        >
-          <Text className="text-ash font-body text-lg">Continue</Text>
-        </Pressable>
-        <Pressable
-          className="p-4 items-center"
-          onPress={() => router.replace('/(tabs)')}
-        >
-          <Text className="text-char-400 font-body">Skip for now</Text>
-        </Pressable>
-      </View>
-    </View>
+      {/* Skip Confirmation */}
+      <ConfirmDialog
+        visible={showSkipConfirm}
+        onClose={() => setShowSkipConfirm(false)}
+        onConfirm={handleSkip}
+        title="Skip Setup?"
+        message="You can add your equipment later from the Equipment tab. Without equipment, recipes won't be personalized to your setup."
+        confirmLabel="Skip"
+        cancelLabel="Continue Setup"
+        isLoading={completeOnboarding.isPending}
+      />
+    </SafeAreaView>
   );
 }

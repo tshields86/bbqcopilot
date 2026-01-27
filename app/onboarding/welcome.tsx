@@ -1,45 +1,68 @@
-import { View, Text, Pressable } from 'react-native';
-import { router } from 'expo-router';
-import { Flame, ChefHat, Clock } from 'lucide-react-native';
+import { View, Text } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Flame, ChefHat, Clock, Thermometer } from 'lucide-react-native';
+import { Button, H1, Body } from '@/components/ui';
 
 export default function WelcomeScreen() {
+  const router = useRouter();
+
+  const features = [
+    {
+      icon: ChefHat,
+      text: 'Personalized recipes for your equipment',
+    },
+    {
+      icon: Clock,
+      text: 'Detailed cook timelines and prep guides',
+    },
+    {
+      icon: Thermometer,
+      text: 'Temperature guidance and checkpoints',
+    },
+  ];
+
   return (
-    <View className="flex-1 bg-char-800 p-6">
+    <View className="flex-1 bg-char-black p-6">
       {/* Header */}
       <View className="flex-1 justify-center items-center">
-        <View className="bg-ember-500 p-6 rounded-full mb-6">
-          <Flame size={64} color="#F5F5F0" />
+        <View className="bg-ember-red/20 p-6 rounded-full mb-6">
+          <Flame size={64} color="#C41E3A" />
         </View>
-        <Text className="text-4xl font-display text-ash text-center mb-4">
+        <H1 className="text-center mb-4">
           Welcome to BBQCopilot
-        </Text>
-        <Text className="text-char-400 font-body text-center text-lg mb-8">
+        </H1>
+        <Body className="text-smoke-gray text-center text-lg mb-8">
           Your AI-powered pitmaster assistant for perfect cooks every time
-        </Text>
+        </Body>
 
         {/* Features */}
-        <View className="w-full max-w-sm space-y-4">
-          <View className="flex-row items-center bg-char-700 p-4 rounded-card">
-            <ChefHat size={24} color="#B87333" />
-            <Text className="text-ash font-body ml-4">
-              Personalized recipes for your equipment
-            </Text>
-          </View>
-          <View className="flex-row items-center bg-char-700 p-4 rounded-card mt-4">
-            <Clock size={24} color="#B87333" />
-            <Text className="text-ash font-body ml-4">Detailed cook timelines</Text>
-          </View>
+        <View className="w-full max-w-sm gap-4">
+          {features.map((feature, index) => (
+            <View
+              key={index}
+              className="flex-row items-center bg-char-black/50 border border-smoke-gray/20 p-4 rounded-xl"
+            >
+              <View className="w-10 h-10 rounded-lg bg-copper-glow/20 items-center justify-center">
+                <feature.icon size={20} color="#B87333" />
+              </View>
+              <Text className="text-ash-white font-body ml-4 flex-1">
+                {feature.text}
+              </Text>
+            </View>
+          ))}
         </View>
       </View>
 
       {/* CTA */}
-      <View className="mb-8">
-        <Pressable
-          className="bg-ember-500 rounded-button p-4 items-center active:bg-ember-600"
+      <View className="mb-8 gap-4">
+        <Button
+          variant="primary"
+          size="lg"
+          fullWidth
           onPress={() => router.push('/onboarding/add-grill')}
         >
-          <Text className="text-ash font-body text-lg">Get Started</Text>
-        </Pressable>
+          Get Started
+        </Button>
       </View>
     </View>
   );
