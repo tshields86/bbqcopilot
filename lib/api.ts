@@ -2,6 +2,7 @@ import { supabase } from './supabase';
 import type { RateLimitError } from './types';
 
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
+const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
 /**
  * Check if an error is a rate limit error
@@ -84,6 +85,7 @@ export async function generateRecipe(
       headers: {
         'Content-Type': 'application/json',
         Authorization: authHeader,
+        apikey: SUPABASE_ANON_KEY,
       },
       body: JSON.stringify(params),
     });
@@ -183,6 +185,7 @@ export async function askClarification(
     headers: {
       'Content-Type': 'application/json',
       Authorization: authHeader,
+      apikey: SUPABASE_ANON_KEY,
     },
     body: JSON.stringify(params),
   });
