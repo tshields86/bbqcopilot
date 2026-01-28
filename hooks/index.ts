@@ -42,3 +42,21 @@ export {
   isApproachingLimit,
   hasHitLimit,
 } from './useUsage';
+
+// Favorites hooks
+export {
+  useFavorites,
+  useIsFavorite,
+  useToggleFavorite,
+} from './useFavorites';
+
+// Cook logs hooks
+export {
+  useCookLogs,
+  useCookLog,
+  useCookLogsForRecipe,
+  useCreateCookLog,
+  useUpdateCookLog,
+  useDeleteCookLog,
+  getAverageRating,
+} from './useCookLogs';
