@@ -84,7 +84,7 @@ export default function RecipeDetailScreen() {
         <RecipeView recipe={recipeData} />
 
         {/* Log Cook Button */}
-        <View className="p-4 pt-0 border-t border-smoke-gray/10">
+        <View className="p-4 pt-0 border-t border-char-600">
           <Button
             variant="primary"
             onPress={handleLogCook}

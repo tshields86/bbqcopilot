@@ -14,7 +14,7 @@ export function RecipeIngredients({ ingredients }: RecipeIngredientsProps) {
       <View className="gap-2">
         {ingredients.map((ingredient, index) => (
           <View key={index} className="flex-row items-start">
-            <View className="w-5 h-5 rounded-full border border-smoke-gray/30 items-center justify-center mr-3 mt-0.5">
+            <View className="w-5 h-5 rounded-full border border-char-500/30 items-center justify-center mr-3 mt-0.5">
               <Check size={12} color="#4A4A4A" />
             </View>
             <View className="flex-1">
@@ -23,7 +23,7 @@ export function RecipeIngredients({ ingredients }: RecipeIngredientsProps) {
                 {' '}{ingredient.item}
               </Text>
               {ingredient.notes && (
-                <Text className="font-body text-sm text-smoke-gray">
+                <Text className="font-body text-sm text-char-300">
                   {ingredient.notes}
                 </Text>
               )}

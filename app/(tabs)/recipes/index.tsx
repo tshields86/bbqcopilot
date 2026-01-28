@@ -63,7 +63,7 @@ export default function RecipesScreen() {
         <Stack.Screen options={{ title: 'My Recipes' }} />
         <View className="flex-1 bg-char-black items-center justify-center">
           <FlameLoader size="lg" />
-          <Text className="font-body text-smoke-gray mt-4">Loading recipes...</Text>
+          <Text className="font-body text-char-300 mt-4">Loading recipes...</Text>
         </View>
       </>
     );
@@ -81,7 +81,7 @@ export default function RecipesScreen() {
           <Text className="font-display text-xl text-ash-white text-center mb-2">
             No Recipes Yet
           </Text>
-          <Text className="font-body text-smoke-gray text-center mb-6">
+          <Text className="font-body text-char-300 text-center mb-6">
             Generate your first recipe to see it here.
           </Text>
           <Button
@@ -112,7 +112,7 @@ export default function RecipesScreen() {
         {/* Search and Filter */}
         <View className="p-4 pb-2">
           {/* Search */}
-          <View className="flex-row items-center bg-char-black/50 border border-smoke-gray/30 rounded-xl px-3 mb-3">
+          <View className="flex-row items-center bg-char-black/50 border border-char-500 rounded-xl px-3 mb-3">
             <Search size={18} color="#4A4A4A" />
             <TextInput
               className="flex-1 font-body text-base text-ash-white py-3 px-2"
@@ -134,12 +134,12 @@ export default function RecipesScreen() {
               onPress={() => setFilter('all')}
               className={`
                 flex-row items-center px-4 py-2 rounded-full
-                ${filter === 'all' ? 'bg-ember-red' : 'bg-char-black/50 border border-smoke-gray/30'}
+                ${filter === 'all' ? 'bg-ember-red' : 'bg-char-black/50 border border-char-500'}
               `}
             >
               <BookOpen size={16} color={filter === 'all' ? '#F5F5F0' : '#4A4A4A'} />
               <Text
-                className={`font-body-medium text-sm ml-2 ${filter === 'all' ? 'text-ash-white' : 'text-smoke-gray'}`}
+                className={`font-body-medium text-sm ml-2 ${filter === 'all' ? 'text-ash-white' : 'text-char-300'}`}
               >
                 All ({recipes.length})
               </Text>
@@ -149,12 +149,12 @@ export default function RecipesScreen() {
               onPress={() => setFilter('favorites')}
               className={`
                 flex-row items-center px-4 py-2 rounded-full
-                ${filter === 'favorites' ? 'bg-ember-red' : 'bg-char-black/50 border border-smoke-gray/30'}
+                ${filter === 'favorites' ? 'bg-ember-red' : 'bg-char-black/50 border border-char-500'}
               `}
             >
               <Heart size={16} color={filter === 'favorites' ? '#F5F5F0' : '#4A4A4A'} />
               <Text
-                className={`font-body-medium text-sm ml-2 ${filter === 'favorites' ? 'text-ash-white' : 'text-smoke-gray'}`}
+                className={`font-body-medium text-sm ml-2 ${filter === 'favorites' ? 'text-ash-white' : 'text-char-300'}`}
               >
                 Favorites ({favoriteIds.size})
               </Text>
@@ -165,7 +165,7 @@ export default function RecipesScreen() {
         {/* Recipe List */}
         {filteredRecipes.length === 0 ? (
           <View className="flex-1 items-center justify-center p-6">
-            <Text className="font-body text-smoke-gray text-center">
+            <Text className="font-body text-char-300 text-center">
               {searchQuery
                 ? 'No recipes match your search.'
                 : filter === 'favorites'

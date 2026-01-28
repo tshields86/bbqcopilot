@@ -56,7 +56,7 @@ export function RecipeCard({ recipe, onPress, isFavorite, onToggleFavorite }: Re
 
               {recipe.description && (
                 <Text
-                  className="font-body text-sm text-smoke-gray mb-3"
+                  className="font-body text-sm text-char-300 mb-3"
                   numberOfLines={2}
                 >
                   {recipe.description}
@@ -68,7 +68,7 @@ export function RecipeCard({ recipe, onPress, isFavorite, onToggleFavorite }: Re
                 {recipe.total_time_minutes && (
                   <View className="flex-row items-center gap-1">
                     <Clock size={12} color="#4A4A4A" />
-                    <Text className="font-body text-xs text-smoke-gray">
+                    <Text className="font-body text-xs text-char-300">
                       {formatTime(recipe.total_time_minutes)}
                     </Text>
                   </View>
@@ -77,7 +77,7 @@ export function RecipeCard({ recipe, onPress, isFavorite, onToggleFavorite }: Re
                 {recipe.servings && (
                   <View className="flex-row items-center gap-1">
                     <Users size={12} color="#4A4A4A" />
-                    <Text className="font-body text-xs text-smoke-gray">
+                    <Text className="font-body text-xs text-char-300">
                       {recipe.servings}
                     </Text>
                   </View>

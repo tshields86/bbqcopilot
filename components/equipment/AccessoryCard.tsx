@@ -10,7 +10,7 @@ interface AccessoryCardProps {
 
 export function AccessoryCard({ accessory, onDelete }: AccessoryCardProps) {
   return (
-    <View className="flex-row items-center p-3 bg-char-black/50 rounded-xl border border-smoke-gray/20">
+    <View className="flex-row items-center p-3 bg-char-black/50 rounded-xl border border-char-500/20">
       {/* Icon */}
       <View className="w-10 h-10 rounded-lg bg-mesquite-brown/20 items-center justify-center mr-3">
         <AccessoryIcon type={accessory.accessory_type} size={20} color="#B87333" />
@@ -21,7 +21,7 @@ export function AccessoryCard({ accessory, onDelete }: AccessoryCardProps) {
         <Text className="font-body-medium text-sm text-ash-white">
           {accessory.name}
         </Text>
-        <Text className="font-body text-xs text-smoke-gray">
+        <Text className="font-body text-xs text-char-300">
           {getAccessoryTypeName(accessory.accessory_type)}
           {accessory.brand && ` - ${accessory.brand}`}
         </Text>

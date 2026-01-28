@@ -14,7 +14,7 @@ export function AccessoryTypeSelector({ value, onChange, label }: AccessoryTypeS
   return (
     <View className="mb-4">
       {label && (
-        <Text className="font-body text-sm text-smoke-gray mb-2">{label}</Text>
+        <Text className="font-body text-sm text-char-300 mb-2">{label}</Text>
       )}
       <ScrollView
         horizontal
@@ -31,7 +31,7 @@ export function AccessoryTypeSelector({ value, onChange, label }: AccessoryTypeS
                 w-24 p-3 rounded-xl border-2
                 ${isSelected
                   ? 'border-ember-red bg-ember-red/10'
-                  : 'border-smoke-gray/30 bg-char-black/50'
+                  : 'border-char-500/30 bg-char-black/50'
                 }
               `}
             >
@@ -51,7 +51,7 @@ export function AccessoryTypeSelector({ value, onChange, label }: AccessoryTypeS
                 <Text
                   className={`
                     font-body-medium text-xs mt-2 text-center
-                    ${isSelected ? 'text-ash-white' : 'text-smoke-gray'}
+                    ${isSelected ? 'text-ash-white' : 'text-char-300'}
                   `}
                   numberOfLines={2}
                 >

@@ -37,7 +37,7 @@ export function ConfirmDialog({
         onPress={onClose}
       >
         <Pressable
-          className="bg-char-black rounded-2xl p-6 w-full max-w-sm border border-smoke-gray/20"
+          className="bg-char-black rounded-2xl p-6 w-full max-w-sm border border-char-500/20"
           onPress={(e) => e.stopPropagation()}
         >
           {/* Icon */}
@@ -53,7 +53,7 @@ export function ConfirmDialog({
           </Text>
 
           {/* Message */}
-          <Text className="font-body text-sm text-smoke-gray text-center mb-6">
+          <Text className="font-body text-sm text-char-300 text-center mb-6">
             {message}
           </Text>
 

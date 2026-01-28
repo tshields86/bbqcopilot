@@ -24,7 +24,7 @@ export function CookInput({ value, onChange, onSubmit, isLoading, disabled }: Co
 
   return (
     <View>
-      <Text className="font-body text-sm text-smoke-gray mb-2">
+      <Text className="font-body text-sm text-char-300 mb-2">
         What do you want to cook?
       </Text>
 
@@ -48,7 +48,7 @@ export function CookInput({ value, onChange, onSubmit, isLoading, disabled }: Co
       {/* Suggestions */}
       {!value && (
         <View className="mb-6">
-          <Text className="font-body text-xs text-smoke-gray mb-2">
+          <Text className="font-body text-xs text-char-300 mb-2">
             Or try one of these:
           </Text>
           <View className="flex-row flex-wrap gap-2">
@@ -56,9 +56,9 @@ export function CookInput({ value, onChange, onSubmit, isLoading, disabled }: Co
               <Pressable
                 key={suggestion}
                 onPress={() => onChange(suggestion)}
-                className="bg-char-black/50 border border-smoke-gray/30 px-3 py-1.5 rounded-full"
+                className="bg-char-black/50 border border-char-500/30 px-3 py-1.5 rounded-full"
               >
-                <Text className="font-body text-sm text-smoke-gray">{suggestion}</Text>
+                <Text className="font-body text-sm text-char-300">{suggestion}</Text>
               </Pressable>
             ))}
           </View>

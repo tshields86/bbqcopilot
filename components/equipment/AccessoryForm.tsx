@@ -105,14 +105,13 @@ export function AccessoryForm({
 
         {/* Brand Suggestions */}
         {!brand && (
-          <View className="flex-row flex-wrap gap-2 -mt-2 mb-4">
+          <View className="flex-row flex-wrap gap-2 -mt-2 mb-2">
             {ACCESSORY_BRANDS.slice(0, 5).map((suggestion) => (
               <Button
                 key={suggestion}
-                variant="ghost"
+                variant="secondary"
                 size="sm"
                 onPress={() => setBrand(suggestion)}
-                className="border border-smoke-gray/30"
               >
                 {suggestion}
               </Button>

@@ -91,7 +91,7 @@ export default function HomeScreen() {
       <View className="p-4">
         {/* Header */}
         <View className="mb-6">
-          <Text className="font-body text-smoke-gray mb-1">{greeting},</Text>
+          <Text className="font-body text-char-300 mb-1">{greeting},</Text>
           <H2 className="text-ash-white">{firstName}</H2>
         </View>
 
@@ -163,7 +163,7 @@ export default function HomeScreen() {
                 <Pressable
                   key={grill.id}
                   onPress={() => router.push(`/(tabs)/equipment/${grill.id}`)}
-                  className="bg-char-black/50 border border-smoke-gray/30 rounded-xl p-4 w-36 active:opacity-80"
+                  className="bg-char-black/50 border border-char-500/30 rounded-xl p-4 w-36 active:opacity-80"
                 >
                   <View className="items-center">
                     <View className="w-12 h-12 rounded-full bg-copper-glow/20 items-center justify-center mb-2">
@@ -175,7 +175,7 @@ export default function HomeScreen() {
                     >
                       {grill.name}
                     </Text>
-                    <Text className="font-body text-xs text-smoke-gray capitalize">
+                    <Text className="font-body text-xs text-char-300 capitalize">
                       {grill.grill_type.replace('_', ' ')}
                     </Text>
                     {grill.is_primary && (
@@ -190,10 +190,10 @@ export default function HomeScreen() {
               ))}
               <Pressable
                 onPress={() => router.push('/(tabs)/equipment/add')}
-                className="bg-char-black/50 border border-dashed border-smoke-gray/30 rounded-xl p-4 w-36 items-center justify-center active:opacity-80"
+                className="bg-char-black/50 border border-dashed border-char-500/30 rounded-xl p-4 w-36 items-center justify-center active:opacity-80"
               >
                 <Plus size={24} color="#4A4A4A" />
-                <Text className="font-body text-sm text-smoke-gray mt-2">Add Grill</Text>
+                <Text className="font-body text-sm text-char-300 mt-2">Add Grill</Text>
               </Pressable>
             </ScrollView>
           )}
@@ -213,7 +213,7 @@ export default function HomeScreen() {
           {recentCooks.length === 0 ? (
             <Card variant="outlined">
               <View className="items-center py-4">
-                <View className="w-12 h-12 rounded-full bg-smoke-gray/10 items-center justify-center mb-3">
+                <View className="w-12 h-12 rounded-full bg-char-600 items-center justify-center mb-3">
                   <Clock size={24} color="#4A4A4A" />
                 </View>
                 <Body color="muted" className="text-center">
@@ -238,19 +238,19 @@ export default function HomeScreen() {
         {(logs?.length || 0) > 0 && (
           <View className="mb-6">
             <View className="flex-row gap-3">
-              <View className="flex-1 bg-char-black/50 border border-smoke-gray/30 rounded-xl p-4">
+              <View className="flex-1 bg-char-black/50 border border-char-500/30 rounded-xl p-4">
                 <View className="flex-row items-center gap-2 mb-1">
                   <Flame size={16} color="#C41E3A" />
-                  <Text className="font-body text-xs text-smoke-gray">Total Cooks</Text>
+                  <Text className="font-body text-xs text-char-300">Total Cooks</Text>
                 </View>
                 <Text className="font-display text-2xl text-ash-white">
                   {logs?.length || 0}
                 </Text>
               </View>
-              <View className="flex-1 bg-char-black/50 border border-smoke-gray/30 rounded-xl p-4">
+              <View className="flex-1 bg-char-black/50 border border-char-500/30 rounded-xl p-4">
                 <View className="flex-row items-center gap-2 mb-1">
                   <Star size={16} color="#B87333" />
-                  <Text className="font-body text-xs text-smoke-gray">Avg Rating</Text>
+                  <Text className="font-body text-xs text-char-300">Avg Rating</Text>
                 </View>
                 <Text className="font-display text-2xl text-ash-white">
                   {(() => {
@@ -275,7 +275,7 @@ export default function HomeScreen() {
               <Text className="font-body-semibold text-sm text-copper-glow mb-1">
                 Pitmaster Tip
               </Text>
-              <Text className="font-body text-sm text-smoke-gray leading-5">
+              <Text className="font-body text-sm text-char-300 leading-5">
                 {todaysTip}
               </Text>
             </View>

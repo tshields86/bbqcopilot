@@ -14,7 +14,7 @@ export function GrillTypeSelector({ value, onChange, label }: GrillTypeSelectorP
   return (
     <View className="mb-4">
       {label && (
-        <Text className="font-body text-sm text-smoke-gray mb-2">{label}</Text>
+        <Text className="font-body-medium text-sm text-ash mb-3">{label}</Text>
       )}
       <ScrollView
         horizontal
@@ -30,8 +30,8 @@ export function GrillTypeSelector({ value, onChange, label }: GrillTypeSelectorP
               className={`
                 w-24 p-3 rounded-xl border-2
                 ${isSelected
-                  ? 'border-ember-red bg-ember-red/10'
-                  : 'border-smoke-gray/30 bg-char-black/50'
+                  ? 'border-ember-500 bg-ember-500/10'
+                  : 'border-char-500 bg-char-700'
                 }
               `}
             >
@@ -51,7 +51,7 @@ export function GrillTypeSelector({ value, onChange, label }: GrillTypeSelectorP
                 <Text
                   className={`
                     font-body-medium text-xs mt-2 text-center
-                    ${isSelected ? 'text-ash-white' : 'text-smoke-gray'}
+                    ${isSelected ? 'text-ash' : 'text-char-300'}
                   `}
                 >
                   {type.label}

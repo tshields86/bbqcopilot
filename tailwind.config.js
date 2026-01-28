@@ -31,13 +31,18 @@ module.exports = {
           700: '#2d2d2d',
           800: '#1A1A1A', // Char Black
           900: '#0f0f0f',
+          black: '#1A1A1A', // Alias for char-800
         },
         ash: '#F5F5F0',
+        'ash-white': '#F5F5F0', // Alias for ash
         copper: '#B87333',
+        'copper-glow': '#B87333', // Alias for copper
         mesquite: '#5D3A1A',
+        'mesquite-brown': '#5D3A1A', // Alias for mesquite
         success: '#2D5A27',
         warning: '#D4A574',
         error: '#8B2635',
+        'ember-red': '#C41E3A', // Alias for ember-500
       },
       fontFamily: {
         // Display font for headers

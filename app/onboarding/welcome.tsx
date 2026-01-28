@@ -31,7 +31,7 @@ export default function WelcomeScreen() {
         <H1 className="text-center mb-4">
           Welcome to BBQCopilot
         </H1>
-        <Body className="text-smoke-gray text-center text-lg mb-8">
+        <Body className="text-char-300 text-center text-lg mb-8">
           Your AI-powered pitmaster assistant for perfect cooks every time
         </Body>
 
@@ -40,7 +40,7 @@ export default function WelcomeScreen() {
           {features.map((feature, index) => (
             <View
               key={index}
-              className="flex-row items-center bg-char-black/50 border border-smoke-gray/20 p-4 rounded-xl"
+              className="flex-row items-center bg-char-700 border border-char-500 p-4 rounded-xl"
             >
               <View className="w-10 h-10 rounded-lg bg-copper-glow/20 items-center justify-center">
                 <feature.icon size={20} color="#B87333" />
@@ -54,7 +54,7 @@ export default function WelcomeScreen() {
       </View>
 
       {/* CTA */}
-      <View className="mb-8 gap-4">
+      <View className="w-full mb-8 px-2">
         <Button
           variant="primary"
           size="lg"

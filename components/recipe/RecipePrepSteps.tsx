@@ -30,13 +30,13 @@ export function RecipePrepSteps({ steps }: RecipePrepStepsProps) {
                 {step.timeMinutes > 0 && (
                   <View className="flex-row items-center gap-1">
                     <Clock size={12} color="#4A4A4A" />
-                    <Text className="font-body text-xs text-smoke-gray">
+                    <Text className="font-body text-xs text-char-300">
                       {step.timeMinutes} min
                     </Text>
                   </View>
                 )}
               </View>
-              <Text className="font-body text-sm text-smoke-gray">
+              <Text className="font-body text-sm text-char-300">
                 {step.description}
               </Text>
             </View>

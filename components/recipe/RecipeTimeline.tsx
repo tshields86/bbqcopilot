@@ -22,7 +22,7 @@ export function RecipeTimeline({ timeline }: RecipeTimelineProps) {
               </View>
               {/* Line */}
               {index < timeline.length - 1 && (
-                <View className="w-0.5 flex-1 bg-smoke-gray/30 min-h-[60px]" />
+                <View className="w-0.5 flex-1 bg-char-500/30 min-h-[60px]" />
               )}
             </View>
 
@@ -36,7 +36,7 @@ export function RecipeTimeline({ timeline }: RecipeTimelineProps) {
                 {step.duration && (
                   <View className="flex-row items-center gap-1 bg-char-black/50 px-2 py-0.5 rounded">
                     <Clock size={10} color="#4A4A4A" />
-                    <Text className="font-mono text-xs text-smoke-gray">
+                    <Text className="font-mono text-xs text-char-300">
                       {step.duration}
                     </Text>
                   </View>
@@ -49,7 +49,7 @@ export function RecipeTimeline({ timeline }: RecipeTimelineProps) {
               </Text>
 
               {/* Details */}
-              <Text className="font-body text-sm text-smoke-gray mb-2">
+              <Text className="font-body text-sm text-char-300 mb-2">
                 {step.details}
               </Text>
 
@@ -73,7 +73,7 @@ export function RecipeTimeline({ timeline }: RecipeTimelineProps) {
                     </Text>
                   </View>
                   {step.checkpoints.map((checkpoint, cpIndex) => (
-                    <Text key={cpIndex} className="font-body text-xs text-smoke-gray pl-4">
+                    <Text key={cpIndex} className="font-body text-xs text-char-300 pl-4">
                       • {checkpoint}
                     </Text>
                   ))}

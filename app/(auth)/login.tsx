@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { View, Pressable, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { Link, router, Href } from 'expo-router';
+import { Link, useRouter, Href } from 'expo-router';
 import { Flame } from 'lucide-react-native';
 import { H1, Body, BodySmall, Button, Input, PasswordInput } from '@/components/ui';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function LoginScreen() {
+  const router = useRouter();
   const { signIn, signInWithGoogle } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,11 +29,11 @@ export default function LoginScreen() {
 
     try {
       await signIn(email.trim(), password);
-      // Navigation will happen automatically via auth state change
+      // Explicitly navigate to root, which will redirect based on auth/onboarding state
+      router.replace('/');
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to sign in';
       setError(message);
-    } finally {
       setLoading(false);
     }
   };
@@ -43,11 +44,11 @@ export default function LoginScreen() {
 
     try {
       await signInWithGoogle();
-      // Navigation will happen automatically via auth state change
+      // Explicitly navigate to root, which will redirect based on auth/onboarding state
+      router.replace('/');
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to sign in with Google';
       setError(message);
-    } finally {
       setGoogleLoading(false);
     }
   };

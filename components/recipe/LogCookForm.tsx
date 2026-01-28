@@ -54,7 +54,7 @@ export function LogCookForm({ recipeName, onSubmit, onCancel, isLoading }: LogCo
 
         {/* Rating */}
         <View className="mb-6">
-          <Text className="font-body text-sm text-smoke-gray mb-2">
+          <Text className="font-body text-sm text-char-300 mb-2">
             How did it turn out?
           </Text>
           <View className="flex-row gap-2">
@@ -64,7 +64,7 @@ export function LogCookForm({ recipeName, onSubmit, onCancel, isLoading }: LogCo
                 onPress={() => setRating(value)}
                 className={`
                   w-12 h-12 rounded-xl items-center justify-center
-                  ${rating && value <= rating ? 'bg-ember-red/20' : 'bg-char-black/50 border border-smoke-gray/30'}
+                  ${rating && value <= rating ? 'bg-ember-red/20' : 'bg-char-black/50 border border-char-500/30'}
                 `}
               >
                 <Flame
@@ -75,7 +75,7 @@ export function LogCookForm({ recipeName, onSubmit, onCancel, isLoading }: LogCo
               </Pressable>
             ))}
           </View>
-          <Text className="font-body text-xs text-smoke-gray mt-1">
+          <Text className="font-body text-xs text-char-300 mt-1">
             {rating === 1 && 'Needs work'}
             {rating === 2 && 'Okay'}
             {rating === 3 && 'Good'}

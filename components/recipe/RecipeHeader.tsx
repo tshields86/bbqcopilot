@@ -33,7 +33,7 @@ export function RecipeHeader({ recipe }: RecipeHeaderProps) {
       <Text className="font-display text-2xl text-ash-white mb-2">
         {recipe.title}
       </Text>
-      <Text className="font-body text-smoke-gray mb-4">
+      <Text className="font-body text-char-300 mb-4">
         {recipe.description}
       </Text>
 
@@ -62,8 +62,8 @@ export function RecipeHeader({ recipe }: RecipeHeaderProps) {
 
       {/* Proteins */}
       {recipe.proteins && recipe.proteins.length > 0 && (
-        <View className="mt-4 pt-4 border-t border-smoke-gray/20">
-          <Text className="font-body-medium text-sm text-smoke-gray mb-2">Proteins</Text>
+        <View className="mt-4 pt-4 border-t border-char-500/20">
+          <Text className="font-body-medium text-sm text-char-300 mb-2">Proteins</Text>
           <View className="flex-row flex-wrap gap-2">
             {recipe.proteins.map((protein, index) => (
               <View key={index} className="flex-row items-center gap-1.5 bg-ember-red/10 px-3 py-1.5 rounded-full">

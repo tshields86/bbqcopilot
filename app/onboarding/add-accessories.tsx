@@ -66,7 +66,7 @@ export default function AddAccessoriesScreen() {
       <SafeAreaView className="flex-1 bg-char-black">
         <View className="p-6 pb-2">
           <H2 className="text-center mb-2">Add Accessory</H2>
-          <Body className="text-smoke-gray text-center">
+          <Body className="text-char-300 text-center">
             for {decodeURIComponent(grillName || '')}
           </Body>
         </View>
@@ -87,7 +87,7 @@ export default function AddAccessoriesScreen() {
         <H2 className="text-center mb-2">
           Add Accessories
         </H2>
-        <Body className="text-smoke-gray text-center mb-6">
+        <Body className="text-char-300 text-center mb-6">
           Add any accessories for {decodeURIComponent(grillName || '')} (optional)
         </Body>
 
@@ -104,10 +104,10 @@ export default function AddAccessoriesScreen() {
           </View>
         ) : (
           <Card variant="outlined" className="items-center py-8 mb-6">
-            <Text className="font-body text-smoke-gray text-center">
+            <Text className="font-body text-char-300 text-center">
               No accessories added yet.
             </Text>
-            <Text className="font-body text-sm text-smoke-gray/70 text-center mt-1">
+            <Text className="font-body text-sm text-char-300/70 text-center mt-1">
               Accessories help us tailor recipes to your setup.
             </Text>
           </Card>
@@ -125,7 +125,7 @@ export default function AddAccessoriesScreen() {
       </ScrollView>
 
       {/* Footer */}
-      <View className="p-6 pt-4 border-t border-smoke-gray/10">
+      <View className="p-6 pt-4 border-t border-char-500/10">
         <Button
           variant="primary"
           size="lg"

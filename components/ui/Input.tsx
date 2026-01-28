@@ -37,7 +37,7 @@ export function Input({
   const isPassword = secureTextEntry !== undefined;
 
   return (
-    <View className="w-full">
+    <View className="w-full mb-4">
       {label && (
         <Text className="text-ash font-body-medium text-sm mb-2">{label}</Text>
       )}

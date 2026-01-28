@@ -52,7 +52,7 @@ export default function AddGrillScreen() {
           <H2 className="text-center mb-2">
             Add Your First Grill
           </H2>
-          <Body className="text-smoke-gray text-center">
+          <Body className="text-char-300 text-center">
             Tell us about your grill so we can create personalized recipes
           </Body>
         </View>
@@ -62,18 +62,16 @@ export default function AddGrillScreen() {
           onSubmit={handleSubmit}
           isLoading={createGrill.isPending}
           submitLabel="Continue"
+          footer={
+            <Button
+              variant="ghost"
+              onPress={() => setShowSkipConfirm(true)}
+              fullWidth
+            >
+              Skip for now
+            </Button>
+          }
         />
-
-        {/* Skip Option */}
-        <View className="p-4 pb-8">
-          <Button
-            variant="ghost"
-            onPress={() => setShowSkipConfirm(true)}
-            fullWidth
-          >
-            Skip for now
-          </Button>
-        </View>
       </View>
 
       {/* Skip Confirmation */}

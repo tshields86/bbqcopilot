@@ -89,7 +89,7 @@ export default function CookLogDetailScreen() {
             className={`
               ${interactive ? 'w-12 h-12 rounded-xl items-center justify-center' : ''}
               ${interactive && value && i <= value ? 'bg-ember-red/20' : ''}
-              ${interactive && (!value || i > value) ? 'bg-char-black/50 border border-smoke-gray/30' : ''}
+              ${interactive && (!value || i > value) ? 'bg-char-black/50 border border-char-500/30' : ''}
             `}
           >
             <Flame
@@ -147,7 +147,7 @@ export default function CookLogDetailScreen() {
                 {log.recipe?.title || 'Quick Cook'}
               </Text>
               {log.recipe?.grill && (
-                <Text className="font-body text-sm text-smoke-gray">
+                <Text className="font-body text-sm text-char-300">
                   on {log.recipe.grill.name}
                 </Text>
               )}
@@ -157,7 +157,7 @@ export default function CookLogDetailScreen() {
           <View className="flex-row items-center gap-4">
             <View className="flex-row items-center gap-2">
               <Calendar size={16} color="#4A4A4A" />
-              <Text className="font-body text-sm text-smoke-gray">
+              <Text className="font-body text-sm text-char-300">
                 {formatDate(log.cooked_at)}
               </Text>
             </View>
@@ -165,7 +165,7 @@ export default function CookLogDetailScreen() {
             {log.actual_time_minutes && (
               <View className="flex-row items-center gap-2">
                 <Clock size={16} color="#4A4A4A" />
-                <Text className="font-body text-sm text-smoke-gray">
+                <Text className="font-body text-sm text-char-300">
                   {formatTime(log.actual_time_minutes)}
                 </Text>
               </View>
@@ -181,7 +181,7 @@ export default function CookLogDetailScreen() {
           {isEditing ? (
             <View>
               {renderRating(rating, true)}
-              <Text className="font-body text-xs text-smoke-gray mt-2">
+              <Text className="font-body text-xs text-char-300 mt-2">
                 {rating === 1 && 'Needs work'}
                 {rating === 2 && 'Okay'}
                 {rating === 3 && 'Good'}
@@ -192,7 +192,7 @@ export default function CookLogDetailScreen() {
           ) : log.rating ? (
             renderRating(log.rating)
           ) : (
-            <Text className="font-body text-smoke-gray">No rating</Text>
+            <Text className="font-body text-char-300">No rating</Text>
           )}
         </Card>
 
@@ -210,9 +210,9 @@ export default function CookLogDetailScreen() {
               numberOfLines={3}
             />
           ) : log.notes ? (
-            <Text className="font-body text-smoke-gray">{log.notes}</Text>
+            <Text className="font-body text-char-300">{log.notes}</Text>
           ) : (
-            <Text className="font-body text-smoke-gray/50 italic">No notes</Text>
+            <Text className="font-body text-char-300/50 italic">No notes</Text>
           )}
         </Card>
 
@@ -230,9 +230,9 @@ export default function CookLogDetailScreen() {
               numberOfLines={2}
             />
           ) : log.what_worked ? (
-            <Text className="font-body text-smoke-gray">{log.what_worked}</Text>
+            <Text className="font-body text-char-300">{log.what_worked}</Text>
           ) : (
-            <Text className="font-body text-smoke-gray/50 italic">Not recorded</Text>
+            <Text className="font-body text-char-300/50 italic">Not recorded</Text>
           )}
         </Card>
 
@@ -250,9 +250,9 @@ export default function CookLogDetailScreen() {
               numberOfLines={2}
             />
           ) : log.what_to_improve ? (
-            <Text className="font-body text-smoke-gray">{log.what_to_improve}</Text>
+            <Text className="font-body text-char-300">{log.what_to_improve}</Text>
           ) : (
-            <Text className="font-body text-smoke-gray/50 italic">Not recorded</Text>
+            <Text className="font-body text-char-300/50 italic">Not recorded</Text>
           )}
         </Card>
 

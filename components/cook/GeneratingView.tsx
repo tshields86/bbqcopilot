@@ -19,7 +19,7 @@ export function GeneratingView({ streamedContent, isGenerating }: GeneratingView
             <Text className="font-display text-xl text-ash-white mt-4">
               Crafting Your Recipe
             </Text>
-            <Text className="font-body text-smoke-gray mt-1">
+            <Text className="font-body text-char-300 mt-1">
               This may take a moment...
             </Text>
           </>
@@ -40,7 +40,7 @@ export function GeneratingView({ streamedContent, isGenerating }: GeneratingView
         <ScrollView className="flex-1 mx-4" contentContainerClassName="pb-8">
           <Card variant="outlined">
             <Animated.View entering={FadeIn}>
-              <Text className="font-mono text-sm text-smoke-gray leading-5">
+              <Text className="font-mono text-sm text-char-300 leading-5">
                 {streamedContent}
               </Text>
               {isGenerating && (

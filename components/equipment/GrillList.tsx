@@ -25,7 +25,7 @@ export function GrillList({
     return (
       <View className="flex-1 items-center justify-center">
         <FlameLoader size="lg" />
-        <Text className="font-body text-smoke-gray mt-4">Loading your grills...</Text>
+        <Text className="font-body text-char-300 mt-4">Loading your grills...</Text>
       </View>
     );
   }
@@ -36,7 +36,7 @@ export function GrillList({
         <Text className="font-display text-2xl text-ash-white text-center mb-2">
           No Grills Yet
         </Text>
-        <Text className="font-body text-smoke-gray text-center mb-6">
+        <Text className="font-body text-char-300 text-center mb-6">
           Add your first grill to get personalized recipes tailored to your equipment.
         </Text>
         <Button variant="primary" onPress={onAddPress} leftIcon={Plus}>

@@ -44,7 +44,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
           <Text className="font-display text-xl text-ash-white text-center mb-2">
             Something went wrong
           </Text>
-          <Text className="font-body text-smoke-gray text-center mb-6">
+          <Text className="font-body text-char-300 text-center mb-6">
             {this.state.error?.message || 'An unexpected error occurred'}
           </Text>
           <Pressable
@@ -78,7 +78,7 @@ export function ErrorFallback({ error, onRetry, message }: ErrorFallbackProps) {
       <Text className="font-display text-xl text-ash-white text-center mb-2">
         Something went wrong
       </Text>
-      <Text className="font-body text-smoke-gray text-center mb-6">
+      <Text className="font-body text-char-300 text-center mb-6">
         {message || error?.message || 'An unexpected error occurred'}
       </Text>
       {onRetry && (
@@ -116,7 +116,7 @@ export function EmptyState({ icon: Icon, title, message, action }: EmptyStatePro
       <Text className="font-display text-xl text-ash-white text-center mb-2">
         {title}
       </Text>
-      <Text className="font-body text-smoke-gray text-center mb-6">
+      <Text className="font-body text-char-300 text-center mb-6">
         {message}
       </Text>
       {action && (

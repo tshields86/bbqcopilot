@@ -20,6 +20,7 @@ interface GrillFormProps {
   onCancel?: () => void;
   isLoading?: boolean;
   submitLabel?: string;
+  footer?: React.ReactNode;
 }
 
 export function GrillForm({
@@ -28,6 +29,7 @@ export function GrillForm({
   onCancel,
   isLoading = false,
   submitLabel = 'Save Grill',
+  footer,
 }: GrillFormProps) {
   const [name, setName] = useState(initialData?.name ?? '');
   const [grillType, setGrillType] = useState<GrillType | null>(
@@ -109,14 +111,13 @@ export function GrillForm({
 
         {/* Brand Suggestions */}
         {!brand && (
-          <View className="flex-row flex-wrap gap-2 -mt-2 mb-4">
+          <View className="flex-row flex-wrap gap-2 -mt-2 mb-2">
             {GRILL_BRANDS.slice(0, 6).map((suggestion) => (
               <Button
                 key={suggestion}
-                variant="ghost"
+                variant="secondary"
                 size="sm"
                 onPress={() => setBrand(suggestion)}
-                className="border border-smoke-gray/30"
               >
                 {suggestion}
               </Button>
@@ -165,6 +166,9 @@ export function GrillForm({
             {submitLabel}
           </Button>
         </View>
+
+        {/* Optional footer */}
+        {footer && <View className="mt-4 pb-4">{footer}</View>}
       </ScrollView>
     </KeyboardAvoidingView>
   );

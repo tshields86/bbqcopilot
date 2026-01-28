@@ -68,7 +68,7 @@ export default function CookScreen() {
         <Stack.Screen options={{ title: 'New Cook' }} />
         <View className="flex-1 bg-char-black items-center justify-center p-6">
           <H2 className="text-center mb-2">Add a Grill First</H2>
-          <Body className="text-smoke-gray text-center mb-6">
+          <Body className="text-char-300 text-center mb-6">
             You need to add at least one grill before creating a recipe.
           </Body>
           <Button variant="primary" onPress={() => router.push('/equipment/add')}>
@@ -91,10 +91,10 @@ export default function CookScreen() {
                 <AlertCircle size={32} color="#D4A574" />
               </View>
               <H2 className="text-center mb-2">Recipe Limit Reached</H2>
-              <Body className="text-smoke-gray text-center mb-2">
+              <Body className="text-char-300 text-center mb-2">
                 You've used all {rateLimitError.limit} recipes this month.
               </Body>
-              <Body className="text-smoke-gray text-center mb-6">
+              <Body className="text-char-300 text-center mb-6">
                 Your limit resets on {formatResetDate(rateLimitError.resetDate)}.
               </Body>
             </>
@@ -104,7 +104,7 @@ export default function CookScreen() {
                 <AlertCircle size={32} color="#8B2635" />
               </View>
               <H2 className="text-center mb-2">Something went wrong</H2>
-              <Body className="text-smoke-gray text-center mb-6">
+              <Body className="text-char-300 text-center mb-6">
                 {error || 'An unexpected error occurred'}
               </Body>
             </>

@@ -62,7 +62,7 @@ export function CookLogCard({ log, onPress }: CookLogCardProps) {
               <View className="flex-row items-center gap-4 mb-2">
                 <View className="flex-row items-center gap-1">
                   <Calendar size={12} color="#4A4A4A" />
-                  <Text className="font-body text-xs text-smoke-gray">
+                  <Text className="font-body text-xs text-char-300">
                     {formatDate(log.cooked_at)}
                   </Text>
                 </View>
@@ -70,7 +70,7 @@ export function CookLogCard({ log, onPress }: CookLogCardProps) {
                 {log.actual_time_minutes && (
                   <View className="flex-row items-center gap-1">
                     <Clock size={12} color="#4A4A4A" />
-                    <Text className="font-body text-xs text-smoke-gray">
+                    <Text className="font-body text-xs text-char-300">
                       {formatTime(log.actual_time_minutes)}
                     </Text>
                   </View>
@@ -87,7 +87,7 @@ export function CookLogCard({ log, onPress }: CookLogCardProps) {
               {/* Notes preview */}
               {log.notes && (
                 <Text
-                  className="font-body text-sm text-smoke-gray"
+                  className="font-body text-sm text-char-300"
                   numberOfLines={2}
                 >
                   {log.notes}

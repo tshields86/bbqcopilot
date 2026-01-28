@@ -21,7 +21,7 @@ export default function HistoryScreen() {
         <Stack.Screen options={{ title: 'Cook History' }} />
         <View className="flex-1 bg-char-black items-center justify-center">
           <FlameLoader size="lg" />
-          <Text className="font-body text-smoke-gray mt-4">Loading history...</Text>
+          <Text className="font-body text-char-300 mt-4">Loading history...</Text>
         </View>
       </>
     );
@@ -39,7 +39,7 @@ export default function HistoryScreen() {
           <Text className="font-display text-xl text-ash-white text-center mb-2">
             No Cooks Logged Yet
           </Text>
-          <Text className="font-body text-smoke-gray text-center mb-6">
+          <Text className="font-body text-char-300 text-center mb-6">
             Log your cooks to track what works and improve over time.
           </Text>
           <Button

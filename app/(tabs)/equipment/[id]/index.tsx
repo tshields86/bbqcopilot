@@ -143,7 +143,7 @@ export default function GrillDetailScreen() {
                   <Star size={16} color="#B87333" fill="#B87333" />
                 )}
               </View>
-              <Text className="font-body text-smoke-gray">
+              <Text className="font-body text-char-300">
                 {getGrillTypeName(grill.grill_type)}
               </Text>
             </View>
@@ -151,7 +151,7 @@ export default function GrillDetailScreen() {
 
           {(grill.brand || grill.model) && (
             <View className="mb-3">
-              <Text className="font-body-medium text-sm text-smoke-gray">Brand / Model</Text>
+              <Text className="font-body-medium text-sm text-char-300">Brand / Model</Text>
               <Text className="font-body text-ash-white">
                 {[grill.brand, grill.model].filter(Boolean).join(' ')}
               </Text>
@@ -160,7 +160,7 @@ export default function GrillDetailScreen() {
 
           {grill.notes && (
             <View className="mb-3">
-              <Text className="font-body-medium text-sm text-smoke-gray">Notes</Text>
+              <Text className="font-body-medium text-sm text-char-300">Notes</Text>
               <Text className="font-body text-ash-white">{grill.notes}</Text>
             </View>
           )}
@@ -205,7 +205,7 @@ export default function GrillDetailScreen() {
             </View>
           ) : (
             <Card variant="outlined" className="items-center py-6">
-              <Text className="font-body text-smoke-gray text-center">
+              <Text className="font-body text-char-300 text-center">
                 No accessories added yet.
               </Text>
               <Button

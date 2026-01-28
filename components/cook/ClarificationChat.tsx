@@ -65,20 +65,20 @@ export function ClarificationChat({
                           flex-row items-center p-3 rounded-lg border
                           ${isSelected
                             ? 'border-ember-red bg-ember-red/10'
-                            : 'border-smoke-gray/30 bg-char-black/30'
+                            : 'border-char-500/30 bg-char-black/30'
                           }
                         `}
                       >
                         <View
                           className={`
                             w-5 h-5 rounded-full border-2 mr-3 items-center justify-center
-                            ${isSelected ? 'border-ember-red bg-ember-red' : 'border-smoke-gray/50'}
+                            ${isSelected ? 'border-ember-red bg-ember-red' : 'border-char-500/50'}
                           `}
                         >
                           {isSelected && <Check size={12} color="#F5F5F0" />}
                         </View>
                         <Text
-                          className={`font-body text-sm ${isSelected ? 'text-ash-white' : 'text-smoke-gray'}`}
+                          className={`font-body text-sm ${isSelected ? 'text-ash-white' : 'text-char-300'}`}
                         >
                           {option}
                         </Text>
@@ -89,7 +89,7 @@ export function ClarificationChat({
               ) : (
                 <View>
                   <TextInput
-                    className="font-body text-base text-ash-white bg-char-black/30 border border-smoke-gray/30 rounded-lg p-3"
+                    className="font-body text-base text-ash-white bg-char-black/30 border border-char-500/30 rounded-lg p-3"
                     placeholder={question.type === 'number' ? 'Enter a number...' : 'Type your answer...'}
                     placeholderTextColor="#4A4A4A"
                     value={textInputs[question.id] || currentAnswer || ''}
@@ -115,7 +115,7 @@ export function ClarificationChat({
       {isLoading && (
         <View className="items-center py-4">
           <FlameLoader size="sm" />
-          <Text className="font-body text-sm text-smoke-gray mt-2">
+          <Text className="font-body text-sm text-char-300 mt-2">
             Processing your answers...
           </Text>
         </View>

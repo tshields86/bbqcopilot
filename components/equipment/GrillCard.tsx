@@ -38,7 +38,7 @@ export function GrillCard({ grill, onPress, showAccessories = true }: GrillCardP
                 )}
               </View>
 
-              <Text className="font-body text-sm text-smoke-gray mt-0.5">
+              <Text className="font-body text-sm text-char-300 mt-0.5">
                 {getGrillTypeName(grill.grill_type)}
                 {grill.brand && ` - ${grill.brand}`}
                 {grill.model && ` ${grill.model}`}
@@ -47,7 +47,7 @@ export function GrillCard({ grill, onPress, showAccessories = true }: GrillCardP
               {showAccessories && accessoryCount > 0 && (
                 <View className="flex-row items-center mt-2 gap-1">
                   <Wrench size={12} color="#4A4A4A" />
-                  <Text className="font-body text-xs text-smoke-gray">
+                  <Text className="font-body text-xs text-char-300">
                     {accessoryCount} accessor{accessoryCount === 1 ? 'y' : 'ies'}
                   </Text>
                 </View>

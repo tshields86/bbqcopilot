@@ -17,7 +17,7 @@ export function GrillSelector({ grills, selectedGrill, onSelect }: GrillSelector
   if (grills.length === 0) {
     return (
       <Card variant="outlined" className="mb-4">
-        <Text className="font-body text-smoke-gray text-center">
+        <Text className="font-body text-char-300 text-center">
           No grills added yet. Add a grill in the Equipment tab.
         </Text>
       </Card>
@@ -34,7 +34,7 @@ export function GrillSelector({ grills, selectedGrill, onSelect }: GrillSelector
           </View>
           <View className="flex-1">
             <Text className="font-body-semibold text-ash-white">{grill.name}</Text>
-            <Text className="font-body text-sm text-smoke-gray">
+            <Text className="font-body text-sm text-char-300">
               {getGrillTypeName(grill.grill_type)}
             </Text>
           </View>
@@ -48,7 +48,7 @@ export function GrillSelector({ grills, selectedGrill, onSelect }: GrillSelector
 
   return (
     <View className="mb-4">
-      <Text className="font-body text-sm text-smoke-gray mb-2">Select Grill</Text>
+      <Text className="font-body text-sm text-char-300 mb-2">Select Grill</Text>
 
       {/* Selected grill or prompt */}
       <Pressable onPress={() => setIsExpanded(!isExpanded)}>
@@ -61,14 +61,14 @@ export function GrillSelector({ grills, selectedGrill, onSelect }: GrillSelector
                 </View>
                 <View className="flex-1">
                   <Text className="font-body-semibold text-ash-white">{selectedGrill.name}</Text>
-                  <Text className="font-body text-sm text-smoke-gray">
+                  <Text className="font-body text-sm text-char-300">
                     {getGrillTypeName(selectedGrill.grill_type)}
                   </Text>
                 </View>
               </>
             ) : (
               <View className="flex-1">
-                <Text className="font-body text-smoke-gray">Choose a grill...</Text>
+                <Text className="font-body text-char-300">Choose a grill...</Text>
               </View>
             )}
             <ChevronDown
@@ -100,7 +100,7 @@ export function GrillSelector({ grills, selectedGrill, onSelect }: GrillSelector
                   </View>
                   <View className="flex-1">
                     <Text className="font-body-semibold text-sm text-ash-white">{grill.name}</Text>
-                    <Text className="font-body text-xs text-smoke-gray">
+                    <Text className="font-body text-xs text-char-300">
                       {getGrillTypeName(grill.grill_type)}
                     </Text>
                   </View>
