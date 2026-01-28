@@ -1,3 +1,4 @@
+import { type ReactNode } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import { RecipeHeader } from './RecipeHeader';
 import { RecipeIngredients } from './RecipeIngredients';
@@ -9,9 +10,10 @@ import type { RecipeData } from '@/lib/types';
 
 interface RecipeViewProps {
   recipe: RecipeData;
+  footer?: ReactNode;
 }
 
-export function RecipeView({ recipe }: RecipeViewProps) {
+export function RecipeView({ recipe, footer }: RecipeViewProps) {
   return (
     <ScrollView
       className="flex-1"
@@ -55,6 +57,9 @@ export function RecipeView({ recipe }: RecipeViewProps) {
         tips={recipe.tips || []}
         servingSuggestions={recipe.servingSuggestions}
       />
+
+      {/* Optional footer content */}
+      {footer}
     </ScrollView>
   );
 }

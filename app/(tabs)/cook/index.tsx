@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { AlertCircle } from 'lucide-react-native';
-import { useGrills, getPrimaryGrill } from '@/hooks';
+import { AlertCircle, BookmarkPlus, Check } from 'lucide-react-native';
+import { useGrills, getPrimaryGrill, useSaveRecipe } from '@/hooks';
 import { useCook } from '@/contexts/CookContext';
 import { GrillSelector, CookInput, ClarificationChat, GeneratingView } from '@/components/cook';
 import { RecipeView } from '@/components/recipe';
@@ -12,6 +12,8 @@ import { formatResetDate } from '@/lib/api';
 export default function CookScreen() {
   const router = useRouter();
   const { data: grills, isLoading: grillsLoading } = useGrills();
+  const saveRecipeMutation = useSaveRecipe();
+  const [savedRecipeId, setSavedRecipeId] = useState<string | null>(null);
   const {
     step,
     selectedGrill,
@@ -31,6 +33,37 @@ export default function CookScreen() {
     generateRecipeFromAnswers,
     reset,
   } = useCook();
+
+  const handleSaveRecipe = async () => {
+    if (!recipe || savedRecipeId) return;
+
+    try {
+      const savedRecipe = await saveRecipeMutation.mutateAsync({
+        title: recipe.title,
+        description: recipe.description,
+        grillId: selectedGrill?.id,
+        recipeData: recipe,
+        proteins: recipe.proteins,
+        servings: recipe.servings,
+        totalTimeMinutes: recipe.totalTimeMinutes,
+        difficulty: recipe.difficulty as 'easy' | 'medium' | 'hard' | undefined,
+      });
+      setSavedRecipeId(savedRecipe.id);
+    } catch (err) {
+      // Error is handled by the mutation's error state
+    }
+  };
+
+  const handleViewSavedRecipe = () => {
+    if (savedRecipeId) {
+      router.push(`/recipes/${savedRecipeId}`);
+    }
+  };
+
+  const handleReset = () => {
+    setSavedRecipeId(null);
+    reset();
+  };
 
   // Auto-select primary grill on mount
   useEffect(() => {
@@ -109,7 +142,7 @@ export default function CookScreen() {
               </Body>
             </>
           )}
-          <Button variant="primary" onPress={reset}>
+          <Button variant="primary" onPress={handleReset}>
             Try Again
           </Button>
         </View>
@@ -131,20 +164,55 @@ export default function CookScreen() {
 
   // Complete state - show recipe
   if (step === 'complete' && recipe) {
+    const saveFooter = (
+      <View className="pt-4 gap-3">
+        {savedRecipeId ? (
+          <>
+            <Button
+              variant="primary"
+              onPress={handleViewSavedRecipe}
+              leftIcon={Check}
+            >
+              View Saved Recipe
+            </Button>
+            <Button variant="ghost" onPress={handleReset}>
+              Start New Cook
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              variant="primary"
+              onPress={handleSaveRecipe}
+              loading={saveRecipeMutation.isPending}
+              leftIcon={BookmarkPlus}
+            >
+              Save Recipe
+            </Button>
+            {saveRecipeMutation.isError && (
+              <Text className="font-body text-sm text-error text-center">
+                Failed to save recipe. Please try again.
+              </Text>
+            )}
+          </>
+        )}
+      </View>
+    );
+
     return (
       <>
         <Stack.Screen
           options={{
             title: recipe.title,
             headerRight: () => (
-              <Button variant="ghost" size="sm" onPress={reset}>
+              <Button variant="ghost" size="sm" onPress={handleReset}>
                 New Cook
               </Button>
             ),
           }}
         />
         <View className="flex-1 bg-char-black">
-          <RecipeView recipe={recipe} />
+          <RecipeView recipe={recipe} footer={saveFooter} />
         </View>
       </>
     );
