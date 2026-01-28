@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Flame, ChefHat, Clock, Thermometer } from 'lucide-react-native';
-import { Button, H1, Body } from '@/components/ui';
+import { ChefHat, Clock, Thermometer } from 'lucide-react-native';
+import { Button, Body, Logo, LogoIcon } from '@/components/ui';
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -26,11 +26,11 @@ export default function WelcomeScreen() {
       {/* Header */}
       <View className="flex-1 justify-center items-center">
         <View className="bg-ember-red/20 p-6 rounded-full mb-6">
-          <Flame size={64} color="#C41E3A" />
+          <LogoIcon size="xl" />
         </View>
-        <H1 className="text-center mb-4">
-          Welcome to BBQCopilot
-        </H1>
+        <View className="mb-4">
+          <Logo size="xl" />
+        </View>
         <Body className="text-char-300 text-center text-lg mb-8">
           Your AI-powered pitmaster assistant for perfect cooks every time
         </Body>

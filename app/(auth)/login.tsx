@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { View, Pressable, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { Link, useRouter, Href } from 'expo-router';
-import { Flame } from 'lucide-react-native';
-import { H1, Body, BodySmall, Button, Input, PasswordInput } from '@/components/ui';
+import { Body, BodySmall, Button, Input, PasswordInput, Logo, LogoIcon } from '@/components/ui';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function LoginScreen() {
@@ -65,10 +64,10 @@ export default function LoginScreen() {
         <View className="flex-1 items-center justify-center p-6">
           {/* Logo */}
           <View className="items-center mb-10">
-            <View className="bg-ember-500 p-4 rounded-full mb-4">
-              <Flame size={48} color="#F5F5F0" />
+            <View className="mb-4">
+              <LogoIcon size="xl" />
             </View>
-            <H1>BBQCopilot</H1>
+            <Logo size="xl" />
             <Body color="muted" className="mt-2">
               Your AI-powered pitmaster
             </Body>

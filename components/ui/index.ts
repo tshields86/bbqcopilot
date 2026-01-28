@@ -52,3 +52,6 @@ export { ErrorBoundary, ErrorFallback, EmptyState, NetworkError } from './ErrorB
 
 // User Menu
 export { UserMenu } from './UserMenu';
+
+// Logo
+export { Logo, LogoIcon } from './Logo';

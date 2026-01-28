@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import { Home, Flame, Settings, History, Book } from 'lucide-react-native';
 import { ProtectedRoute } from '@/components/auth';
-import { UserMenu } from '@/components/ui';
+import { UserMenu, Logo } from '@/components/ui';
 
 export default function TabsLayout() {
   return (
@@ -27,6 +27,7 @@ export default function TabsLayout() {
           name="index"
           options={{
             title: 'Home',
+            headerTitle: () => <Logo size="sm" showIcon />,
             tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
             headerRight: () => <UserMenu />,
           }}

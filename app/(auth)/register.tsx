@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, Pressable, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { Link, router } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
-import { H2, Body, BodySmall, Button, Input, PasswordInput } from '@/components/ui';
+import { H2, Body, BodySmall, Button, Input, PasswordInput, Logo } from '@/components/ui';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function RegisterScreen() {
@@ -111,8 +111,11 @@ export default function RegisterScreen() {
 
           {/* Header */}
           <View className="mb-8">
+            <View className="mb-4">
+              <Logo size="md" showIcon />
+            </View>
             <H2 className="mb-2">Create Account</H2>
-            <Body color="muted">Join BBQCopilot to get personalized recipes</Body>
+            <Body color="muted">Get personalized recipes for your equipment</Body>
           </View>
 
           {/* Registration Form */}
