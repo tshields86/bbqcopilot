@@ -49,3 +49,6 @@ export { ConfirmDialog } from './ConfirmDialog';
 
 // Error Handling
 export { ErrorBoundary, ErrorFallback, EmptyState, NetworkError } from './ErrorBoundary';
+
+// User Menu
+export { UserMenu } from './UserMenu';
