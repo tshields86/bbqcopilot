@@ -206,7 +206,9 @@ Key guidelines:
 3. Account for their available accessories
 4. Provide realistic time estimates
 5. Include rest times and carryover cooking
-6. For long cooks, include a timeline starting from target eating time and working backwards`;
+6. For long cooks, include a timeline starting from target eating time and working backwards
+
+CRITICAL: You MUST output valid, complete JSON. Do not truncate your response. Ensure all arrays and objects are properly closed. Keep the response focused and concise to ensure completion.`;
 
     const userMessage = `
 Equipment Profile:
@@ -245,27 +247,36 @@ Please generate a detailed, equipment-specific recipe with a complete cook timel
     const encoder = new TextEncoder();
     const stream = new ReadableStream({
       async start(controller) {
-        const response = await anthropic.messages.create({
-          model: 'claude-haiku-4-5-20251001',
-          max_tokens: 4096,
-          stream: true,
-          system: systemPrompt,
-          messages: [{ role: 'user', content: userMessage }],
-        });
+        try {
+          const response = await anthropic.messages.create({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 8192, // Increased to allow for complete recipe JSON
+            stream: true,
+            system: systemPrompt,
+            messages: [{ role: 'user', content: userMessage }],
+          });
 
-        for await (const event of response) {
-          if (
-            event.type === 'content_block_delta' &&
-            event.delta.type === 'text_delta'
-          ) {
-            controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify({ text: event.delta.text })}\n\n`)
-            );
+          for await (const event of response) {
+            if (
+              event.type === 'content_block_delta' &&
+              event.delta.type === 'text_delta'
+            ) {
+              controller.enqueue(
+                encoder.encode(`data: ${JSON.stringify({ text: event.delta.text })}\n\n`)
+              );
+            }
           }
-        }
 
-        controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-        controller.close();
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+          controller.close();
+        } catch (streamError) {
+          console.error('Streaming error:', streamError);
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({ error: (streamError as Error).message })}\n\n`)
+          );
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+          controller.close();
+        }
       },
     });
 

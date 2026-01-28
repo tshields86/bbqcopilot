@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useRef, type ReactNode } from 'react';
 import { generateRecipe, askClarification } from '@/lib/api';
 import type { Grill, RecipeData, ClarificationQuestion, RateLimitError } from '@/lib/types';
 
@@ -59,6 +59,8 @@ const CookContext = createContext<CookContextValue | null>(null);
 
 export function CookProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<CookState>(initialState);
+  // Ref to track generation in progress - more reliable than checking state in closures
+  const isGeneratingRef = useRef(false);
 
   const setSelectedGrill = useCallback((grill: Grill | null) => {
     setState((prev) => ({ ...prev, selectedGrill: grill }));
@@ -189,6 +191,12 @@ export function CookProvider({ children }: { children: ReactNode }) {
   }, [state.userInput, state.answers, buildEquipmentProfile]);
 
   const generateRecipeFromAnswers = useCallback(async () => {
+    // Guard against double-calls using ref for reliable state
+    if (isGeneratingRef.current) {
+      return;
+    }
+    isGeneratingRef.current = true;
+
     setState((prev) => ({
       ...prev,
       step: 'generating',
@@ -220,6 +228,7 @@ export function CookProvider({ children }: { children: ReactNode }) {
         },
         // onComplete
         () => {
+          isGeneratingRef.current = false;
           setState((prev) => {
             // Try to parse the streamed content as JSON
             let recipe: RecipeData | null = null;
@@ -244,6 +253,7 @@ export function CookProvider({ children }: { children: ReactNode }) {
         },
         // onError
         (error) => {
+          isGeneratingRef.current = false;
           if ('error' in error && error.error === 'Rate limit exceeded') {
             setState((prev) => ({
               ...prev,
@@ -262,6 +272,7 @@ export function CookProvider({ children }: { children: ReactNode }) {
         }
       );
     } catch (error) {
+      isGeneratingRef.current = false;
       setState((prev) => ({
         ...prev,
         isGenerating: false,
@@ -272,6 +283,7 @@ export function CookProvider({ children }: { children: ReactNode }) {
   }, [state.userInput, state.answers, buildEquipmentProfile]);
 
   const reset = useCallback(() => {
+    isGeneratingRef.current = false;
     setState(initialState);
   }, []);
 

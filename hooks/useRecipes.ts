@@ -46,12 +46,26 @@ async function saveRecipe(recipe: {
   proteins?: Array<{ name: string; weight: string; quantity: number }>;
   servings?: number;
   totalTimeMinutes?: number;
-  difficulty?: 'easy' | 'medium' | 'hard';
+  difficulty?: 'easy' | 'medium' | 'hard' | string;
 }): Promise<Recipe> {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
+  // Normalize difficulty to match DB constraint (easy, medium, hard)
+  let normalizedDifficulty: 'easy' | 'medium' | 'hard' | null = null;
+  if (recipe.difficulty) {
+    const lower = recipe.difficulty.toLowerCase();
+    if (lower === 'easy' || lower === 'beginner' || lower === 'simple') {
+      normalizedDifficulty = 'easy';
+    } else if (lower === 'medium' || lower === 'intermediate' || lower === 'moderate') {
+      normalizedDifficulty = 'medium';
+    } else if (lower === 'hard' || lower === 'advanced' || lower === 'difficult' || lower === 'expert') {
+      normalizedDifficulty = 'hard';
+    }
+  }
+
   const insertData = {
+    user_id: user.id,
     title: recipe.title,
     description: recipe.description || null,
     grill_id: recipe.grillId || null,
@@ -59,7 +73,7 @@ async function saveRecipe(recipe: {
     proteins: JSON.parse(JSON.stringify(recipe.proteins || [])),
     servings: recipe.servings || null,
     total_time_minutes: recipe.totalTimeMinutes || null,
-    difficulty: recipe.difficulty || null,
+    difficulty: normalizedDifficulty,
   };
 
   const { data, error } = await supabase

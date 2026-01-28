@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { AlertCircle, BookmarkPlus, Check } from 'lucide-react-native';
@@ -14,6 +14,8 @@ export default function CookScreen() {
   const { data: grills, isLoading: grillsLoading } = useGrills();
   const saveRecipeMutation = useSaveRecipe();
   const [savedRecipeId, setSavedRecipeId] = useState<string | null>(null);
+  // Ref to track if generation has been initiated to prevent double-calls
+  const generationInitiatedRef = useRef(false);
   const {
     step,
     selectedGrill,
@@ -62,6 +64,7 @@ export default function CookScreen() {
 
   const handleReset = () => {
     setSavedRecipeId(null);
+    generationInitiatedRef.current = false;
     reset();
   };
 
@@ -76,9 +79,15 @@ export default function CookScreen() {
   }, [grills, selectedGrill, setSelectedGrill]);
 
   // Trigger generation when step changes to generating and questions are done
+  // Use ref to prevent double-triggering due to callback reference changes
   useEffect(() => {
-    if (step === 'generating' && !isGenerating && !recipe) {
+    if (step === 'generating' && !isGenerating && !recipe && !generationInitiatedRef.current) {
+      generationInitiatedRef.current = true;
       generateRecipeFromAnswers();
+    }
+    // Reset the ref when we leave the generating step
+    if (step !== 'generating') {
+      generationInitiatedRef.current = false;
     }
   }, [step, isGenerating, recipe, generateRecipeFromAnswers]);
 
@@ -162,8 +171,38 @@ export default function CookScreen() {
     );
   }
 
-  // Complete state - show recipe
-  if (step === 'complete' && recipe) {
+  // Complete state - show recipe (or error if parsing failed)
+  if (step === 'complete') {
+    // If recipe parsing failed, show error with raw content
+    if (!recipe) {
+      return (
+        <>
+          <Stack.Screen options={{ title: 'Generation Failed' }} />
+          <View className="flex-1 bg-char-black p-6">
+            <View className="items-center mb-6">
+              <View className="w-16 h-16 rounded-full bg-error/20 items-center justify-center mb-4">
+                <AlertCircle size={32} color="#8B2635" />
+              </View>
+              <H2 className="text-center mb-2">Recipe Generation Failed</H2>
+              <Body className="text-char-300 text-center">
+                The recipe could not be parsed. This may be due to an incomplete response.
+              </Body>
+            </View>
+            {streamedContent && (
+              <ScrollView className="flex-1 mb-4">
+                <Card variant="outlined">
+                  <Text className="font-mono text-xs text-char-300">{streamedContent}</Text>
+                </Card>
+              </ScrollView>
+            )}
+            <Button variant="primary" onPress={handleReset}>
+              Try Again
+            </Button>
+          </View>
+        </>
+      );
+    }
+
     const saveFooter = (
       <View className="pt-4 gap-3">
         {savedRecipeId ? (

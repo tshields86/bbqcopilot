@@ -54,7 +54,7 @@ async function addFavorite(recipeId: string): Promise<void> {
 
   const { error } = await supabase
     .from('favorites')
-    .insert({ recipe_id: recipeId });
+    .insert({ user_id: user.id, recipe_id: recipeId });
 
   if (error) throw error;
 }
