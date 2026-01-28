@@ -82,6 +82,7 @@ async function createCookLog(log: {
   if (!user) throw new Error('Not authenticated');
 
   const insertData = {
+    user_id: user.id,
     recipe_id: log.recipeId || null,
     rating: log.rating || null,
     notes: log.notes || null,
