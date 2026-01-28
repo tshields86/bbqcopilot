@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { ErrorBoundary } from '@/components/ui';
 import {
   useFonts,
   PlayfairDisplay_400Regular,
@@ -64,30 +65,32 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <StatusBar style="light" />
-          <Stack
-            screenOptions={{
-              headerStyle: {
-                backgroundColor: '#1A1A1A',
-              },
-              headerTintColor: '#F5F5F0',
-              headerTitleStyle: {
-                fontFamily: 'SourceSans3_600SemiBold',
-              },
-              contentStyle: {
-                backgroundColor: '#1A1A1A',
-              },
-            }}
-          >
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-          </Stack>
-        </AuthProvider>
-      </QueryClientProvider>
+      <ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <StatusBar style="light" />
+            <Stack
+              screenOptions={{
+                headerStyle: {
+                  backgroundColor: '#1A1A1A',
+                },
+                headerTintColor: '#F5F5F0',
+                headerTitleStyle: {
+                  fontFamily: 'SourceSans3_600SemiBold',
+                },
+                contentStyle: {
+                  backgroundColor: '#1A1A1A',
+                },
+              }}
+            >
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+            </Stack>
+          </AuthProvider>
+        </QueryClientProvider>
+      </ErrorBoundary>
     </GestureHandlerRootView>
   );
 }

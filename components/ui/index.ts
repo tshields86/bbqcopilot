@@ -46,3 +46,6 @@ export type { IconSize, IconColor } from './Icon';
 
 // Dialog
 export { ConfirmDialog } from './ConfirmDialog';
+
+// Error Handling
+export { ErrorBoundary, ErrorFallback, EmptyState, NetworkError } from './ErrorBoundary';
