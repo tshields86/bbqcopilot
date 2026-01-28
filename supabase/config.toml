@@ -42,7 +42,10 @@ client_id = "env(GOOGLE_CLIENT_ID)"
 secret = "env(GOOGLE_CLIENT_SECRET)"
 redirect_uri = "http://localhost:54321/auth/v1/callback"
 
-[functions]
+[functions.generate-recipe]
+verify_jwt = true
+
+[functions.ask-clarification]
 verify_jwt = true
 
 [analytics]
