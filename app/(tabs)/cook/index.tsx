@@ -260,9 +260,11 @@ export default function CookScreen() {
           options={{
             title: recipe.title,
             headerRight: () => (
-              <Button variant="ghost" size="sm" onPress={handleReset}>
-                New Cook
-              </Button>
+              <View className="mr-4">
+                <Button variant="ghost" size="sm" onPress={handleReset}>
+                  New Cook
+                </Button>
+              </View>
             ),
           }}
         />
@@ -281,7 +283,18 @@ export default function CookScreen() {
   if (step === 'clarifying' && questions.length > 0) {
     return (
       <>
-        <Stack.Screen options={{ title: 'Quick Questions' }} />
+        <Stack.Screen
+          options={{
+            title: 'Quick Questions',
+            headerRight: () => (
+              <View className="mr-4">
+                <Button variant="ghost" size="sm" onPress={handleReset}>
+                  New Cook
+                </Button>
+              </View>
+            ),
+          }}
+        />
         <View className="flex-1 bg-char-black">
           <ClarificationChat
             questions={questions}
