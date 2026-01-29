@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Plus, Check, ArrowRight } from 'lucide-react-native';
 import { useAccessories, useCreateAccessory, useCompleteOnboarding, useDeleteAccessory } from '@/hooks';

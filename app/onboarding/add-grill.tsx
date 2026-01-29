@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import { View, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useCreateGrill, useCompleteOnboarding } from '@/hooks';
 import { GrillForm } from '@/components/equipment';
