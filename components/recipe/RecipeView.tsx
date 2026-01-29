@@ -6,14 +6,15 @@ import { RecipePrepSteps } from './RecipePrepSteps';
 import { RecipeTimeline } from './RecipeTimeline';
 import { RecipeTips } from './RecipeTips';
 import { Card } from '@/components/ui';
-import type { RecipeData } from '@/lib/types';
+import type { RecipeData, TimelineStep } from '@/lib/types';
 
 interface RecipeViewProps {
   recipe: RecipeData;
   footer?: ReactNode;
+  onEatingTimeChange?: (newTime: string, updatedTimeline: TimelineStep[]) => void;
 }
 
-export function RecipeView({ recipe, footer }: RecipeViewProps) {
+export function RecipeView({ recipe, footer, onEatingTimeChange }: RecipeViewProps) {
   return (
     <ScrollView
       className="flex-1"
@@ -49,14 +50,15 @@ export function RecipeView({ recipe, footer }: RecipeViewProps) {
 
       {/* Cook Timeline - the main feature */}
       {recipe.cookTimeline && recipe.cookTimeline.length > 0 && (
-        <RecipeTimeline timeline={recipe.cookTimeline} />
+        <RecipeTimeline
+          timeline={recipe.cookTimeline}
+          initialEatingTime={recipe.targetEatingTime}
+          onEatingTimeChange={onEatingTimeChange}
+        />
       )}
 
       {/* Tips and Serving Suggestions */}
-      <RecipeTips
-        tips={recipe.tips || []}
-        servingSuggestions={recipe.servingSuggestions}
-      />
+      <RecipeTips tips={recipe.tips || []} servingSuggestions={recipe.servingSuggestions} />
 
       {/* Optional footer content */}
       {footer}

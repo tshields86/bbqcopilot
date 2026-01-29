@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { AlertCircle, BookmarkPlus, Check } from 'lucide-react-native';
@@ -8,12 +8,15 @@ import { GrillSelector, CookInput, ClarificationChat, GeneratingView } from '@/c
 import { RecipeView } from '@/components/recipe';
 import { Button, Card, FlameLoader, H2, Body } from '@/components/ui';
 import { formatResetDate } from '@/lib/api';
+import type { TimelineStep, RecipeData } from '@/lib/types';
 
 export default function CookScreen() {
   const router = useRouter();
   const { data: grills, isLoading: grillsLoading } = useGrills();
   const saveRecipeMutation = useSaveRecipe();
   const [savedRecipeId, setSavedRecipeId] = useState<string | null>(null);
+  // Track adjusted recipe data (eating time changes)
+  const [adjustedRecipe, setAdjustedRecipe] = useState<RecipeData | null>(null);
   // Ref to track if generation has been initiated to prevent double-calls
   const generationInitiatedRef = useRef(false);
   const {
@@ -36,19 +39,35 @@ export default function CookScreen() {
     reset,
   } = useCook();
 
+  // Handle eating time adjustment
+  const handleEatingTimeChange = useCallback(
+    (newTime: string, updatedTimeline: TimelineStep[]) => {
+      if (!recipe) return;
+      setAdjustedRecipe({
+        ...recipe,
+        targetEatingTime: newTime,
+        cookTimeline: updatedTimeline,
+      });
+    },
+    [recipe]
+  );
+
+  // Get the recipe to save (adjusted or original)
+  const recipeToSave = adjustedRecipe || recipe;
+
   const handleSaveRecipe = async () => {
-    if (!recipe || savedRecipeId) return;
+    if (!recipeToSave || savedRecipeId) return;
 
     try {
       const savedRecipe = await saveRecipeMutation.mutateAsync({
-        title: recipe.title,
-        description: recipe.description,
+        title: recipeToSave.title,
+        description: recipeToSave.description,
         grillId: selectedGrill?.id,
-        recipeData: recipe,
-        proteins: recipe.proteins,
-        servings: recipe.servings,
-        totalTimeMinutes: recipe.totalTimeMinutes,
-        difficulty: recipe.difficulty as 'easy' | 'medium' | 'hard' | undefined,
+        recipeData: recipeToSave,
+        proteins: recipeToSave.proteins,
+        servings: recipeToSave.servings,
+        totalTimeMinutes: recipeToSave.totalTimeMinutes,
+        difficulty: recipeToSave.difficulty as 'easy' | 'medium' | 'hard' | undefined,
       });
       setSavedRecipeId(savedRecipe.id);
     } catch (err) {
@@ -64,6 +83,7 @@ export default function CookScreen() {
 
   const handleReset = () => {
     setSavedRecipeId(null);
+    setAdjustedRecipe(null);
     generationInitiatedRef.current = false;
     reset();
   };
@@ -207,11 +227,7 @@ export default function CookScreen() {
       <View className="pt-4 gap-3">
         {savedRecipeId ? (
           <>
-            <Button
-              variant="primary"
-              onPress={handleViewSavedRecipe}
-              leftIcon={Check}
-            >
+            <Button variant="primary" onPress={handleViewSavedRecipe} leftIcon={Check}>
               View Saved Recipe
             </Button>
             <Button variant="ghost" onPress={handleReset}>
@@ -251,7 +267,11 @@ export default function CookScreen() {
           }}
         />
         <View className="flex-1 bg-char-black">
-          <RecipeView recipe={recipe} footer={saveFooter} />
+          <RecipeView
+            recipe={adjustedRecipe || recipe}
+            footer={saveFooter}
+            onEatingTimeChange={handleEatingTimeChange}
+          />
         </View>
       </>
     );
@@ -285,11 +305,7 @@ export default function CookScreen() {
         keyboardShouldPersistTaps="handled"
       >
         {/* Grill Selector */}
-        <GrillSelector
-          grills={grills}
-          selectedGrill={selectedGrill}
-          onSelect={setSelectedGrill}
-        />
+        <GrillSelector grills={grills} selectedGrill={selectedGrill} onSelect={setSelectedGrill} />
 
         {/* Cook Input */}
         <CookInput

@@ -178,6 +178,7 @@ Your responses should be structured as JSON with the following format:
   "servings": 8,
   "totalTimeMinutes": 720,
   "difficulty": "medium",
+  "targetEatingTime": "6:00 PM",
   "ingredients": [
     {"item": "ingredient name", "amount": "quantity", "notes": "optional notes"}
   ],
@@ -188,7 +189,7 @@ Your responses should be structured as JSON with the following format:
   "cookTimeline": [
     {
       "time": "5:00 AM",
-      "relativeHours": -12,
+      "relativeHours": -13,
       "action": "Action title",
       "details": "Detailed instructions for this step",
       "temperature": "225°F",
@@ -200,15 +201,34 @@ Your responses should be structured as JSON with the following format:
   "servingSuggestions": ["Side dish ideas", "Beverage pairings"]
 }
 
+CRITICAL TIMELINE INSTRUCTIONS:
+1. The "relativeHours" field indicates hours relative to the target eating/serving time
+   - Negative values = BEFORE eating time (e.g., -12 means 12 hours before serving)
+   - Zero = serving time
+   - Positive values = after eating time (rare, mainly for cleanup)
+2. The "time" field should show the ACTUAL clock time based on the target eating time
+3. Work BACKWARDS from the target eating time to calculate all step times
+4. Example: If target is 6:00 PM and a step is relativeHours: -12, time should be "6:00 AM"
+5. Include the target eating time in the "targetEatingTime" field
+
 Key guidelines:
 1. Always tailor instructions to their specific grill type (kamado vs gas vs offset, etc.)
 2. Include specific temperature management advice for their grill
 3. Account for their available accessories
 4. Provide realistic time estimates
 5. Include rest times and carryover cooking
-6. For long cooks, include a timeline starting from target eating time and working backwards
+6. For long cooks, the first step should have the most negative relativeHours
 
 CRITICAL: You MUST output valid, complete JSON. Do not truncate your response. Ensure all arrays and objects are properly closed. Keep the response focused and concise to ensure completion.`;
+
+    // Extract eating time from clarifications if provided
+    const eatingTimeAnswer = clarifications.find(
+      (c) => c.question.toLowerCase().includes('time') && c.question.toLowerCase().includes('eat')
+    );
+    // Parse the eating time from the answer (e.g., "6:00 PM (Recommended)" -> "6:00 PM")
+    const targetEatingTime = eatingTimeAnswer
+      ? eatingTimeAnswer.answer.replace(/\s*\([^)]*\)/g, '').trim()
+      : '6:00 PM';
 
     const userMessage = `
 Equipment Profile:
@@ -216,6 +236,9 @@ Equipment Profile:
 - Accessories: ${equipment.accessories.map((a) => a.name).join(', ') || 'None specified'}
 
 Cook Request: ${request}
+
+TARGET EATING TIME: ${targetEatingTime}
+(Generate all timeline step times working backwards from this target eating time)
 
 ${
   clarifications.length > 0
@@ -238,7 +261,7 @@ Preferences:
     : ''
 }
 
-Please generate a detailed, equipment-specific recipe with a complete cook timeline.`;
+Please generate a detailed, equipment-specific recipe with a complete cook timeline. Remember to set targetEatingTime to "${targetEatingTime}" and calculate all timeline step times working backwards from this target.`;
 
     // Increment usage BEFORE making the API call (to prevent race conditions)
     await incrementUsage(user.id, supabase);

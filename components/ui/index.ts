@@ -55,3 +55,6 @@ export { UserMenu } from './UserMenu';
 
 // Logo
 export { Logo, LogoIcon } from './Logo';
+
+// TimePicker
+export { TimePicker, InlineTimeDisplay } from './TimePicker';

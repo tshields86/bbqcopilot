@@ -93,6 +93,8 @@ export interface RecipeData {
   cookTimeline: TimelineStep[];
   tips: string[];
   servingSuggestions: string[];
+  // Target eating time for timeline calculations
+  targetEatingTime?: string; // ISO date-time string or "HH:MM" format
 }
 
 export interface Ingredient {
