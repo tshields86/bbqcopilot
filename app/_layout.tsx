@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { PostHogProvider } from 'posthog-react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ErrorBoundary } from '@/components/ui';
@@ -64,33 +65,40 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <ErrorBoundary>
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <StatusBar style="light" />
-            <Stack
-              screenOptions={{
-                headerStyle: {
-                  backgroundColor: '#1A1A1A',
-                },
-                headerTintColor: '#F5F5F0',
-                headerTitleStyle: {
-                  fontFamily: 'SourceSans3_600SemiBold',
-                },
-                contentStyle: {
-                  backgroundColor: '#1A1A1A',
-                },
-              }}
-            >
-              <Stack.Screen name="index" options={{ headerShown: false }} />
-              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-            </Stack>
-          </AuthProvider>
-        </QueryClientProvider>
-      </ErrorBoundary>
-    </GestureHandlerRootView>
+    <PostHogProvider
+      apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY!}
+      options={{
+        host: process.env.EXPO_PUBLIC_POSTHOG_HOST,
+      }}
+    >
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ErrorBoundary>
+          <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+              <StatusBar style="light" />
+              <Stack
+                screenOptions={{
+                  headerStyle: {
+                    backgroundColor: '#1A1A1A',
+                  },
+                  headerTintColor: '#F5F5F0',
+                  headerTitleStyle: {
+                    fontFamily: 'SourceSans3_600SemiBold',
+                  },
+                  contentStyle: {
+                    backgroundColor: '#1A1A1A',
+                  },
+                }}
+              >
+                <Stack.Screen name="index" options={{ headerShown: false }} />
+                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+              </Stack>
+            </AuthProvider>
+          </QueryClientProvider>
+        </ErrorBoundary>
+      </GestureHandlerRootView>
+    </PostHogProvider>
   );
 }
