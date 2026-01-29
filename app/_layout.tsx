@@ -4,7 +4,8 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { PostHogProvider } from 'posthog-react-native';
+import { PostHogProvider, usePostHog } from 'posthog-react-native';
+import { usePathname, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ErrorBoundary } from '@/components/ui';
@@ -29,6 +30,21 @@ import {
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
+
+// Track screen views with PostHog
+function PostHogNavigationTracker() {
+  const posthog = usePostHog();
+  const pathname = usePathname();
+  const segments = useSegments();
+
+  useEffect(() => {
+    if (posthog && pathname) {
+      posthog.screen(pathname, { segments });
+    }
+  }, [posthog, pathname, segments]);
+
+  return null;
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -70,7 +86,9 @@ export default function RootLayout() {
       options={{
         host: process.env.EXPO_PUBLIC_POSTHOG_HOST,
       }}
+      autocapture
     >
+      <PostHogNavigationTracker />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ErrorBoundary>
           <QueryClientProvider client={queryClient}>
