@@ -22,13 +22,32 @@ export function RecipeCard({ recipe, onPress, isFavorite, onToggleFavorite }: Re
   const getDifficultyVariant = (difficulty: string | null) => {
     switch (difficulty?.toLowerCase()) {
       case 'easy':
+      case 'beginner':
         return 'success';
       case 'medium':
+      case 'intermediate':
         return 'warning';
       case 'hard':
+      case 'advanced':
         return 'error';
       default:
         return 'default';
+    }
+  };
+
+  const getDifficultyLabel = (difficulty: string | null): string => {
+    switch (difficulty?.toLowerCase()) {
+      case 'easy':
+      case 'beginner':
+        return 'Easy';
+      case 'medium':
+      case 'intermediate':
+        return 'Medium';
+      case 'hard':
+      case 'advanced':
+        return 'Hard';
+      default:
+        return difficulty || '';
     }
   };
 
@@ -85,7 +104,7 @@ export function RecipeCard({ recipe, onPress, isFavorite, onToggleFavorite }: Re
 
                 {recipe.difficulty && (
                   <Badge variant={getDifficultyVariant(recipe.difficulty)} size="sm">
-                    {recipe.difficulty}
+                    {getDifficultyLabel(recipe.difficulty)}
                   </Badge>
                 )}
               </View>

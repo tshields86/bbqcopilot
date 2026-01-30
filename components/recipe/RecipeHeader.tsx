@@ -18,13 +18,32 @@ export function RecipeHeader({ recipe }: RecipeHeaderProps) {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty.toLowerCase()) {
       case 'easy':
+      case 'beginner':
         return 'success';
       case 'medium':
+      case 'intermediate':
         return 'warning';
       case 'hard':
+      case 'advanced':
         return 'error';
       default:
         return 'default';
+    }
+  };
+
+  const getDifficultyLabel = (difficulty: string): string => {
+    switch (difficulty.toLowerCase()) {
+      case 'easy':
+      case 'beginner':
+        return 'Easy';
+      case 'medium':
+      case 'intermediate':
+        return 'Medium';
+      case 'hard':
+      case 'advanced':
+        return 'Hard';
+      default:
+        return difficulty;
     }
   };
 
@@ -37,7 +56,7 @@ export function RecipeHeader({ recipe }: RecipeHeaderProps) {
         {recipe.description}
       </Text>
 
-      <View className="flex-row flex-wrap gap-3">
+      <View className="flex-row flex-wrap items-center gap-3">
         {/* Time */}
         <View className="flex-row items-center gap-1.5 bg-char-black/50 px-3 py-1.5 rounded-full">
           <Clock size={14} color="#B87333" />
@@ -56,7 +75,7 @@ export function RecipeHeader({ recipe }: RecipeHeaderProps) {
 
         {/* Difficulty */}
         <Badge variant={getDifficultyColor(recipe.difficulty)} size="sm">
-          {recipe.difficulty}
+          {getDifficultyLabel(recipe.difficulty)}
         </Badge>
       </View>
 

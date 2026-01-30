@@ -60,7 +60,7 @@ export function Badge({
   return (
     <View
       className={`
-        flex-row items-center self-start
+        flex-row items-center
         ${sizeStyle.container}
         ${variantStyle.container}
       `}
