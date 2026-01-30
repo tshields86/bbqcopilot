@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback, useRef, type ReactNode } from 'react';
 import { generateRecipe, askClarification } from '@/lib/api';
+import { useProfile } from '@/hooks';
 import type { Grill, RecipeData, ClarificationQuestion, RateLimitError } from '@/lib/types';
 
 interface ClarificationAnswer {
@@ -59,6 +60,7 @@ const CookContext = createContext<CookContextValue | null>(null);
 
 export function CookProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<CookState>(initialState);
+  const { data: profile } = useProfile();
   // Ref to track generation in progress - more reliable than checking state in closures
   const isGeneratingRef = useRef(false);
 
@@ -119,10 +121,26 @@ export function CookProvider({ children }: { children: ReactNode }) {
         }));
         // Will trigger generation
       } else {
+        // Pre-populate skill_level answer from profile if user has one saved
+        const prePopulatedAnswers: ClarificationAnswer[] = [];
+        if (profile?.skill_level) {
+          const skillQuestion = response.questions.find((q) => q.id === 'skill_level');
+          if (skillQuestion) {
+            // Capitalize first letter to match option format (e.g., "intermediate" -> "Intermediate")
+            const formattedSkillLevel =
+              profile.skill_level.charAt(0).toUpperCase() + profile.skill_level.slice(1);
+            prePopulatedAnswers.push({
+              question: skillQuestion,
+              answer: formattedSkillLevel,
+            });
+          }
+        }
+
         setState((prev) => ({
           ...prev,
           isAskingQuestions: false,
           questions: response.questions,
+          answers: prePopulatedAnswers,
         }));
       }
     } catch (error) {
@@ -133,7 +151,7 @@ export function CookProvider({ children }: { children: ReactNode }) {
         error: error instanceof Error ? error.message : 'Failed to get clarification questions',
       }));
     }
-  }, [state.selectedGrill, state.userInput, buildEquipmentProfile]);
+  }, [state.selectedGrill, state.userInput, buildEquipmentProfile, profile]);
 
   const answerQuestion = useCallback((question: ClarificationQuestion, answer: string) => {
     setState((prev) => {
