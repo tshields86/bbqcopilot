@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View, Text, Modal, Pressable } from 'react-native';
-import { LogOut } from 'lucide-react-native';
+import { LogOut, Settings } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks';
@@ -88,6 +88,18 @@ export function UserMenu() {
 
             {/* Menu Items */}
             <View className="py-2">
+              <Pressable
+                onPress={() => {
+                  setMenuVisible(false);
+                  router.push('/settings');
+                }}
+                className="flex-row items-center px-4 py-3 active:bg-char-600/30"
+              >
+                <Settings size={20} color="#F5F5F0" />
+                <Text className="font-body text-base text-ash-white ml-3">
+                  Settings
+                </Text>
+              </Pressable>
               <Pressable
                 onPress={() => {
                   setMenuVisible(false);

@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { View, ScrollView, RefreshControl, Text, Pressable } from 'react-native';
 import { Flame, Plus, Heart, ChevronRight, Clock, Star } from 'lucide-react-native';
 import { Link, useRouter } from 'expo-router';
+import { useAuth } from '@/contexts/AuthContext';
 import { useGrills, useCookLogs, useFavorites, useProfile } from '@/hooks';
 import { GrillIcon } from '@/components/equipment';
 import { CookLogCard } from '@/components/recipe';
@@ -32,6 +33,7 @@ const BBQ_TIPS = [
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { user } = useAuth();
   const { data: profile, isLoading: profileLoading } = useProfile();
   const { data: grills, isLoading: grillsLoading, refetch: refetchGrills } = useGrills();
   const { data: logs, isLoading: logsLoading, refetch: refetchLogs } = useCookLogs();
@@ -67,7 +69,10 @@ export default function HomeScreen() {
     return 'Good evening';
   }, []);
 
-  const firstName = profile?.display_name?.split(' ')[0] || 'Pitmaster';
+  // Use display name if set, otherwise fallback to email username
+  const firstName = profile?.display_name?.split(' ')[0]
+    || user?.email?.split('@')[0]
+    || 'Pitmaster';
 
   if (isLoading) {
     return (
