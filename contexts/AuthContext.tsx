@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { Session, User, AuthError } from '@supabase/supabase-js';
+import { useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
@@ -22,6 +23,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     // Get initial session
@@ -121,7 +123,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = useCallback(async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
-  }, []);
+    // Clear all cached data to prevent stale data when logging in as different user
+    queryClient.clear();
+  }, [queryClient]);
 
   const resetPassword = useCallback(async (email: string) => {
     const redirectUrl = Linking.createURL('auth/reset-password');

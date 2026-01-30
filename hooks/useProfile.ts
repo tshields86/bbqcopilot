@@ -1,9 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/contexts/AuthContext';
 import type { Profile } from '@/lib/types';
 import type { UpdateTables } from '@/lib/database.types';
 
-const PROFILE_KEY = ['profile'];
+// User-scoped cache key to prevent stale data across different users
+const getProfileKey = (userId: string | undefined) => ['profile', userId ?? 'anonymous'];
 
 type ProfileUpdate = UpdateTables<'profiles'>;
 
@@ -50,72 +52,80 @@ async function completeOnboarding(): Promise<Profile> {
 
 // Hook to fetch the current user's profile
 export function useProfile() {
+  const { user } = useAuth();
+  const profileKey = getProfileKey(user?.id);
+
   return useQuery({
-    queryKey: PROFILE_KEY,
+    queryKey: profileKey,
     queryFn: fetchProfile,
+    enabled: !!user, // Only fetch when user is authenticated
   });
 }
 
 // Hook for updating the profile with optimistic updates
 export function useUpdateProfile() {
+  const { user } = useAuth();
   const queryClient = useQueryClient();
+  const profileKey = getProfileKey(user?.id);
 
   return useMutation({
     mutationFn: updateProfile,
     onMutate: async (updates) => {
-      await queryClient.cancelQueries({ queryKey: PROFILE_KEY });
+      await queryClient.cancelQueries({ queryKey: profileKey });
 
-      const previousProfile = queryClient.getQueryData<Profile>(PROFILE_KEY);
+      const previousProfile = queryClient.getQueryData<Profile>(profileKey);
 
       if (previousProfile) {
-        queryClient.setQueryData<Profile>(PROFILE_KEY, {
+        queryClient.setQueryData<Profile>(profileKey, {
           ...previousProfile,
           ...updates,
           updated_at: new Date().toISOString(),
         });
       }
 
-      return { previousProfile };
+      return { previousProfile, profileKey };
     },
     onError: (_, __, context) => {
       if (context?.previousProfile) {
-        queryClient.setQueryData(PROFILE_KEY, context.previousProfile);
+        queryClient.setQueryData(context.profileKey, context.previousProfile);
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: PROFILE_KEY });
+      queryClient.invalidateQueries({ queryKey: profileKey });
     },
   });
 }
 
 // Hook for completing onboarding
 export function useCompleteOnboarding() {
+  const { user } = useAuth();
   const queryClient = useQueryClient();
+  const profileKey = getProfileKey(user?.id);
 
   return useMutation({
     mutationFn: completeOnboarding,
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: PROFILE_KEY });
+      await queryClient.cancelQueries({ queryKey: profileKey });
 
-      const previousProfile = queryClient.getQueryData<Profile>(PROFILE_KEY);
+      const previousProfile = queryClient.getQueryData<Profile>(profileKey);
 
       if (previousProfile) {
-        queryClient.setQueryData<Profile>(PROFILE_KEY, {
+        queryClient.setQueryData<Profile>(profileKey, {
           ...previousProfile,
           onboarding_completed: true,
           updated_at: new Date().toISOString(),
         });
       }
 
-      return { previousProfile };
+      return { previousProfile, profileKey };
     },
     onError: (_, __, context) => {
       if (context?.previousProfile) {
-        queryClient.setQueryData(PROFILE_KEY, context.previousProfile);
+        queryClient.setQueryData(context.profileKey, context.previousProfile);
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: PROFILE_KEY });
+      queryClient.invalidateQueries({ queryKey: profileKey });
     },
   });
 }
