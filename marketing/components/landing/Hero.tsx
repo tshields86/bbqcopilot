@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Flame } from 'lucide-react';
+import { Flame } from 'lucide-react';
 
 export function Hero() {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.bbqcopilot.com';
@@ -22,8 +22,10 @@ export function Hero() {
 
         {/* Main headline */}
         <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-ash-white mb-6 leading-tight">
-          Your AI Pitmaster,{' '}
-          <span className="gradient-text">Tailored to Your Grill</span>
+          <span className="whitespace-nowrap">Your AI Pitmaster,</span>
+          <br className="lg:hidden" />
+          <span className="lg:inline">{' '}</span>
+          <span className="gradient-text whitespace-nowrap">Tailored to Your Grill</span>
         </h1>
 
         {/* Subheadline */}
@@ -40,7 +42,7 @@ export function Hero() {
             className="btn-primary group text-lg px-8 py-4"
           >
             Start Cooking Free
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <Flame className="ml-2 w-5 h-5 group-hover:scale-110 transition-transform" />
           </a>
           <a href="#how-it-works" className="btn-secondary text-lg px-8 py-4">
             See How It Works

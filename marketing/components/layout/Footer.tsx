@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Flame, Github, Twitter } from 'lucide-react';
+import { Flame } from 'lucide-react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer className="bg-char-900 border-t border-char-700">
       <div className="max-container section-padding">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
@@ -48,48 +48,13 @@ export function Footer() {
               </li>
             </ul>
           </div>
-
-          {/* Connect */}
-          <div>
-            <h3 className="font-display text-lg font-semibold text-ash-white mb-4">
-              Connect
-            </h3>
-            <div className="flex gap-4">
-              <a
-                href="https://twitter.com/bbqcopilot"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-char-700 hover:bg-char-600 flex items-center justify-center text-char-400 hover:text-ash-white transition-all"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="https://github.com/bbqcopilot"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-char-700 hover:bg-char-600 flex items-center justify-center text-char-400 hover:text-ash-white transition-all"
-                aria-label="GitHub"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-char-700 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-8 border-t border-char-700 flex items-center justify-center">
           <p className="text-char-500 text-sm">
             &copy; {currentYear} BBQCopilot. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm">
-            <Link href="/privacy" className="text-char-500 hover:text-ash-white transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="text-char-500 hover:text-ash-white transition-colors">
-              Terms of Service
-            </Link>
-          </div>
         </div>
       </div>
     </footer>
