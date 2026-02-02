@@ -6,6 +6,7 @@ import { Plus, Check, ArrowRight } from 'lucide-react-native';
 import { useAccessories, useCreateAccessory, useCompleteOnboarding, useDeleteAccessory } from '@/hooks';
 import { AccessoryForm, AccessoryCard } from '@/components/equipment';
 import { Button, H2, Body, Card, FlameLoader } from '@/components/ui';
+import { useAnalytics } from '@/lib/analytics';
 
 export default function AddAccessoriesScreen() {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function AddAccessoriesScreen() {
   const createAccessory = useCreateAccessory();
   const deleteAccessory = useDeleteAccessory();
   const completeOnboarding = useCompleteOnboarding();
+  const { trackOnboardingStepCompleted, trackOnboardingCompleted } = useAnalytics();
   const [showAddForm, setShowAddForm] = useState(false);
 
   const handleAddAccessory = async (data: {
@@ -30,6 +32,7 @@ export default function AddAccessoriesScreen() {
         brand: data.brand || null,
         notes: data.notes || null,
       });
+      // equipment_added event is tracked in useCreateAccessory hook
       setShowAddForm(false);
     } catch (error) {
       console.error('Failed to create accessory:', error);
@@ -47,6 +50,8 @@ export default function AddAccessoriesScreen() {
   const handleFinish = async () => {
     try {
       await completeOnboarding.mutateAsync();
+      trackOnboardingStepCompleted('add_accessories');
+      trackOnboardingCompleted();
       router.replace('/(tabs)');
     } catch (error) {
       console.error('Failed to complete onboarding:', error);

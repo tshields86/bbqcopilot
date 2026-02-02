@@ -2,9 +2,17 @@ import { View, Text } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ChefHat, Clock, Thermometer } from 'lucide-react-native';
 import { Button, Body, Logo, LogoIcon } from '@/components/ui';
+import { useAnalytics } from '@/lib/analytics';
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const { trackOnboardingStarted, trackOnboardingStepCompleted } = useAnalytics();
+
+  const handleGetStarted = () => {
+    trackOnboardingStarted();
+    trackOnboardingStepCompleted('welcome');
+    router.push('/onboarding/add-grill');
+  };
 
   const features = [
     {
@@ -59,7 +67,7 @@ export default function WelcomeScreen() {
           variant="primary"
           size="lg"
           fullWidth
-          onPress={() => router.push('/onboarding/add-grill')}
+          onPress={handleGetStarted}
         >
           Get Started
         </Button>

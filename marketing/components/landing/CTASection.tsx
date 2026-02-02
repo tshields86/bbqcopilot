@@ -1,9 +1,17 @@
 'use client';
 
 import { ArrowRight, Apple, Smartphone } from 'lucide-react';
+import posthog from 'posthog-js';
 
 export function CTASection() {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.bbqcopilot.com';
+
+  const handleCtaClick = (button: string) => {
+    posthog.capture('cta_clicked', {
+      button,
+      location: 'cta_section',
+    });
+  };
 
   return (
     <section className="relative overflow-hidden">
@@ -27,6 +35,7 @@ export function CTASection() {
         <a
           href={appUrl}
           className="btn-primary inline-flex text-lg px-10 py-4 mb-12 group"
+          onClick={() => handleCtaClick('start_cooking_free')}
         >
           Start Cooking Free
           <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -58,6 +67,7 @@ export function CTASection() {
             <a
               href={appUrl}
               className="flex items-center gap-3 px-6 py-3 bg-ember-500/10 rounded-lg border border-ember-500/30 hover:bg-ember-500/20 transition-colors"
+              onClick={() => handleCtaClick('web_app_badge')}
             >
               <div className="w-8 h-8 rounded-lg bg-ember-500 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">W</span>

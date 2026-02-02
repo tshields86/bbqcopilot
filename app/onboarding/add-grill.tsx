@@ -5,11 +5,13 @@ import { useRouter } from 'expo-router';
 import { useCreateGrill, useCompleteOnboarding } from '@/hooks';
 import { GrillForm } from '@/components/equipment';
 import { Button, H2, Body, ConfirmDialog } from '@/components/ui';
+import { useAnalytics } from '@/lib/analytics';
 
 export default function AddGrillScreen() {
   const router = useRouter();
   const createGrill = useCreateGrill();
   const completeOnboarding = useCompleteOnboarding();
+  const { trackOnboardingStepCompleted, trackOnboardingCompleted } = useAnalytics();
   const [showSkipConfirm, setShowSkipConfirm] = useState(false);
 
   const handleSubmit = async (data: {
@@ -27,6 +29,8 @@ export default function AddGrillScreen() {
         model: data.model || null,
         notes: data.notes || null,
       });
+      // equipment_added event is tracked in useCreateGrill hook
+      trackOnboardingStepCompleted('add_grill');
       // Navigate to add accessories for this grill
       router.push(`/onboarding/add-accessories?grillId=${grill.id}&grillName=${encodeURIComponent(grill.name)}`);
     } catch (error) {
@@ -37,6 +41,7 @@ export default function AddGrillScreen() {
   const handleSkip = async () => {
     try {
       await completeOnboarding.mutateAsync();
+      trackOnboardingCompleted();
       router.replace('/(tabs)');
     } catch (error) {
       console.error('Failed to complete onboarding:', error);

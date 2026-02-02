@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Menu, X, Flame } from 'lucide-react';
+import posthog from 'posthog-js';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,6 +18,20 @@ export function Header() {
   }, []);
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.bbqcopilot.com';
+
+  const handleNavClick = (destination: string, isMobile: boolean) => {
+    posthog.capture('nav_clicked', {
+      destination,
+      location: isMobile ? 'header_mobile' : 'header',
+    });
+  };
+
+  const handleCtaClick = () => {
+    posthog.capture('cta_clicked', {
+      button: 'start_cooking_free',
+      location: 'header',
+    });
+  };
 
   return (
     <header
@@ -40,22 +55,25 @@ export function Header() {
           <a
             href="#features"
             className="text-char-300 hover:text-ash-white transition-colors"
+            onClick={() => handleNavClick('features', false)}
           >
             Features
           </a>
           <a
             href="#how-it-works"
             className="text-char-300 hover:text-ash-white transition-colors"
+            onClick={() => handleNavClick('how_it_works', false)}
           >
             How It Works
           </a>
           <a
             href={`${appUrl}/login`}
             className="text-char-300 hover:text-ash-white transition-colors"
+            onClick={() => handleNavClick('sign_in', false)}
           >
             Sign In
           </a>
-          <a href={appUrl} className="btn-primary">
+          <a href={appUrl} className="btn-primary" onClick={handleCtaClick}>
             Start Cooking Free
           </a>
         </div>
@@ -77,24 +95,31 @@ export function Header() {
             <a
               href="#features"
               className="text-char-300 hover:text-ash-white transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={() => {
+                handleNavClick('features', true);
+                setIsMobileMenuOpen(false);
+              }}
             >
               Features
             </a>
             <a
               href="#how-it-works"
               className="text-char-300 hover:text-ash-white transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={() => {
+                handleNavClick('how_it_works', true);
+                setIsMobileMenuOpen(false);
+              }}
             >
               How It Works
             </a>
             <a
               href={`${appUrl}/login`}
               className="text-char-300 hover:text-ash-white transition-colors py-2"
+              onClick={() => handleNavClick('sign_in', true)}
             >
               Sign In
             </a>
-            <a href={appUrl} className="btn-primary text-center">
+            <a href={appUrl} className="btn-primary text-center" onClick={handleCtaClick}>
               Start Cooking Free
             </a>
           </div>

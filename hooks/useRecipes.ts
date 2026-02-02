@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
+import { posthog } from '@/lib/posthog';
 import type { Recipe, RecipeData } from '@/lib/types';
 
 const RECIPES_KEY = ['recipes'];
@@ -118,7 +119,8 @@ export function useSaveRecipe() {
 
   return useMutation({
     mutationFn: saveRecipe,
-    onSuccess: () => {
+    onSuccess: (recipe) => {
+      posthog.capture('recipe_saved', { recipe_id: recipe.id });
       queryClient.invalidateQueries({ queryKey: RECIPES_KEY });
     },
   });

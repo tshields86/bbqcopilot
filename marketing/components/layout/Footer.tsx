@@ -1,9 +1,19 @@
+'use client';
+
 import Link from 'next/link';
 import { Flame } from 'lucide-react';
+import posthog from 'posthog-js';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.bbqcopilot.com';
+
+  const handleNavClick = (destination: string) => {
+    posthog.capture('nav_clicked', {
+      destination,
+      location: 'footer',
+    });
+  };
 
   return (
     <footer className="bg-char-900 border-t border-char-700">
@@ -32,17 +42,29 @@ export function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a href="#features" className="text-char-400 hover:text-ash-white transition-colors">
+                <a
+                  href="#features"
+                  className="text-char-400 hover:text-ash-white transition-colors"
+                  onClick={() => handleNavClick('features')}
+                >
                   Features
                 </a>
               </li>
               <li>
-                <a href="#how-it-works" className="text-char-400 hover:text-ash-white transition-colors">
+                <a
+                  href="#how-it-works"
+                  className="text-char-400 hover:text-ash-white transition-colors"
+                  onClick={() => handleNavClick('how_it_works')}
+                >
                   How It Works
                 </a>
               </li>
               <li>
-                <a href={appUrl} className="text-char-400 hover:text-ash-white transition-colors">
+                <a
+                  href={appUrl}
+                  className="text-char-400 hover:text-ash-white transition-colors"
+                  onClick={() => handleNavClick('open_app')}
+                >
                   Open App
                 </a>
               </li>

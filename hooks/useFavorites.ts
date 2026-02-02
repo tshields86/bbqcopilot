@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
+import { posthog } from '@/lib/posthog';
 import type { Recipe } from '@/lib/types';
 
 const FAVORITES_KEY = ['favorites'];
@@ -100,6 +101,8 @@ export function useToggleFavorite() {
         await removeFavorite(recipeId);
       } else {
         await addFavorite(recipeId);
+        // Track when a recipe is favorited (not when unfavorited)
+        posthog.capture('recipe_favorited', { recipe_id: recipeId });
       }
       return !isFavorite;
     },

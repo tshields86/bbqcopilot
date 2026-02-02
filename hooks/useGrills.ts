@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
+import { posthog } from '@/lib/posthog';
 import type { Grill, GrillType } from '@/lib/types';
 import type { InsertTables, UpdateTables } from '@/lib/database.types';
 
@@ -144,6 +145,13 @@ export function useCreateGrill() {
 
   return useMutation({
     mutationFn: createGrill,
+    onSuccess: (grill) => {
+      posthog.capture('equipment_added', {
+        equipment_type: 'grill',
+        grill_type: grill.grill_type,
+        ...(grill.brand && { grill_brand: grill.brand }),
+      });
+    },
     onMutate: async (newGrill) => {
       await queryClient.cancelQueries({ queryKey: GRILLS_KEY });
       const previousGrills = queryClient.getQueryData<Grill[]>(GRILLS_KEY);

@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
+import { posthog } from '@/lib/posthog';
 import type { Accessory, AccessoryType, Grill } from '@/lib/types';
 import type { InsertTables, UpdateTables } from '@/lib/database.types';
 
@@ -67,6 +68,12 @@ export function useCreateAccessory() {
 
   return useMutation({
     mutationFn: createAccessory,
+    onSuccess: (accessory) => {
+      posthog.capture('equipment_added', {
+        equipment_type: 'accessory',
+        accessory_type: accessory.accessory_type,
+      });
+    },
     onMutate: async (newAccessory) => {
       const grillId = newAccessory.grill_id;
 

@@ -1,9 +1,17 @@
 'use client';
 
 import { Flame } from 'lucide-react';
+import posthog from 'posthog-js';
 
 export function Hero() {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.bbqcopilot.com';
+
+  const handleCtaClick = (button: string) => {
+    posthog.capture('cta_clicked', {
+      button,
+      location: 'hero',
+    });
+  };
 
   return (
     <section className="relative min-h-dvh lg:min-h-[calc(100dvh-120px)] flex items-center justify-center overflow-hidden">
@@ -40,11 +48,16 @@ export function Hero() {
           <a
             href={appUrl}
             className="btn-primary group text-lg px-8 py-4"
+            onClick={() => handleCtaClick('start_cooking_free')}
           >
             Start Cooking Free
             <Flame className="ml-2 w-5 h-5 group-hover:scale-110 transition-transform" />
           </a>
-          <a href="#how-it-works" className="btn-secondary text-lg px-8 py-4">
+          <a
+            href="#how-it-works"
+            className="btn-secondary text-lg px-8 py-4"
+            onClick={() => handleCtaClick('see_how_it_works')}
+          >
             See How It Works
           </a>
         </div>

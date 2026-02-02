@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { AlertTriangle, RefreshCw } from 'lucide-react-native';
+import { posthog } from '@/lib/posthog';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -24,6 +25,14 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
+
+    // Track error in PostHog
+    posthog.capture('error_occurred', {
+      error_type: 'react_error_boundary',
+      error_message: error.message,
+      ...(error.stack && { error_stack: error.stack }),
+      ...(errorInfo.componentStack && { component_stack: errorInfo.componentStack }),
+    });
   }
 
   handleRetry = () => {

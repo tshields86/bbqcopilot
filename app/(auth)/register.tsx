@@ -49,6 +49,7 @@ export default function RegisterScreen() {
 
     try {
       await signUp(email.trim(), password);
+      // Signup tracking is handled in AuthContext
       setSuccess(true);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to create account';
@@ -64,6 +65,7 @@ export default function RegisterScreen() {
 
     try {
       await signInWithGoogle();
+      // Signup tracking is handled in AuthContext
       // Navigation will happen automatically via auth state change
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to sign up with Google';
