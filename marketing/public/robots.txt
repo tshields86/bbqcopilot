@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bbqcopilot.com/sitemap.xml
+
+# Block app subdomain from main site crawlers (handled by X-Robots-Tag header)
+# The app is served from app.bbqcopilot.com and has its own noindex directive

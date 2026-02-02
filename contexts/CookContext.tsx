@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback, useRef, type ReactNode } from 'react';
+import { usePostHog } from 'posthog-react-native';
 import { generateRecipe, askClarification } from '@/lib/api';
 import { useProfile } from '@/hooks';
 import type { Grill, RecipeData, ClarificationQuestion, RateLimitError } from '@/lib/types';
@@ -61,8 +62,11 @@ const CookContext = createContext<CookContextValue | null>(null);
 export function CookProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<CookState>(initialState);
   const { data: profile } = useProfile();
+  const posthog = usePostHog();
   // Ref to track generation in progress - more reliable than checking state in closures
   const isGeneratingRef = useRef(false);
+  // Track generation start time for analytics
+  const generationStartTimeRef = useRef<number | null>(null);
 
   const setSelectedGrill = useCallback((grill: Grill | null) => {
     setState((prev) => ({ ...prev, selectedGrill: grill }));
@@ -93,7 +97,10 @@ export function CookProvider({ children }: { children: ReactNode }) {
 
   const startClarification = useCallback(async () => {
     if (!state.selectedGrill || !state.userInput.trim()) {
-      setState((prev) => ({ ...prev, error: 'Please select a grill and enter what you want to cook' }));
+      setState((prev) => ({
+        ...prev,
+        error: 'Please select a grill and enter what you want to cook',
+      }));
       return;
     }
 
@@ -214,6 +221,7 @@ export function CookProvider({ children }: { children: ReactNode }) {
       return;
     }
     isGeneratingRef.current = true;
+    generationStartTimeRef.current = Date.now();
 
     setState((prev) => ({
       ...prev,
@@ -247,18 +255,35 @@ export function CookProvider({ children }: { children: ReactNode }) {
         // onComplete
         () => {
           isGeneratingRef.current = false;
+          const generationTimeMs = generationStartTimeRef.current
+            ? Date.now() - generationStartTimeRef.current
+            : undefined;
+
           setState((prev) => {
             // Try to parse the streamed content as JSON
             let recipe: RecipeData | null = null;
             try {
               // Find JSON in the response (handle markdown code blocks)
-              const jsonMatch = prev.streamedContent.match(/```json\s*([\s\S]*?)```/) ||
-                               prev.streamedContent.match(/({[\s\S]*})/);
+              const jsonMatch =
+                prev.streamedContent.match(/```json\s*([\s\S]*?)```/) ||
+                prev.streamedContent.match(/({[\s\S]*})/);
               if (jsonMatch) {
                 recipe = JSON.parse(jsonMatch[1]);
               }
             } catch {
               // If parsing fails, we'll show the raw content
+            }
+
+            // Track successful recipe generation
+            if (recipe) {
+              const skillAnswer = state.answers.find((a) => a.question.id === 'skill_level');
+              posthog?.capture('recipe_generated', {
+                protein: recipe.title || state.userInput,
+                grill_type: state.selectedGrill?.grill_type || 'unknown',
+                grill_brand: state.selectedGrill?.brand || null,
+                skill_level: skillAnswer?.answer?.toLowerCase() || null,
+                generation_time_ms: generationTimeMs || null,
+              });
             }
 
             return {
@@ -298,7 +323,7 @@ export function CookProvider({ children }: { children: ReactNode }) {
         error: error instanceof Error ? error.message : 'Failed to generate recipe',
       }));
     }
-  }, [state.userInput, state.answers, buildEquipmentProfile]);
+  }, [state.userInput, state.answers, state.selectedGrill, buildEquipmentProfile, posthog]);
 
   const reset = useCallback(() => {
     isGeneratingRef.current = false;

@@ -1,6 +1,7 @@
-import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { Session, User, AuthError } from '@supabase/supabase-js';
 import { useQueryClient } from '@tanstack/react-query';
+import { usePostHog } from 'posthog-react-native';
 import { supabase } from '@/lib/supabase';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
@@ -24,6 +25,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const queryClient = useQueryClient();
+  const posthog = usePostHog();
+  // Track if user signup event has been fired to prevent duplicates
+  const signupTrackedRef = useRef(false);
 
   useEffect(() => {
     // Get initial session
@@ -81,10 +85,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error;
   }, []);
 
-  const signUp = useCallback(async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({ email, password });
-    if (error) throw error;
-  }, []);
+  const signUp = useCallback(
+    async (email: string, password: string) => {
+      const { error } = await supabase.auth.signUp({ email, password });
+      if (error) throw error;
+      // Track signup event
+      if (!signupTrackedRef.current) {
+        signupTrackedRef.current = true;
+        posthog?.capture('user_signed_up', { method: 'email' });
+      }
+    },
+    [posthog]
+  );
 
   const signInWithGoogle = useCallback(async () => {
     const redirectUrl = Linking.createURL('auth/callback');
@@ -115,10 +127,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             access_token: accessToken,
             refresh_token: refreshToken,
           });
+          // Track Google signup (on native, this is when we get the session)
+          if (!signupTrackedRef.current) {
+            signupTrackedRef.current = true;
+            posthog?.capture('user_signed_up', { method: 'google' });
+          }
         }
       }
     }
-  }, []);
+  }, [posthog]);
 
   const signOut = useCallback(async () => {
     const { error } = await supabase.auth.signOut();

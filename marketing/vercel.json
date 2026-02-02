@@ -1,0 +1,40 @@
+{
+  "framework": "nextjs",
+  "regions": ["iad1"],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/app",
+      "destination": "https://app.bbqcopilot.com",
+      "permanent": false
+    },
+    {
+      "source": "/login",
+      "destination": "https://app.bbqcopilot.com/login",
+      "permanent": false
+    },
+    {
+      "source": "/signup",
+      "destination": "https://app.bbqcopilot.com/register",
+      "permanent": false
+    }
+  ]
+}
