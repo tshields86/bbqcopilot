@@ -2,14 +2,15 @@
 
 import Link from 'next/link';
 import { Flame } from 'lucide-react';
-import posthog from 'posthog-js';
+import { usePostHog } from 'posthog-js/react';
 
 export function Footer() {
+  const posthog = usePostHog();
   const currentYear = new Date().getFullYear();
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.bbqcopilot.com';
 
   const handleNavClick = (destination: string) => {
-    posthog.capture('nav_clicked', {
+    posthog?.capture('nav_clicked', {
       destination,
       location: 'footer',
     });

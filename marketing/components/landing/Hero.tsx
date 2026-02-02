@@ -1,13 +1,14 @@
 'use client';
 
 import { Flame } from 'lucide-react';
-import posthog from 'posthog-js';
+import { usePostHog } from 'posthog-js/react';
 
 export function Hero() {
+  const posthog = usePostHog();
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.bbqcopilot.com';
 
   const handleCtaClick = (button: string) => {
-    posthog.capture('cta_clicked', {
+    posthog?.capture('cta_clicked', {
       button,
       location: 'hero',
     });

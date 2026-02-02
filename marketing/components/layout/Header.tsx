@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Menu, X, Flame } from 'lucide-react';
-import posthog from 'posthog-js';
+import { usePostHog } from 'posthog-js/react';
 
 export function Header() {
+  const posthog = usePostHog();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -20,14 +21,14 @@ export function Header() {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.bbqcopilot.com';
 
   const handleNavClick = (destination: string, isMobile: boolean) => {
-    posthog.capture('nav_clicked', {
+    posthog?.capture('nav_clicked', {
       destination,
       location: isMobile ? 'header_mobile' : 'header',
     });
   };
 
   const handleCtaClick = () => {
-    posthog.capture('cta_clicked', {
+    posthog?.capture('cta_clicked', {
       button: 'start_cooking_free',
       location: 'header',
     });
