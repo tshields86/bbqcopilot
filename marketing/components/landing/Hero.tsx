@@ -6,7 +6,7 @@ export function Hero() {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.bbqcopilot.com';
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-dvh lg:min-h-[calc(100dvh-120px)] flex items-center justify-center overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-char-900 via-char-800 to-char-800" />
 
@@ -63,13 +63,6 @@ export function Hero() {
             <span className="text-char-600">•</span>
             <span className="font-medium">Offset Smokers</span>
           </div>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 rounded-full border-2 border-char-500 flex items-start justify-center p-2">
-          <div className="w-1.5 h-3 bg-char-500 rounded-full" />
         </div>
       </div>
     </section>
