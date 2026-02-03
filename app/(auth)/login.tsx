@@ -43,8 +43,12 @@ export default function LoginScreen() {
 
     try {
       await signInWithGoogle();
-      // Explicitly navigate to root, which will redirect based on auth/onboarding state
-      router.replace('/');
+      // On web, signInWithOAuth triggers a full-page redirect to Google,
+      // so we don't navigate here — the browser will leave this page.
+      // On native, the session is set in signInWithGoogle, so navigate to root.
+      if (Platform.OS !== 'web') {
+        router.replace('/');
+      }
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to sign in with Google';
       setError(message);
