@@ -5,7 +5,7 @@ import { useProfile } from '@/hooks';
 import { FlameLoader } from '@/components/ui';
 
 export default function Index() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, isRecovery } = useAuth();
   const { data: profile, isLoading: profileLoading } = useProfile();
 
   // Show loading state while checking auth
@@ -15,6 +15,11 @@ export default function Index() {
         <FlameLoader size="lg" />
       </View>
     );
+  }
+
+  // Password recovery flow — redirect to reset-password screen
+  if (isRecovery) {
+    return <Redirect href="/auth/reset-password" />;
   }
 
   // Not authenticated, go to login

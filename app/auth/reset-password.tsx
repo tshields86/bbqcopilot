@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { router, useLocalSearchParams } from 'expo-router';
+import { router } from 'expo-router';
 import { Lock, CheckCircle } from 'lucide-react-native';
 import * as Linking from 'expo-linking';
 import { H2, Body, Button, PasswordInput, FlameLoader } from '@/components/ui';
@@ -8,7 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 
 export default function ResetPasswordScreen() {
-  const { updatePassword } = useAuth();
+  const { user, loading: authLoading, updatePassword, clearRecovery } = useAuth();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -19,47 +19,74 @@ export default function ResetPasswordScreen() {
 
   // Handle the recovery token from the URL
   useEffect(() => {
-    const handleRecoveryToken = async () => {
-      try {
-        // Get the current URL to extract tokens from hash
-        const url = await Linking.getInitialURL();
-
-        if (url) {
-          // Parse the hash fragment for tokens
-          const hashIndex = url.indexOf('#');
-          if (hashIndex !== -1) {
-            const hash = url.substring(hashIndex + 1);
-            const params = new URLSearchParams(hash);
-
-            const accessToken = params.get('access_token');
-            const refreshToken = params.get('refresh_token');
-            const type = params.get('type');
-
-            if (type === 'recovery' && accessToken && refreshToken) {
-              // Set the session with the recovery tokens
-              const { error } = await supabase.auth.setSession({
-                access_token: accessToken,
-                refresh_token: refreshToken,
-              });
-
-              if (error) {
-                setSessionError('Invalid or expired reset link. Please request a new one.');
-              }
-            } else if (type !== 'recovery') {
-              setSessionError('Invalid reset link. Please request a new password reset.');
+    if (Platform.OS === 'web') {
+      // On web, Supabase's detectSessionInUrl (configured in lib/supabase.ts)
+      // automatically extracts and processes recovery tokens from the URL.
+      // We just need to wait for auth loading to finish, then check for a session.
+      if (!authLoading) {
+        if (user) {
+          setInitializing(false);
+        } else {
+          // detectSessionInUrl may still be exchanging the PKCE code.
+          // Wait briefly, then check again before showing an error.
+          const timeout = setTimeout(async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+              setSessionError('Invalid or expired reset link. Please request a new one.');
             }
-          }
+            setInitializing(false);
+          }, 2000);
+          return () => clearTimeout(timeout);
         }
-      } catch (err) {
-        console.error('Error handling recovery token:', err);
-        setSessionError('Something went wrong. Please try again.');
-      } finally {
-        setInitializing(false);
       }
-    };
+    } else {
+      // On native, manually extract tokens from the deep link URL hash
+      handleNativeRecoveryToken();
+    }
+  }, [authLoading, user]);
 
-    handleRecoveryToken();
-  }, []);
+  const handleNativeRecoveryToken = async () => {
+    try {
+      const url = await Linking.getInitialURL();
+
+      if (!url) {
+        setSessionError('Invalid reset link. Please request a new password reset.');
+        setInitializing(false);
+        return;
+      }
+
+      const hashIndex = url.indexOf('#');
+      if (hashIndex === -1) {
+        setSessionError('Invalid reset link. Please request a new password reset.');
+        setInitializing(false);
+        return;
+      }
+
+      const hash = url.substring(hashIndex + 1);
+      const params = new URLSearchParams(hash);
+      const accessToken = params.get('access_token');
+      const refreshToken = params.get('refresh_token');
+      const type = params.get('type');
+
+      if (type === 'recovery' && accessToken && refreshToken) {
+        const { error } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        });
+
+        if (error) {
+          setSessionError('Invalid or expired reset link. Please request a new one.');
+        }
+      } else {
+        setSessionError('Invalid reset link. Please request a new password reset.');
+      }
+    } catch (err) {
+      console.error('Error handling recovery token:', err);
+      setSessionError('Something went wrong. Please try again.');
+    } finally {
+      setInitializing(false);
+    }
+  };
 
   const handleUpdatePassword = async () => {
     setError(null);
@@ -92,6 +119,11 @@ export default function ResetPasswordScreen() {
     }
   };
 
+  const handleGoToLogin = () => {
+    clearRecovery();
+    router.replace('/(auth)/login');
+  };
+
   // Loading state while checking token
   if (initializing) {
     return (
@@ -117,7 +149,10 @@ export default function ResetPasswordScreen() {
           <Button
             variant="primary"
             fullWidth
-            onPress={() => router.replace('/(auth)/forgot-password')}
+            onPress={() => {
+              clearRecovery();
+              router.replace('/(auth)/forgot-password');
+            }}
           >
             Request New Link
           </Button>
@@ -125,7 +160,7 @@ export default function ResetPasswordScreen() {
             variant="ghost"
             fullWidth
             className="mt-3"
-            onPress={() => router.replace('/(auth)/login')}
+            onPress={handleGoToLogin}
           >
             Back to Sign In
           </Button>
@@ -146,7 +181,7 @@ export default function ResetPasswordScreen() {
           <Body className="text-center mb-8" color="muted">
             Your password has been successfully updated. You can now sign in with your new password.
           </Body>
-          <Button variant="primary" fullWidth onPress={() => router.replace('/(auth)/login')}>
+          <Button variant="primary" fullWidth onPress={handleGoToLogin}>
             Sign In
           </Button>
         </View>

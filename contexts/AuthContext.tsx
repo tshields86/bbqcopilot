@@ -11,12 +11,14 @@ interface AuthContextType {
   session: Session | null;
   user: User | null;
   loading: boolean;
+  isRecovery: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updatePassword: (newPassword: string) => Promise<void>;
+  clearRecovery: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,6 +26,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isRecovery, setIsRecovery] = useState(false);
   const queryClient = useQueryClient();
   const posthog = usePostHog();
   // Track if user signup event has been fired to prevent duplicates
@@ -39,8 +42,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
+
+      // Track password recovery so index.tsx can redirect to reset-password
+      // instead of sending the user to the main app
+      if (event === 'PASSWORD_RECOVERY') {
+        setIsRecovery(true);
+      }
     });
 
     return () => subscription.unsubscribe();
@@ -157,16 +166,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error;
   }, []);
 
+  const clearRecovery = useCallback(() => {
+    setIsRecovery(false);
+  }, []);
+
   const value: AuthContextType = {
     session,
     user: session?.user ?? null,
     loading,
+    isRecovery,
     signIn,
     signUp,
     signInWithGoogle,
     signOut,
     resetPassword,
     updatePassword,
+    clearRecovery,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
