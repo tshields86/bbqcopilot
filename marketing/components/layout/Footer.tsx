@@ -31,16 +31,14 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-char-400 max-w-md">
-              Your AI pitmaster, tailored to your grill. Get personalized BBQ recipes
-              optimized for your specific equipment, skill level, and time constraints.
+              Your AI pitmaster, tailored to your grill. Get personalized BBQ recipes optimized for
+              your specific equipment, skill level, and time constraints.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-display text-lg font-semibold text-ash-white mb-4">
-              Quick Links
-            </h3>
+            <h3 className="font-display text-lg font-semibold text-ash-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <a
@@ -74,10 +72,26 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-char-700 flex items-center justify-center">
+        <div className="mt-12 pt-8 border-t border-char-700 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-char-500 text-sm">
             &copy; {currentYear} BBQCopilot. All rights reserved.
           </p>
+          <div className="flex gap-6 text-sm">
+            <Link
+              href="/privacy"
+              className="text-char-500 hover:text-ash-white transition-colors"
+              onClick={() => handleNavClick('privacy_policy')}
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-char-500 hover:text-ash-white transition-colors"
+              onClick={() => handleNavClick('terms_of_service')}
+            >
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
