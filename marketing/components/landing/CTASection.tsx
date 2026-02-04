@@ -35,7 +35,7 @@ export function CTASection() {
         {/* Primary CTA */}
         <a
           href={appUrl}
-          className="btn-primary inline-flex text-lg px-10 py-4 mb-12 group"
+          className="btn-primary inline-flex text-lg px-10 py-4 mb-12 group w-full sm:w-auto justify-center"
           onClick={() => handleCtaClick('start_cooking_free')}
         >
           Start Cooking Free
@@ -47,7 +47,7 @@ export function CTASection() {
           <p className="text-char-500 text-sm mb-6">Mobile apps coming soon</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             {/* iOS Badge */}
-            <div className="flex items-center gap-3 px-6 py-3 bg-char-700/50 rounded-lg border border-char-600/30 opacity-60 cursor-not-allowed">
+            <div className="flex items-center justify-center gap-3 px-6 py-3 bg-char-700/50 rounded-lg border border-char-600/30 opacity-60 cursor-not-allowed w-60 sm:w-auto">
               <Apple className="w-8 h-8 text-char-400" />
               <div className="text-left">
                 <p className="text-xs text-char-500">Coming Soon on</p>
@@ -56,7 +56,7 @@ export function CTASection() {
             </div>
 
             {/* Android Badge */}
-            <div className="flex items-center gap-3 px-6 py-3 bg-char-700/50 rounded-lg border border-char-600/30 opacity-60 cursor-not-allowed">
+            <div className="flex items-center justify-center gap-3 px-6 py-3 bg-char-700/50 rounded-lg border border-char-600/30 opacity-60 cursor-not-allowed w-60 sm:w-auto">
               <Smartphone className="w-8 h-8 text-char-400" />
               <div className="text-left">
                 <p className="text-xs text-char-500">Coming Soon on</p>
@@ -67,7 +67,7 @@ export function CTASection() {
             {/* Web Badge */}
             <a
               href={appUrl}
-              className="flex items-center gap-3 px-6 py-3 bg-ember-500/10 rounded-lg border border-ember-500/30 hover:bg-ember-500/20 transition-colors"
+              className="flex items-center justify-center gap-3 px-6 py-3 bg-ember-500/10 rounded-lg border border-ember-500/30 hover:bg-ember-500/20 transition-colors w-60 sm:w-auto"
               onClick={() => handleCtaClick('web_app_badge')}
             >
               <div className="w-8 h-8 rounded-lg bg-ember-500 flex items-center justify-center">

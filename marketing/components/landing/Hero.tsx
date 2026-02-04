@@ -48,7 +48,7 @@ export function Hero() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href={appUrl}
-            className="btn-primary group text-lg px-8 py-4"
+            className="btn-primary group text-lg px-8 py-4 w-full sm:w-auto justify-center"
             onClick={() => handleCtaClick('start_cooking_free')}
           >
             Start Cooking Free
@@ -56,7 +56,7 @@ export function Hero() {
           </a>
           <a
             href="#how-it-works"
-            className="btn-secondary text-lg px-8 py-4"
+            className="btn-secondary text-lg px-8 py-4 w-full sm:w-auto justify-center"
             onClick={() => handleCtaClick('see_how_it_works')}
           >
             See How It Works
