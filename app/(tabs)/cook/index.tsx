@@ -185,7 +185,7 @@ export default function CookScreen() {
       <>
         <Stack.Screen options={{ title: 'Generating Recipe' }} />
         <View className="flex-1 bg-char-black">
-          <GeneratingView streamedContent={streamedContent} isGenerating={isGenerating} />
+          <GeneratingView isGenerating={isGenerating} />
         </View>
       </>
     );
