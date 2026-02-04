@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Pressable } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { AlertCircle, BookmarkPlus, Check } from 'lucide-react-native';
+import { AlertCircle, Bookmark, BookmarkCheck, BookmarkPlus, Check, RefreshCw } from 'lucide-react-native';
 import { useGrills, getPrimaryGrill, useSaveRecipe } from '@/hooks';
 import { useCook } from '@/contexts/CookContext';
 import { GrillSelector, CookInput, ClarificationChat, GeneratingView } from '@/components/cook';
@@ -258,12 +258,37 @@ export default function CookScreen() {
       <>
         <Stack.Screen
           options={{
-            title: recipe.title,
+            headerTitle: () => (
+              <Text
+                numberOfLines={1}
+                style={{ fontFamily: 'SourceSans3_600SemiBold', fontSize: 17, color: '#F5F5F0', paddingRight: 24 }}
+              >
+                {recipe.title}
+              </Text>
+            ),
             headerRight: () => (
-              <View className="mr-4">
-                <Button variant="ghost" size="sm" onPress={handleReset}>
-                  New Cook
-                </Button>
+              <View className="flex-row items-center gap-1 mr-2">
+                <Pressable
+                  onPress={savedRecipeId ? handleViewSavedRecipe : handleSaveRecipe}
+                  disabled={saveRecipeMutation.isPending}
+                  hitSlop={8}
+                  accessibilityLabel={savedRecipeId ? 'View saved recipe' : 'Save recipe'}
+                  className="p-2"
+                >
+                  {savedRecipeId ? (
+                    <BookmarkCheck size={22} color="#B87333" />
+                  ) : (
+                    <Bookmark size={22} color="#F5F5F0" />
+                  )}
+                </Pressable>
+                <Pressable
+                  onPress={handleReset}
+                  hitSlop={8}
+                  accessibilityLabel="New cook"
+                  className="p-2"
+                >
+                  <RefreshCw size={20} color="#F5F5F0" />
+                </Pressable>
               </View>
             ),
           }}
@@ -287,10 +312,15 @@ export default function CookScreen() {
           options={{
             title: 'Quick Questions',
             headerRight: () => (
-              <View className="mr-4">
-                <Button variant="ghost" size="sm" onPress={handleReset}>
-                  New Cook
-                </Button>
+              <View className="mr-2">
+                <Pressable
+                  onPress={handleReset}
+                  hitSlop={8}
+                  accessibilityLabel="New cook"
+                  className="p-2"
+                >
+                  <RefreshCw size={20} color="#F5F5F0" />
+                </Pressable>
               </View>
             ),
           }}
