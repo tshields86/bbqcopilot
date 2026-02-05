@@ -289,7 +289,7 @@ export const mockFavorite: Favorite = {
 
 export const mockClarificationQuestions: ClarificationQuestion[] = [
   {
-    id: 'q-1',
+    id: 'skill_level',
     question: 'What is your skill level?',
     type: 'choice',
     options: ['Beginner', 'Intermediate', 'Advanced'],
