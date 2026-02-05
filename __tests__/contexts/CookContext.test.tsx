@@ -555,12 +555,13 @@ describe('generateRecipeFromAnswers', () => {
 
   it('guards against double-calls', async () => {
     let callCount = 0;
+    let storedOnComplete: (() => void) | null = null;
+
     mockGenerateRecipe.mockImplementation(async (_, onChunk, onComplete) => {
       callCount++;
-      // Simulate slow generation
-      await new Promise((resolve) => setTimeout(resolve, 50));
       onChunk('{"title":"Brisket"}');
-      onComplete();
+      // Store onComplete to call later, simulating async generation
+      storedOnComplete = onComplete;
     });
 
     const { result } = renderHook(() => useCook(), { wrapper });
@@ -570,11 +571,15 @@ describe('generateRecipeFromAnswers', () => {
       result.current.setUserInput('Smoke a brisket');
     });
 
-    // Call twice rapidly
+    // Call twice rapidly - the second call should be guarded by the ref
     await act(async () => {
       result.current.generateRecipeFromAnswers();
       result.current.generateRecipeFromAnswers();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+    });
+
+    // Now complete the generation
+    act(() => {
+      storedOnComplete?.();
     });
 
     expect(callCount).toBe(1);
