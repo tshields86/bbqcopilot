@@ -172,3 +172,7 @@ console.warn = (...args: unknown[]) => {
   }
   originalConsoleWarn(...args);
 };
+
+// Use fake timers globally to prevent timer leaks
+// This helps avoid "worker process failed to exit gracefully" warnings
+jest.useFakeTimers();

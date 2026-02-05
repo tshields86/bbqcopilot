@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 /**
  * Create a fresh QueryClient configured for testing.
- * Disables retries and caching for predictable test behavior.
+ * Disables retries, caching, and background refetching for predictable test behavior.
  */
 export function createTestQueryClient() {
   return new QueryClient({
@@ -11,10 +11,18 @@ export function createTestQueryClient() {
       queries: {
         retry: false,
         gcTime: 0,
+        staleTime: Infinity, // Prevent background refetches
       },
       mutations: {
         retry: false,
+        gcTime: 0,
       },
+    },
+    // Suppress React Query's logger in tests
+    logger: {
+      log: () => {},
+      warn: () => {},
+      error: () => {},
     },
   });
 }
