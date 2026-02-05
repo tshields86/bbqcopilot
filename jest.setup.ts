@@ -38,29 +38,55 @@ jest.mock('expo-web-browser', () => ({
   maybeCompleteAuthSession: jest.fn(),
 }));
 
-// Mock react-native-reanimated
-jest.mock('react-native-reanimated', () => {
-  const Reanimated = require('react-native-reanimated/mock');
-  Reanimated.default.call = () => {};
-  return Reanimated;
-});
+// Mock react-native-reanimated (without using the mock file which has worklets issues)
+jest.mock('react-native-reanimated', () => ({
+  default: {
+    createAnimatedComponent: (component: unknown) => component,
+    View: 'View',
+    Text: 'Text',
+    Image: 'Image',
+    ScrollView: 'ScrollView',
+    call: () => {},
+  },
+  createAnimatedComponent: (component: unknown) => component,
+  useSharedValue: (initialValue: unknown) => ({ value: initialValue }),
+  useAnimatedStyle: () => ({}),
+  useDerivedValue: (fn: () => unknown) => ({ value: fn() }),
+  useAnimatedGestureHandler: () => ({}),
+  withTiming: (value: unknown) => value,
+  withSpring: (value: unknown) => value,
+  withDelay: (_: number, value: unknown) => value,
+  withSequence: (...values: unknown[]) => values[0],
+  withRepeat: (value: unknown) => value,
+  runOnJS: (fn: (...args: unknown[]) => unknown) => fn,
+  runOnUI: (fn: (...args: unknown[]) => unknown) => fn,
+  interpolate: () => 0,
+  Extrapolate: { CLAMP: 'clamp', EXTEND: 'extend', IDENTITY: 'identity' },
+  FadeIn: { duration: () => ({ delay: () => ({}) }) },
+  FadeOut: { duration: () => ({ delay: () => ({}) }) },
+  SlideInRight: { duration: () => ({}) },
+  SlideOutLeft: { duration: () => ({}) },
+  Layout: { duration: () => ({}) },
+  Easing: { linear: (x: number) => x, ease: (x: number) => x },
+  useReducedMotion: () => false,
+  ReduceMotion: { System: 'system', Always: 'always', Never: 'never' },
+}));
 
 // Mock lucide-react-native icons
-jest.mock('lucide-react-native', () => {
-  const { View } = require('react-native');
-  return new Proxy(
+jest.mock('lucide-react-native', () =>
+  new Proxy(
     {},
     {
       get: (_target: unknown, prop: string) => {
         if (prop === '__esModule') return true;
-        // Return a simple View stub for any icon
-        const IconStub = (props: Record<string, unknown>) => View(props);
+        // Return a functional component that renders null
+        const IconStub = () => null;
         IconStub.displayName = prop;
         return IconStub;
       },
     }
-  );
-});
+  )
+);
 
 // Mock @/lib/supabase
 jest.mock('@/lib/supabase', () => ({
