@@ -23,4 +23,30 @@ module.exports = {
     '!lib/database.types.ts',
   ],
   testMatch: ['**/__tests__/**/*.test.{ts,tsx}'],
+  coverageThreshold: {
+    global: {
+      branches: 25,
+      functions: 15,
+      lines: 25,
+      statements: 25,
+    },
+    './lib/': {
+      branches: 85,
+      functions: 45,
+      lines: 70,
+      statements: 70,
+    },
+    './hooks/': {
+      branches: 40,
+      functions: 75,
+      lines: 70,
+      statements: 70,
+    },
+    './contexts/': {
+      branches: 60,
+      functions: 90,
+      lines: 85,
+      statements: 85,
+    },
+  },
 };
