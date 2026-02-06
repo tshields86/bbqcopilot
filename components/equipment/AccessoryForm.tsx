@@ -79,9 +79,7 @@ export function AccessoryForm({
             onChange={setAccessoryType}
           />
           {errors.accessoryType && (
-            <Text className="font-body text-sm text-ember-red mt-1">
-              {errors.accessoryType}
-            </Text>
+            <Text className="font-body text-sm text-ember-red mt-1">{errors.accessoryType}</Text>
           )}
         </View>
 
@@ -132,12 +130,7 @@ export function AccessoryForm({
         {/* Actions */}
         <View className="flex-row gap-3 mt-6">
           {onCancel && (
-            <Button
-              variant="secondary"
-              onPress={onCancel}
-              disabled={isLoading}
-              className="flex-1"
-            >
+            <Button variant="secondary" onPress={onCancel} disabled={isLoading} className="flex-1">
               Cancel
             </Button>
           )}

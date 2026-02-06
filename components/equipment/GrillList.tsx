@@ -33,9 +33,7 @@ export function GrillList({
   if (!grills?.length) {
     return (
       <View className="flex-1 items-center justify-center px-8">
-        <Text className="font-display text-2xl text-ash-white text-center mb-2">
-          No Grills Yet
-        </Text>
+        <Text className="font-display text-2xl text-ash-white text-center mb-2">No Grills Yet</Text>
         <Text className="font-body text-char-300 text-center mb-6">
           Add your first grill to get personalized recipes tailored to your equipment.
         </Text>
@@ -52,25 +50,11 @@ export function GrillList({
       keyExtractor={(item) => item.id}
       contentContainerClassName="p-4 gap-3"
       refreshControl={
-        <RefreshControl
-          refreshing={isRefetching}
-          onRefresh={onRefresh}
-          tintColor="#B87333"
-        />
+        <RefreshControl refreshing={isRefetching} onRefresh={onRefresh} tintColor="#B87333" />
       }
-      renderItem={({ item }) => (
-        <GrillCard
-          grill={item}
-          onPress={() => onGrillPress(item)}
-        />
-      )}
+      renderItem={({ item }) => <GrillCard grill={item} onPress={() => onGrillPress(item)} />}
       ListFooterComponent={
-        <Button
-          variant="secondary"
-          onPress={onAddPress}
-          leftIcon={Plus}
-          className="mt-4"
-        >
+        <Button variant="secondary" onPress={onAddPress} leftIcon={Plus} className="mt-4">
           Add Another Grill
         </Button>
       }

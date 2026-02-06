@@ -129,16 +129,9 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${playfair.variable} ${sourceSans.variable} ${jetbrains.variable}`}
-    >
+    <html lang="en" className={`${playfair.variable} ${sourceSans.variable} ${jetbrains.variable}`}>
       <head>
         <script
           type="application/ld+json"

@@ -11,12 +11,7 @@ import {
 import { supabase } from '@/lib/supabase';
 import { createTestQueryWrapper } from '../helpers/testQueryWrapper';
 import { mockAuthUser, mockSupabaseFrom } from '../helpers/mockSupabase';
-import {
-  mockCookLog,
-  mockCookLog2,
-  mockCookLogNoRating,
-  mockUser,
-} from '../helpers/testFixtures';
+import { mockCookLog, mockCookLog2, mockCookLogNoRating, mockUser } from '../helpers/testFixtures';
 
 beforeEach(() => {
   jest.clearAllMocks();

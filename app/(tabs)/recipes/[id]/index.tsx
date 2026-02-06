@@ -50,9 +50,8 @@ export default function RecipeDetailScreen() {
   }
 
   // Parse recipe_data if it's a string
-  const recipeData = typeof recipe.recipe_data === 'string'
-    ? JSON.parse(recipe.recipe_data)
-    : recipe.recipe_data;
+  const recipeData =
+    typeof recipe.recipe_data === 'string' ? JSON.parse(recipe.recipe_data) : recipe.recipe_data;
 
   return (
     <>
@@ -85,12 +84,7 @@ export default function RecipeDetailScreen() {
 
         {/* Log Cook Button */}
         <View className="p-4 pt-0 border-t border-char-600">
-          <Button
-            variant="primary"
-            onPress={handleLogCook}
-            leftIcon={ClipboardList}
-            fullWidth
-          >
+          <Button variant="primary" onPress={handleLogCook} leftIcon={ClipboardList} fullWidth>
             Log This Cook
           </Button>
         </View>

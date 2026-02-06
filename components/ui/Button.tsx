@@ -115,21 +115,26 @@ export function Button({
       `}
     >
       {loading ? (
-        <ActivityIndicator
-          size="small"
-          color={variant === 'ghost' ? '#C41E3A' : '#F5F5F0'}
-        />
+        <ActivityIndicator size="small" color={variant === 'ghost' ? '#C41E3A' : '#F5F5F0'} />
       ) : (
         <View className="flex-row items-center gap-2">
           {icon && iconPosition === 'left' && icon}
-          {LeftIcon && <LeftIcon size={size === 'sm' ? 16 : size === 'lg' ? 22 : 18} color={variant === 'ghost' ? '#F5F5F0' : '#F5F5F0'} />}
-          <Text
-            className={`font-body-semibold ${sizeStyle.text} ${variantStyle.text}`}
-          >
+          {LeftIcon && (
+            <LeftIcon
+              size={size === 'sm' ? 16 : size === 'lg' ? 22 : 18}
+              color={variant === 'ghost' ? '#F5F5F0' : '#F5F5F0'}
+            />
+          )}
+          <Text className={`font-body-semibold ${sizeStyle.text} ${variantStyle.text}`}>
             {children}
           </Text>
           {icon && iconPosition === 'right' && icon}
-          {RightIcon && <RightIcon size={size === 'sm' ? 16 : size === 'lg' ? 22 : 18} color={variant === 'ghost' ? '#F5F5F0' : '#F5F5F0'} />}
+          {RightIcon && (
+            <RightIcon
+              size={size === 'sm' ? 16 : size === 'lg' ? 22 : 18}
+              color={variant === 'ghost' ? '#F5F5F0' : '#F5F5F0'}
+            />
+          )}
         </View>
       )}
     </AnimatedPressable>

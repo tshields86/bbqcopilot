@@ -1,6 +1,7 @@
-import { renderHook, act, waitFor } from '@testing-library/react-native';
+import { renderHook, act } from '@testing-library/react-native';
 import { CookProvider, useCook } from '@/contexts/CookContext';
 import * as api from '@/lib/api';
+import type { RateLimitError } from '@/lib/types';
 import { mockGrill, mockClarificationQuestions, mockRecipeData } from '../helpers/testFixtures';
 
 // Mock dependencies
@@ -14,7 +15,9 @@ jest.mock('posthog-react-native', () => ({
   })),
 }));
 
-const mockAskClarification = api.askClarification as jest.MockedFunction<typeof api.askClarification>;
+const mockAskClarification = api.askClarification as jest.MockedFunction<
+  typeof api.askClarification
+>;
 const mockGenerateRecipe = api.generateRecipe as jest.MockedFunction<typeof api.generateRecipe>;
 
 // Get reference to mocked hooks
@@ -250,9 +253,7 @@ describe('startClarification', () => {
       await result.current.startClarification();
     });
 
-    const skillAnswer = result.current.answers.find(
-      (a) => a.question.id === 'skill_level'
-    );
+    const skillAnswer = result.current.answers.find((a) => a.question.id === 'skill_level');
     expect(skillAnswer?.answer).toBe('Intermediate');
 
     // Reset mock for other tests
@@ -506,7 +507,7 @@ describe('generateRecipeFromAnswers', () => {
   });
 
   it('handles rate limit error', async () => {
-    const rateLimitError = {
+    const rateLimitError: RateLimitError = {
       error: 'Rate limit exceeded',
       message: 'Monthly limit reached',
       resetDate: '2024-04-01T00:00:00Z',
@@ -607,10 +608,13 @@ describe('generateRecipeFromAnswers', () => {
       await result.current.generateRecipeFromAnswers();
     });
 
-    expect(mockCapture).toHaveBeenCalledWith('recipe_generated', expect.objectContaining({
-      protein: mockRecipeData.title,
-      grill_type: mockGrill.grill_type,
-    }));
+    expect(mockCapture).toHaveBeenCalledWith(
+      'recipe_generated',
+      expect.objectContaining({
+        protein: mockRecipeData.title,
+        grill_type: mockGrill.grill_type,
+      })
+    );
   });
 });
 

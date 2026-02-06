@@ -23,7 +23,18 @@ export default function AddAccessoryScreen() {
 
   const handleSubmit = async (data: {
     name: string;
-    accessory_type: 'rotisserie' | 'griddle' | 'pizza_stone' | 'soapstone' | 'smoking_stone' | 'grill_expander' | 'heat_deflector' | 'cold_smoker' | 'thermometer' | 'cover' | 'other';
+    accessory_type:
+      | 'rotisserie'
+      | 'griddle'
+      | 'pizza_stone'
+      | 'soapstone'
+      | 'smoking_stone'
+      | 'grill_expander'
+      | 'heat_deflector'
+      | 'cold_smoker'
+      | 'thermometer'
+      | 'cover'
+      | 'other';
     brand: string;
     notes: string;
   }) => {

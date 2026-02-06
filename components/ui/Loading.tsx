@@ -29,9 +29,7 @@ const sizePx = {
 };
 
 export function LoadingSpinner({ size = 'md', color = '#C41E3A' }: LoadingSpinnerProps) {
-  return (
-    <ActivityIndicator size={sizeMap[size]} color={color} />
-  );
+  return <ActivityIndicator size={sizeMap[size]} color={color} />;
 }
 
 // BBQ-themed flame loading indicator
@@ -49,10 +47,7 @@ export function FlameLoader({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
       true
     );
     opacity.value = withRepeat(
-      withSequence(
-        withTiming(1, { duration: 500 }),
-        withTiming(0.7, { duration: 500 })
-      ),
+      withSequence(withTiming(1, { duration: 500 }), withTiming(0.7, { duration: 500 })),
       -1,
       true
     );

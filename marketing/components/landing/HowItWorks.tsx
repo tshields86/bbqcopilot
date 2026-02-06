@@ -6,7 +6,7 @@ const steps = [
     number: '01',
     title: 'Add Your Equipment',
     description:
-      'Kamado Joe? Weber? Pellet smoker? Offset? Tell us what you\'re cooking with, including accessories like rotisseries and pizza stones.',
+      "Kamado Joe? Weber? Pellet smoker? Offset? Tell us what you're cooking with, including accessories like rotisseries and pizza stones.",
   },
   {
     icon: MessageSquare,
@@ -53,9 +53,7 @@ export function HowItWorks() {
                   <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-ember-500 to-copper flex items-center justify-center">
                     <step.icon className="w-7 h-7 text-white" />
                   </div>
-                  <span className="font-mono text-3xl font-bold text-char-600">
-                    {step.number}
-                  </span>
+                  <span className="font-mono text-3xl font-bold text-char-600">{step.number}</span>
                 </div>
 
                 {/* Content */}

@@ -3,7 +3,12 @@ import { View, Text, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Plus, Check, ArrowRight } from 'lucide-react-native';
-import { useAccessories, useCreateAccessory, useCompleteOnboarding, useDeleteAccessory } from '@/hooks';
+import {
+  useAccessories,
+  useCreateAccessory,
+  useCompleteOnboarding,
+  useDeleteAccessory,
+} from '@/hooks';
 import { AccessoryForm, AccessoryCard } from '@/components/equipment';
 import { Button, H2, Body, Card, FlameLoader } from '@/components/ui';
 import { useAnalytics } from '@/lib/analytics';
@@ -20,7 +25,18 @@ export default function AddAccessoriesScreen() {
 
   const handleAddAccessory = async (data: {
     name: string;
-    accessory_type: 'rotisserie' | 'griddle' | 'pizza_stone' | 'soapstone' | 'smoking_stone' | 'grill_expander' | 'heat_deflector' | 'cold_smoker' | 'thermometer' | 'cover' | 'other';
+    accessory_type:
+      | 'rotisserie'
+      | 'griddle'
+      | 'pizza_stone'
+      | 'soapstone'
+      | 'smoking_stone'
+      | 'grill_expander'
+      | 'heat_deflector'
+      | 'cold_smoker'
+      | 'thermometer'
+      | 'cover'
+      | 'other';
     brand: string;
     notes: string;
   }) => {
@@ -90,9 +106,7 @@ export default function AddAccessoriesScreen() {
     <SafeAreaView className="flex-1 bg-char-black">
       <ScrollView className="flex-1" contentContainerClassName="p-6">
         {/* Header */}
-        <H2 className="text-center mb-2">
-          Add Accessories
-        </H2>
+        <H2 className="text-center mb-2">Add Accessories</H2>
         <Body className="text-char-300 text-center mb-6">
           Add any accessories for {decodeURIComponent(grillName || '')} (optional)
         </Body>
@@ -110,9 +124,7 @@ export default function AddAccessoriesScreen() {
           </View>
         ) : (
           <Card variant="outlined" className="items-center py-8 mb-6">
-            <Text className="font-body text-char-300 text-center">
-              No accessories added yet.
-            </Text>
+            <Text className="font-body text-char-300 text-center">No accessories added yet.</Text>
             <Text className="font-body text-sm text-char-300/70 text-center mt-1">
               Accessories help us tailor recipes to your setup.
             </Text>
@@ -120,12 +132,7 @@ export default function AddAccessoriesScreen() {
         )}
 
         {/* Add Button */}
-        <Button
-          variant="secondary"
-          onPress={() => setShowAddForm(true)}
-          leftIcon={Plus}
-          fullWidth
-        >
+        <Button variant="secondary" onPress={() => setShowAddForm(true)} leftIcon={Plus} fullWidth>
           Add Accessory
         </Button>
       </ScrollView>

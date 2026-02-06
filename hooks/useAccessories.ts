@@ -24,18 +24,17 @@ async function fetchAccessoriesForGrill(grillId: string): Promise<Accessory[]> {
 
 // Create a new accessory
 async function createAccessory(accessory: AccessoryInsert): Promise<Accessory> {
-  const { data, error } = await supabase
-    .from('accessories')
-    .insert(accessory)
-    .select()
-    .single();
+  const { data, error } = await supabase.from('accessories').insert(accessory).select().single();
 
   if (error) throw error;
   return data as Accessory;
 }
 
 // Update an existing accessory
-async function updateAccessory({ id, ...updates }: AccessoryUpdate & { id: string }): Promise<Accessory> {
+async function updateAccessory({
+  id,
+  ...updates
+}: AccessoryUpdate & { id: string }): Promise<Accessory> {
   const { data, error } = await supabase
     .from('accessories')
     .update(updates)
@@ -80,7 +79,10 @@ export function useCreateAccessory() {
       await queryClient.cancelQueries({ queryKey: [...ACCESSORIES_KEY, grillId] });
       await queryClient.cancelQueries({ queryKey: GRILLS_KEY });
 
-      const previousAccessories = queryClient.getQueryData<Accessory[]>([...ACCESSORIES_KEY, grillId]);
+      const previousAccessories = queryClient.getQueryData<Accessory[]>([
+        ...ACCESSORIES_KEY,
+        grillId,
+      ]);
       const previousGrills = queryClient.getQueryData<Grill[]>(GRILLS_KEY);
 
       // Optimistic accessory
@@ -118,7 +120,10 @@ export function useCreateAccessory() {
     },
     onError: (_, newAccessory, context) => {
       if (context?.previousAccessories) {
-        queryClient.setQueryData([...ACCESSORIES_KEY, context.grillId], context.previousAccessories);
+        queryClient.setQueryData(
+          [...ACCESSORIES_KEY, context.grillId],
+          context.previousAccessories
+        );
       }
       if (context?.previousGrills) {
         queryClient.setQueryData(GRILLS_KEY, context.previousGrills);
@@ -157,7 +162,10 @@ export function useUpdateAccessory() {
       await queryClient.cancelQueries({ queryKey: [...ACCESSORIES_KEY, grillId] });
       await queryClient.cancelQueries({ queryKey: GRILLS_KEY });
 
-      const previousAccessories = queryClient.getQueryData<Accessory[]>([...ACCESSORIES_KEY, grillId]);
+      const previousAccessories = queryClient.getQueryData<Accessory[]>([
+        ...ACCESSORIES_KEY,
+        grillId,
+      ]);
       const previousGrills = queryClient.getQueryData<Grill[]>(GRILLS_KEY);
 
       // Update accessories list
@@ -191,7 +199,10 @@ export function useUpdateAccessory() {
     },
     onError: (_, __, context) => {
       if (context?.previousAccessories && context?.grillId) {
-        queryClient.setQueryData([...ACCESSORIES_KEY, context.grillId], context.previousAccessories);
+        queryClient.setQueryData(
+          [...ACCESSORIES_KEY, context.grillId],
+          context.previousAccessories
+        );
       }
       if (context?.previousGrills) {
         queryClient.setQueryData(GRILLS_KEY, context.previousGrills);
@@ -216,7 +227,10 @@ export function useDeleteAccessory() {
       await queryClient.cancelQueries({ queryKey: [...ACCESSORIES_KEY, grillId] });
       await queryClient.cancelQueries({ queryKey: GRILLS_KEY });
 
-      const previousAccessories = queryClient.getQueryData<Accessory[]>([...ACCESSORIES_KEY, grillId]);
+      const previousAccessories = queryClient.getQueryData<Accessory[]>([
+        ...ACCESSORIES_KEY,
+        grillId,
+      ]);
       const previousGrills = queryClient.getQueryData<Grill[]>(GRILLS_KEY);
 
       // Update accessories list
@@ -232,9 +246,7 @@ export function useDeleteAccessory() {
         queryClient.setQueryData<Grill[]>(
           GRILLS_KEY,
           previousGrills.map((g) =>
-            g.id === grillId
-              ? { ...g, accessories: g.accessories?.filter((a) => a.id !== id) }
-              : g
+            g.id === grillId ? { ...g, accessories: g.accessories?.filter((a) => a.id !== id) } : g
           )
         );
       }
@@ -243,7 +255,10 @@ export function useDeleteAccessory() {
     },
     onError: (_, __, context) => {
       if (context?.previousAccessories && context?.grillId) {
-        queryClient.setQueryData([...ACCESSORIES_KEY, context.grillId], context.previousAccessories);
+        queryClient.setQueryData(
+          [...ACCESSORIES_KEY, context.grillId],
+          context.previousAccessories
+        );
       }
       if (context?.previousGrills) {
         queryClient.setQueryData(GRILLS_KEY, context.previousGrills);
@@ -259,8 +274,16 @@ export function useDeleteAccessory() {
 // Accessory type metadata for UI
 export const ACCESSORY_TYPES: { value: AccessoryType; label: string; description: string }[] = [
   { value: 'rotisserie', label: 'Rotisserie', description: 'Rotating spit for even cooking' },
-  { value: 'griddle', label: 'Griddle', description: 'Flat cooking surface for breakfast or smash burgers' },
-  { value: 'pizza_stone', label: 'Pizza Stone', description: 'Stone surface for crispy pizza crust' },
+  {
+    value: 'griddle',
+    label: 'Griddle',
+    description: 'Flat cooking surface for breakfast or smash burgers',
+  },
+  {
+    value: 'pizza_stone',
+    label: 'Pizza Stone',
+    description: 'Stone surface for crispy pizza crust',
+  },
   { value: 'soapstone', label: 'Soapstone', description: 'Heat-retaining stone for searing' },
   { value: 'smoking_stone', label: 'Smoking Stone', description: 'Stone for indirect smoking' },
   { value: 'grill_expander', label: 'Grill Expander', description: 'Additional cooking surface' },

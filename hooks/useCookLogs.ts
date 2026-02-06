@@ -6,12 +6,15 @@ const COOK_LOGS_KEY = ['cook_logs'];
 
 // Fetch a single cook log by ID
 async function fetchCookLog(id: string): Promise<CookLog> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   const { data, error } = await supabase
     .from('cook_logs')
-    .select(`
+    .select(
+      `
       *,
       recipe:recipes(
         id,
@@ -19,7 +22,8 @@ async function fetchCookLog(id: string): Promise<CookLog> {
         proteins,
         grill:grills(name, grill_type)
       )
-    `)
+    `
+    )
     .eq('id', id)
     .eq('user_id', user.id)
     .single();
@@ -30,12 +34,15 @@ async function fetchCookLog(id: string): Promise<CookLog> {
 
 // Fetch all cook logs for the current user
 async function fetchCookLogs(): Promise<CookLog[]> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   const { data, error } = await supabase
     .from('cook_logs')
-    .select(`
+    .select(
+      `
       *,
       recipe:recipes(
         id,
@@ -43,7 +50,8 @@ async function fetchCookLogs(): Promise<CookLog[]> {
         proteins,
         grill:grills(name, grill_type)
       )
-    `)
+    `
+    )
     .eq('user_id', user.id)
     .order('cooked_at', { ascending: false });
 
@@ -53,7 +61,9 @@ async function fetchCookLogs(): Promise<CookLog[]> {
 
 // Fetch cook logs for a specific recipe
 async function fetchCookLogsForRecipe(recipeId: string): Promise<CookLog[]> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   const { data, error } = await supabase
@@ -78,7 +88,9 @@ async function createCookLog(log: {
   weatherConditions?: WeatherConditions;
   actualTimeMinutes?: number;
 }): Promise<CookLog> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   const insertData = {
@@ -89,7 +101,9 @@ async function createCookLog(log: {
     what_worked: log.whatWorked || null,
     what_to_improve: log.whatToImprove || null,
     photos: log.photos || [],
-    weather_conditions: log.weatherConditions ? JSON.parse(JSON.stringify(log.weatherConditions)) : null,
+    weather_conditions: log.weatherConditions
+      ? JSON.parse(JSON.stringify(log.weatherConditions))
+      : null,
     actual_time_minutes: log.actualTimeMinutes || null,
     cooked_at: new Date().toISOString(),
   };
@@ -97,7 +111,8 @@ async function createCookLog(log: {
   const { data, error } = await supabase
     .from('cook_logs')
     .insert(insertData)
-    .select(`
+    .select(
+      `
       *,
       recipe:recipes(
         id,
@@ -105,7 +120,8 @@ async function createCookLog(log: {
         proteins,
         grill:grills(name, grill_type)
       )
-    `)
+    `
+    )
     .single();
 
   if (error) throw error;
@@ -135,7 +151,8 @@ async function updateCookLog({
     .from('cook_logs')
     .update(updateData)
     .eq('id', id)
-    .select(`
+    .select(
+      `
       *,
       recipe:recipes(
         id,
@@ -143,7 +160,8 @@ async function updateCookLog({
         proteins,
         grill:grills(name, grill_type)
       )
-    `)
+    `
+    )
     .single();
 
   if (error) throw error;

@@ -19,7 +19,9 @@ export default function AuthCallbackScreen() {
   return (
     <View className="flex-1 bg-char-800 items-center justify-center">
       <FlameLoader size="lg" />
-      <Body color="muted" className="mt-4">Signing you in...</Body>
+      <Body color="muted" className="mt-4">
+        Signing you in...
+      </Body>
     </View>
   );
 }

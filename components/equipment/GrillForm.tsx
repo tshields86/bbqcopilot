@@ -32,9 +32,7 @@ export function GrillForm({
   footer,
 }: GrillFormProps) {
   const [name, setName] = useState(initialData?.name ?? '');
-  const [grillType, setGrillType] = useState<GrillType | null>(
-    initialData?.grill_type ?? null
-  );
+  const [grillType, setGrillType] = useState<GrillType | null>(initialData?.grill_type ?? null);
   const [brand, setBrand] = useState(initialData?.brand ?? '');
   const [model, setModel] = useState(initialData?.model ?? '');
   const [notes, setNotes] = useState(initialData?.notes ?? '');
@@ -84,9 +82,7 @@ export function GrillForm({
             onChange={setGrillType}
           />
           {errors.grillType && (
-            <Text className="font-body text-sm text-ember-red mt-1">
-              {errors.grillType}
-            </Text>
+            <Text className="font-body text-sm text-ember-red mt-1">{errors.grillType}</Text>
           )}
         </View>
 
@@ -147,12 +143,7 @@ export function GrillForm({
         {/* Actions */}
         <View className="flex-row gap-3 mt-6">
           {onCancel && (
-            <Button
-              variant="secondary"
-              onPress={onCancel}
-              disabled={isLoading}
-              className="flex-1"
-            >
+            <Button variant="secondary" onPress={onCancel} disabled={isLoading} className="flex-1">
               Cancel
             </Button>
           )}

@@ -1,0 +1,14 @@
+# Build output
+.next/
+marketing/.next/
+out/
+dist/
+
+# Dependencies
+node_modules/
+
+# Coverage
+coverage/
+
+# Expo
+.expo/

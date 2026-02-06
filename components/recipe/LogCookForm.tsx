@@ -54,9 +54,7 @@ export function LogCookForm({ recipeName, onSubmit, onCancel, isLoading }: LogCo
 
         {/* Rating */}
         <View className="mb-6">
-          <Text className="font-body text-sm text-char-300 mb-2">
-            How did it turn out?
-          </Text>
+          <Text className="font-body text-sm text-char-300 mb-2">How did it turn out?</Text>
           <View className="flex-row gap-2">
             {[1, 2, 3, 4, 5].map((value) => (
               <Pressable
@@ -126,12 +124,7 @@ export function LogCookForm({ recipeName, onSubmit, onCancel, isLoading }: LogCo
         {/* Actions */}
         <View className="flex-row gap-3 mt-6">
           {onCancel && (
-            <Button
-              variant="secondary"
-              onPress={onCancel}
-              disabled={isLoading}
-              className="flex-1"
-            >
+            <Button variant="secondary" onPress={onCancel} disabled={isLoading} className="flex-1">
               Cancel
             </Button>
           )}

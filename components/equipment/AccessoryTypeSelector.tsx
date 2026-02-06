@@ -13,9 +13,7 @@ interface AccessoryTypeSelectorProps {
 export function AccessoryTypeSelector({ value, onChange, label }: AccessoryTypeSelectorProps) {
   return (
     <View className="mb-4">
-      {label && (
-        <Text className="font-body text-sm text-char-300 mb-2">{label}</Text>
-      )}
+      {label && <Text className="font-body text-sm text-char-300 mb-2">{label}</Text>}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -29,9 +27,10 @@ export function AccessoryTypeSelector({ value, onChange, label }: AccessoryTypeS
               onPress={() => onChange(type.value)}
               className={`
                 w-24 p-3 rounded-xl border-2
-                ${isSelected
-                  ? 'border-ember-red bg-ember-red/10'
-                  : 'border-char-500/30 bg-char-black/50'
+                ${
+                  isSelected
+                    ? 'border-ember-red bg-ember-red/10'
+                    : 'border-char-500/30 bg-char-black/50'
                 }
               `}
             >

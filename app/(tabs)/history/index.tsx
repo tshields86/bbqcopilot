@@ -42,11 +42,7 @@ export default function HistoryScreen() {
           <Text className="font-body text-char-300 text-center mb-6">
             Log your cooks to track what works and improve over time.
           </Text>
-          <Button
-            variant="primary"
-            onPress={() => router.push('/(tabs)/cook')}
-            leftIcon={Plus}
-          >
+          <Button variant="primary" onPress={() => router.push('/(tabs)/cook')} leftIcon={Plus}>
             Start a New Cook
           </Button>
         </View>
@@ -55,17 +51,20 @@ export default function HistoryScreen() {
   }
 
   // Group logs by month
-  const groupedLogs = logs.reduce((acc, log) => {
-    const date = new Date(log.cooked_at);
-    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-    const monthLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const groupedLogs = logs.reduce(
+    (acc, log) => {
+      const date = new Date(log.cooked_at);
+      const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      const monthLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
-    if (!acc[monthKey]) {
-      acc[monthKey] = { label: monthLabel, logs: [] };
-    }
-    acc[monthKey].logs.push(log);
-    return acc;
-  }, {} as Record<string, { label: string; logs: CookLog[] }>);
+      if (!acc[monthKey]) {
+        acc[monthKey] = { label: monthLabel, logs: [] };
+      }
+      acc[monthKey].logs.push(log);
+      return acc;
+    },
+    {} as Record<string, { label: string; logs: CookLog[] }>
+  );
 
   const sections = Object.entries(groupedLogs)
     .sort(([a], [b]) => b.localeCompare(a))
@@ -89,24 +88,14 @@ export default function HistoryScreen() {
           keyExtractor={(item) => item.key}
           contentContainerClassName="p-4"
           refreshControl={
-            <RefreshControl
-              refreshing={isRefetching}
-              onRefresh={refetch}
-              tintColor="#B87333"
-            />
+            <RefreshControl refreshing={isRefetching} onRefresh={refetch} tintColor="#B87333" />
           }
           renderItem={({ item: section }) => (
             <View className="mb-6">
-              <Text className="font-display text-lg text-ash-white mb-3">
-                {section.label}
-              </Text>
+              <Text className="font-display text-lg text-ash-white mb-3">{section.label}</Text>
               <View className="gap-3">
                 {section.logs.map((log) => (
-                  <CookLogCard
-                    key={log.id}
-                    log={log}
-                    onPress={() => handleLogPress(log)}
-                  />
+                  <CookLogCard key={log.id} log={log} onPress={() => handleLogPress(log)} />
                 ))}
               </View>
             </View>

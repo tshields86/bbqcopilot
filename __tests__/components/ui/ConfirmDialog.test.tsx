@@ -32,13 +32,7 @@ describe('ConfirmDialog', () => {
   });
 
   it('uses custom button labels when provided', () => {
-    render(
-      <ConfirmDialog
-        {...defaultProps}
-        confirmLabel="Yes, Delete"
-        cancelLabel="No, Keep"
-      />
-    );
+    render(<ConfirmDialog {...defaultProps} confirmLabel="Yes, Delete" cancelLabel="No, Keep" />);
 
     expect(screen.getByText('Yes, Delete')).toBeTruthy();
     expect(screen.getByText('No, Keep')).toBeTruthy();

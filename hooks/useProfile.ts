@@ -11,7 +11,9 @@ type ProfileUpdate = UpdateTables<'profiles'>;
 
 // Fetch the current user's profile
 async function fetchProfile(): Promise<Profile | null> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) return null;
 
   const { data, error } = await supabase
@@ -31,7 +33,9 @@ async function fetchProfile(): Promise<Profile | null> {
 
 // Update the current user's profile
 async function updateProfile(updates: ProfileUpdate): Promise<Profile> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   const { data, error } = await supabase
@@ -133,6 +137,14 @@ export function useCompleteOnboarding() {
 // Skill level options for UI
 export const SKILL_LEVELS = [
   { value: 'beginner', label: 'Beginner', description: 'New to grilling and smoking' },
-  { value: 'intermediate', label: 'Intermediate', description: 'Comfortable with basics, learning advanced techniques' },
-  { value: 'advanced', label: 'Advanced', description: 'Experienced pitmaster, ready for any challenge' },
+  {
+    value: 'intermediate',
+    label: 'Intermediate',
+    description: 'Comfortable with basics, learning advanced techniques',
+  },
+  {
+    value: 'advanced',
+    label: 'Advanced',
+    description: 'Experienced pitmaster, ready for any challenge',
+  },
 ] as const;

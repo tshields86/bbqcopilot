@@ -213,10 +213,7 @@ describe('ClarificationChat', () => {
     fireEvent(textInput, 'blur');
 
     await waitFor(() => {
-      expect(mockOnAnswer).toHaveBeenCalledWith(
-        mockClarificationQuestions[2],
-        'Spicy and smoky'
-      );
+      expect(mockOnAnswer).toHaveBeenCalledWith(mockClarificationQuestions[2], 'Spicy and smoky');
     });
   });
 });

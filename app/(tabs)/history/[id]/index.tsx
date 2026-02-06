@@ -132,10 +132,7 @@ export default function CookLogDetailScreen() {
             ) : null,
         }}
       />
-      <ScrollView
-        className="flex-1 bg-char-black"
-        contentContainerClassName="p-4"
-      >
+      <ScrollView className="flex-1 bg-char-black" contentContainerClassName="p-4">
         {/* Header Card */}
         <Card className="mb-4">
           <View className="flex-row items-center gap-3 mb-3">
@@ -147,9 +144,7 @@ export default function CookLogDetailScreen() {
                 {log.recipe?.title || 'Quick Cook'}
               </Text>
               {log.recipe?.grill && (
-                <Text className="font-body text-sm text-char-300">
-                  on {log.recipe.grill.name}
-                </Text>
+                <Text className="font-body text-sm text-char-300">on {log.recipe.grill.name}</Text>
               )}
             </View>
           </View>
@@ -157,9 +152,7 @@ export default function CookLogDetailScreen() {
           <View className="flex-row items-center gap-4">
             <View className="flex-row items-center gap-2">
               <Calendar size={16} color="#4A4A4A" />
-              <Text className="font-body text-sm text-char-300">
-                {formatDate(log.cooked_at)}
-              </Text>
+              <Text className="font-body text-sm text-char-300">{formatDate(log.cooked_at)}</Text>
             </View>
 
             {log.actual_time_minutes && (
@@ -175,9 +168,7 @@ export default function CookLogDetailScreen() {
 
         {/* Rating Section */}
         <Card className="mb-4">
-          <Text className="font-body-semibold text-base text-ash-white mb-3">
-            Rating
-          </Text>
+          <Text className="font-body-semibold text-base text-ash-white mb-3">Rating</Text>
           {isEditing ? (
             <View>
               {renderRating(rating, true)}
@@ -198,9 +189,7 @@ export default function CookLogDetailScreen() {
 
         {/* Notes Section */}
         <Card className="mb-4">
-          <Text className="font-body-semibold text-base text-ash-white mb-3">
-            Notes
-          </Text>
+          <Text className="font-body-semibold text-base text-ash-white mb-3">Notes</Text>
           {isEditing ? (
             <Input
               placeholder="How was the cook?"
@@ -218,9 +207,7 @@ export default function CookLogDetailScreen() {
 
         {/* What Worked Section */}
         <Card className="mb-4">
-          <Text className="font-body-semibold text-base text-ash-white mb-3">
-            What Worked
-          </Text>
+          <Text className="font-body-semibold text-base text-ash-white mb-3">What Worked</Text>
           {isEditing ? (
             <Input
               placeholder="Techniques, timings, temperatures..."
@@ -238,9 +225,7 @@ export default function CookLogDetailScreen() {
 
         {/* What to Improve Section */}
         <Card className="mb-4">
-          <Text className="font-body-semibold text-base text-ash-white mb-3">
-            What to Improve
-          </Text>
+          <Text className="font-body-semibold text-base text-ash-white mb-3">What to Improve</Text>
           {isEditing ? (
             <Input
               placeholder="Things to try differently..."

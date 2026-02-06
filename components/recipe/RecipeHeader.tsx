@@ -49,12 +49,8 @@ export function RecipeHeader({ recipe }: RecipeHeaderProps) {
 
   return (
     <Card variant="elevated" className="mb-4">
-      <Text className="font-display text-2xl text-ash-white mb-2">
-        {recipe.title}
-      </Text>
-      <Text className="font-body text-char-300 mb-4">
-        {recipe.description}
-      </Text>
+      <Text className="font-display text-2xl text-ash-white mb-2">{recipe.title}</Text>
+      <Text className="font-body text-char-300 mb-4">{recipe.description}</Text>
 
       <View className="flex-row flex-wrap items-center gap-3">
         {/* Time */}
@@ -85,7 +81,10 @@ export function RecipeHeader({ recipe }: RecipeHeaderProps) {
           <Text className="font-body-medium text-sm text-char-300 mb-2">Proteins</Text>
           <View className="flex-row flex-wrap gap-2">
             {recipe.proteins.map((protein, index) => (
-              <View key={index} className="flex-row items-center gap-1.5 bg-ember-red/10 px-3 py-1.5 rounded-full">
+              <View
+                key={index}
+                className="flex-row items-center gap-1.5 bg-ember-red/10 px-3 py-1.5 rounded-full"
+              >
                 <Flame size={12} color="#C41E3A" />
                 <Text className="font-body-medium text-sm text-ash-white">
                   {protein.name} ({protein.weight})

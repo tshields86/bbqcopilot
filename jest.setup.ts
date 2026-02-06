@@ -73,19 +73,21 @@ jest.mock('react-native-reanimated', () => ({
 }));
 
 // Mock lucide-react-native icons
-jest.mock('lucide-react-native', () =>
-  new Proxy(
-    {},
-    {
-      get: (_target: unknown, prop: string) => {
-        if (prop === '__esModule') return true;
-        // Return a functional component that renders null
-        const IconStub = () => null;
-        IconStub.displayName = prop;
-        return IconStub;
-      },
-    }
-  )
+jest.mock(
+  'lucide-react-native',
+  () =>
+    new Proxy(
+      {},
+      {
+        get: (_target: unknown, prop: string) => {
+          if (prop === '__esModule') return true;
+          // Return a functional component that renders null
+          const IconStub = () => null;
+          IconStub.displayName = prop;
+          return IconStub;
+        },
+      }
+    )
 );
 
 // Mock @/lib/supabase

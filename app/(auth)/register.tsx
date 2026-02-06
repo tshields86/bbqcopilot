@@ -81,8 +81,8 @@ export default function RegisterScreen() {
         <View className="bg-success/20 border border-success rounded-lg p-6 max-w-sm">
           <H2 className="text-center mb-4">Check Your Email</H2>
           <Body className="text-center mb-6">
-            We've sent a confirmation link to {email}. Please check your inbox and click the link
-            to verify your account.
+            We've sent a confirmation link to {email}. Please check your inbox and click the link to
+            verify your account.
           </Body>
           <Button variant="primary" fullWidth onPress={() => router.replace('/(auth)/login')}>
             Back to Sign In
@@ -97,16 +97,10 @@ export default function RegisterScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       className="flex-1 bg-char-800"
     >
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-      >
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
         <View className="flex-1 p-6">
           {/* Back Button */}
-          <Pressable
-            className="flex-row items-center mb-8 mt-12"
-            onPress={() => router.back()}
-          >
+          <Pressable className="flex-row items-center mb-8 mt-12" onPress={() => router.back()}>
             <ArrowLeft size={24} color="#F5F5F0" />
             <Body className="ml-2">Back</Body>
           </Pressable>

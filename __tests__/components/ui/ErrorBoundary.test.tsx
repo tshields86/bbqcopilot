@@ -1,7 +1,12 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react-native';
 import { Text, View } from 'react-native';
-import { ErrorBoundary, ErrorFallback, EmptyState, NetworkError } from '@/components/ui/ErrorBoundary';
+import {
+  ErrorBoundary,
+  ErrorFallback,
+  EmptyState,
+  NetworkError,
+} from '@/components/ui/ErrorBoundary';
 
 // Mock posthog
 jest.mock('@/lib/posthog', () => ({

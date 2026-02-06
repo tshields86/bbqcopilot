@@ -16,7 +16,15 @@ export default function AddGrillScreen() {
 
   const handleSubmit = async (data: {
     name: string;
-    grill_type: 'kamado' | 'gas' | 'charcoal' | 'pellet' | 'offset' | 'kettle' | 'electric' | 'other';
+    grill_type:
+      | 'kamado'
+      | 'gas'
+      | 'charcoal'
+      | 'pellet'
+      | 'offset'
+      | 'kettle'
+      | 'electric'
+      | 'other';
     brand: string;
     model: string;
     notes: string;
@@ -32,7 +40,9 @@ export default function AddGrillScreen() {
       // equipment_added event is tracked in useCreateGrill hook
       trackOnboardingStepCompleted('add_grill');
       // Navigate to add accessories for this grill
-      router.push(`/onboarding/add-accessories?grillId=${grill.id}&grillName=${encodeURIComponent(grill.name)}`);
+      router.push(
+        `/onboarding/add-accessories?grillId=${grill.id}&grillName=${encodeURIComponent(grill.name)}`
+      );
     } catch (error) {
       console.error('Failed to create grill:', error);
     }
@@ -55,9 +65,7 @@ export default function AddGrillScreen() {
       <View className="flex-1">
         {/* Header */}
         <View className="p-6 pb-2">
-          <H2 className="text-center mb-2">
-            Add Your First Grill
-          </H2>
+          <H2 className="text-center mb-2">Add Your First Grill</H2>
           <Body className="text-char-300 text-center">
             Tell us about your grill so we can create personalized recipes
           </Body>
@@ -69,11 +77,7 @@ export default function AddGrillScreen() {
           isLoading={createGrill.isPending}
           submitLabel="Continue"
           footer={
-            <Button
-              variant="ghost"
-              onPress={() => setShowSkipConfirm(true)}
-              fullWidth
-            >
+            <Button variant="ghost" onPress={() => setShowSkipConfirm(true)} fullWidth>
               Skip for now
             </Button>
           }

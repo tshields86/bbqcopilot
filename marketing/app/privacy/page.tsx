@@ -16,9 +16,7 @@ export default function PrivacyPolicyPage() {
         <h1 className="font-display text-4xl md:text-5xl font-bold text-ash-white mb-4">
           Privacy Policy
         </h1>
-        <p className="text-char-400 mb-12">
-          Effective Date: February 4, 2026
-        </p>
+        <p className="text-char-400 mb-12">Effective Date: February 4, 2026</p>
 
         <div className="space-y-10 text-char-300 leading-relaxed text-base md:text-lg">
           <section>
@@ -26,10 +24,10 @@ export default function PrivacyPolicyPage() {
               1. Introduction
             </h2>
             <p>
-              BBQCopilot (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates the BBQCopilot
-              application and website (collectively, the &quot;Service&quot;). This Privacy Policy
-              explains how we collect, use, disclose, and safeguard your information when you use our
-              Service.
+              BBQCopilot (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates the
+              BBQCopilot application and website (collectively, the &quot;Service&quot;). This
+              Privacy Policy explains how we collect, use, disclose, and safeguard your information
+              when you use our Service.
             </p>
             <p className="mt-3">
               By using BBQCopilot, you agree to the collection and use of information in accordance
@@ -46,26 +44,26 @@ export default function PrivacyPolicyPage() {
               2.1 Account Information
             </h3>
             <p>
-              When you create an account, we collect your email address and basic profile information.
-              If you sign in with Google OAuth, we receive your name, email address, and profile
-              picture from Google. We do not receive or store your Google password.
+              When you create an account, we collect your email address and basic profile
+              information. If you sign in with Google OAuth, we receive your name, email address,
+              and profile picture from Google. We do not receive or store your Google password.
             </p>
 
             <h3 className="font-display text-xl font-medium text-ash-white mt-6 mb-3">
               2.2 Equipment &amp; Recipe Data
             </h3>
             <p>
-              We collect information you provide about your grills, smokers, and accessories
-              (brand, model, type) as well as your recipe preferences, cook history, ratings,
-              notes, and photos you upload.
+              We collect information you provide about your grills, smokers, and accessories (brand,
+              model, type) as well as your recipe preferences, cook history, ratings, notes, and
+              photos you upload.
             </p>
 
             <h3 className="font-display text-xl font-medium text-ash-white mt-6 mb-3">
               2.3 Usage Data
             </h3>
             <p>
-              We automatically collect certain information when you use the Service, including
-              pages visited, features used, device type, browser type, and general location
+              We automatically collect certain information when you use the Service, including pages
+              visited, features used, device type, browser type, and general location
               (country/region level). This data is collected through PostHog, our analytics
               platform.
             </p>
@@ -87,8 +85,8 @@ export default function PrivacyPolicyPage() {
             </h2>
             <ul className="list-disc list-inside space-y-2 ml-2">
               <li>
-                <strong className="text-ash-white">Authentication:</strong> To create and manage your
-                account using Supabase Auth, including Google OAuth sign-in.
+                <strong className="text-ash-white">Authentication:</strong> To create and manage
+                your account using Supabase Auth, including Google OAuth sign-in.
               </li>
               <li>
                 <strong className="text-ash-white">Recipe Generation:</strong> To generate
@@ -150,8 +148,8 @@ export default function PrivacyPolicyPage() {
             <p>
               <strong className="text-ash-white">We do not sell your personal information.</strong>{' '}
               We do not share your data with third parties for their marketing purposes. We only
-              share data with the third-party service providers listed above, solely to operate
-              and improve the Service.
+              share data with the third-party service providers listed above, solely to operate and
+              improve the Service.
             </p>
           </section>
 
@@ -161,9 +159,9 @@ export default function PrivacyPolicyPage() {
             </h2>
             <p>
               We implement industry-standard security measures to protect your data, including
-              encrypted connections (HTTPS/TLS), secure authentication via Supabase, and
-              row-level security on our database. However, no method of electronic transmission
-              or storage is 100% secure, and we cannot guarantee absolute security.
+              encrypted connections (HTTPS/TLS), secure authentication via Supabase, and row-level
+              security on our database. However, no method of electronic transmission or storage is
+              100% secure, and we cannot guarantee absolute security.
             </p>
           </section>
 
@@ -173,8 +171,8 @@ export default function PrivacyPolicyPage() {
             </h2>
             <p>
               We retain your account and recipe data for as long as your account is active. If you
-              delete your account, we will delete your personal data within 30 days, except where
-              we are required to retain it for legal or operational reasons.
+              delete your account, we will delete your personal data within 30 days, except where we
+              are required to retain it for legal or operational reasons.
             </p>
           </section>
 
@@ -236,10 +234,10 @@ export default function PrivacyPolicyPage() {
               10. Changes to This Policy
             </h2>
             <p>
-              We may update this Privacy Policy from time to time. We will notify you of any material
-              changes by posting the updated policy on this page and updating the effective date. Your
-              continued use of the Service after changes are posted constitutes acceptance of the
-              revised policy.
+              We may update this Privacy Policy from time to time. We will notify you of any
+              material changes by posting the updated policy on this page and updating the effective
+              date. Your continued use of the Service after changes are posted constitutes
+              acceptance of the revised policy.
             </p>
           </section>
 

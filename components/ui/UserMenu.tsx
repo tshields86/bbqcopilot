@@ -53,10 +53,7 @@ export function UserMenu() {
         animationType="fade"
         onRequestClose={() => setMenuVisible(false)}
       >
-        <Pressable
-          className="flex-1 bg-black/60"
-          onPress={() => setMenuVisible(false)}
-        >
+        <Pressable className="flex-1 bg-black/60" onPress={() => setMenuVisible(false)}>
           <Pressable
             className="absolute top-20 right-4 bg-char-black rounded-2xl border border-char-500/20 overflow-hidden w-64"
             onPress={(e) => e.stopPropagation()}
@@ -65,21 +62,13 @@ export function UserMenu() {
             <View className="p-4 border-b border-char-500/20">
               <View className="flex-row items-center">
                 <View className="w-10 h-10 rounded-full bg-copper-glow/20 items-center justify-center mr-3">
-                  <Text className="font-body-semibold text-base text-copper-glow">
-                    {initials}
-                  </Text>
+                  <Text className="font-body-semibold text-base text-copper-glow">{initials}</Text>
                 </View>
                 <View className="flex-1">
-                  <Text
-                    className="font-body-semibold text-base text-ash-white"
-                    numberOfLines={1}
-                  >
+                  <Text className="font-body-semibold text-base text-ash-white" numberOfLines={1}>
                     {displayName}
                   </Text>
-                  <Text
-                    className="font-body text-xs text-char-300"
-                    numberOfLines={1}
-                  >
+                  <Text className="font-body text-xs text-char-300" numberOfLines={1}>
                     {user?.email}
                   </Text>
                 </View>
@@ -96,9 +85,7 @@ export function UserMenu() {
                 className="flex-row items-center px-4 py-3 active:bg-char-600/30"
               >
                 <Settings size={20} color="#F5F5F0" />
-                <Text className="font-body text-base text-ash-white ml-3">
-                  Settings
-                </Text>
+                <Text className="font-body text-base text-ash-white ml-3">Settings</Text>
               </Pressable>
               <Pressable
                 onPress={() => {
@@ -108,9 +95,7 @@ export function UserMenu() {
                 className="flex-row items-center px-4 py-3 active:bg-char-600/30"
               >
                 <LogOut size={20} color="#C41E3A" />
-                <Text className="font-body text-base text-ember-red ml-3">
-                  Log Out
-                </Text>
+                <Text className="font-body text-base text-ember-red ml-3">Log Out</Text>
               </Pressable>
             </View>
           </Pressable>

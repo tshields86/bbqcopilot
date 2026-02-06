@@ -38,9 +38,7 @@ export function Input({
 
   return (
     <View className="w-full mb-4">
-      {label && (
-        <Text className="text-ash font-body-medium text-sm mb-2">{label}</Text>
-      )}
+      {label && <Text className="text-ash font-body-medium text-sm mb-2">{label}</Text>}
 
       <View
         className={`
@@ -73,10 +71,7 @@ export function Input({
         />
 
         {isPassword && (
-          <Pressable
-            onPress={() => setShowPassword(!showPassword)}
-            className="pr-4"
-          >
+          <Pressable onPress={() => setShowPassword(!showPassword)} className="pr-4">
             {showPassword ? (
               <EyeOff size={20} color="#818181" />
             ) : (
@@ -88,13 +83,9 @@ export function Input({
         {rightIcon && !isPassword && <View className="pr-4">{rightIcon}</View>}
       </View>
 
-      {error && (
-        <Text className="text-error font-body text-sm mt-1">{error}</Text>
-      )}
+      {error && <Text className="text-error font-body text-sm mt-1">{error}</Text>}
 
-      {hint && !error && (
-        <Text className="text-char-400 font-body text-sm mt-1">{hint}</Text>
-      )}
+      {hint && !error && <Text className="text-char-400 font-body text-sm mt-1">{hint}</Text>}
     </View>
   );
 }

@@ -1,7 +1,14 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { AlertCircle, Bookmark, BookmarkCheck, BookmarkPlus, Check, RefreshCw } from 'lucide-react-native';
+import {
+  AlertCircle,
+  Bookmark,
+  BookmarkCheck,
+  BookmarkPlus,
+  Check,
+  RefreshCw,
+} from 'lucide-react-native';
 import { useGrills, getPrimaryGrill, useSaveRecipe } from '@/hooks';
 import { useCook } from '@/contexts/CookContext';
 import { GrillSelector, CookInput, ClarificationChat, GeneratingView } from '@/components/cook';
@@ -261,7 +268,12 @@ export default function CookScreen() {
             headerTitle: () => (
               <Text
                 numberOfLines={1}
-                style={{ fontFamily: 'SourceSans3_600SemiBold', fontSize: 17, color: '#F5F5F0', paddingRight: 24 }}
+                style={{
+                  fontFamily: 'SourceSans3_600SemiBold',
+                  fontSize: 17,
+                  color: '#F5F5F0',
+                  paddingRight: 24,
+                }}
               >
                 {recipe.title}
               </Text>

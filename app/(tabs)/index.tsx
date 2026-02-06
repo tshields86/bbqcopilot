@@ -19,15 +19,15 @@ import {
 } from '@/components/ui';
 
 const BBQ_TIPS = [
-  "Always let your meat rest for at least 10 minutes after cooking. This allows the juices to redistribute for maximum flavor.",
-  "The bark on brisket forms best when the surface stays dry. Avoid opening the lid too often!",
-  "For the perfect smoke ring, keep your temperatures between 225-250°F for low and slow cooks.",
-  "Fat side up or down? On a kamado, fat side up. On an offset, fat side toward the heat source.",
+  'Always let your meat rest for at least 10 minutes after cooking. This allows the juices to redistribute for maximum flavor.',
+  'The bark on brisket forms best when the surface stays dry. Avoid opening the lid too often!',
+  'For the perfect smoke ring, keep your temperatures between 225-250°F for low and slow cooks.',
+  'Fat side up or down? On a kamado, fat side up. On an offset, fat side toward the heat source.',
   "Don't rely solely on time - use internal temperature to judge doneness. Invest in a good meat thermometer.",
-  "Give your grill time to preheat. 15-20 minutes ensures even cooking temperatures.",
-  "For juicy chicken, brine it first! A simple salt water soak for 1-4 hours makes a huge difference.",
-  "Wood chunks last longer than chips for smoking. Soak chips in water for sustained smoke.",
-  "The stall is real! Brisket and pork shoulder often stall around 150-170°F. Be patient or wrap in butcher paper.",
+  'Give your grill time to preheat. 15-20 minutes ensures even cooking temperatures.',
+  'For juicy chicken, brine it first! A simple salt water soak for 1-4 hours makes a huge difference.',
+  'Wood chunks last longer than chips for smoking. Soak chips in water for sustained smoke.',
+  'The stall is real! Brisket and pork shoulder often stall around 150-170°F. Be patient or wrap in butcher paper.',
   "Clean your grill grates while they're still warm for easiest cleanup.",
 ];
 
@@ -70,9 +70,8 @@ export default function HomeScreen() {
   }, []);
 
   // Use display name if set, otherwise fallback to email username
-  const firstName = profile?.display_name?.split(' ')[0]
-    || user?.email?.split('@')[0]
-    || 'Pitmaster';
+  const firstName =
+    profile?.display_name?.split(' ')[0] || user?.email?.split('@')[0] || 'Pitmaster';
 
   if (isLoading) {
     return (
@@ -86,11 +85,7 @@ export default function HomeScreen() {
     <ScrollView
       className="flex-1 bg-char-black"
       refreshControl={
-        <RefreshControl
-          refreshing={isRefetching}
-          onRefresh={refetch}
-          tintColor="#B87333"
-        />
+        <RefreshControl refreshing={isRefetching} onRefresh={refetch} tintColor="#B87333" />
       }
     >
       <View className="p-4">
@@ -118,9 +113,7 @@ export default function HomeScreen() {
                 <View className="w-10 h-10 rounded-full bg-white/20 items-center justify-center mb-3">
                   <Heart size={20} color="#F5F5F0" />
                 </View>
-                <Text className="font-body-semibold text-base text-ash-white">
-                  Favorites
-                </Text>
+                <Text className="font-body-semibold text-base text-ash-white">Favorites</Text>
                 <Text className="font-body text-xs text-ash-white/70">
                   {favorites?.length || 0} saved
                 </Text>
@@ -142,12 +135,7 @@ export default function HomeScreen() {
             <Link href="/(tabs)/equipment/add" asChild>
               <PressableCard variant="outlined">
                 <View className="flex-row items-center">
-                  <IconContainer
-                    icon={Plus}
-                    size="md"
-                    color="copper"
-                    background="copper"
-                  />
+                  <IconContainer icon={Plus} size="md" color="copper" background="copper" />
                   <View className="ml-4 flex-1">
                     <Body className="text-ash-white">Add Your First Grill</Body>
                     <Body color="muted" className="text-sm">
@@ -248,9 +236,7 @@ export default function HomeScreen() {
                   <Flame size={16} color="#C41E3A" />
                   <Text className="font-body text-xs text-char-300">Total Cooks</Text>
                 </View>
-                <Text className="font-display text-2xl text-ash-white">
-                  {logs?.length || 0}
-                </Text>
+                <Text className="font-display text-2xl text-ash-white">{logs?.length || 0}</Text>
               </View>
               <View className="flex-1 bg-char-black/50 border border-char-500/30 rounded-xl p-4">
                 <View className="flex-row items-center gap-2 mb-1">
@@ -280,9 +266,7 @@ export default function HomeScreen() {
               <Text className="font-body-semibold text-sm text-copper-glow mb-1">
                 Pitmaster Tip
               </Text>
-              <Text className="font-body text-sm text-char-300 leading-5">
-                {todaysTip}
-              </Text>
+              <Text className="font-body text-sm text-char-300 leading-5">{todaysTip}</Text>
             </View>
           </View>
         </Card>

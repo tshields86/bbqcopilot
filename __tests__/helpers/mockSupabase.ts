@@ -17,7 +17,26 @@ export function createMockQueryBuilder(resolvedData: unknown = null, error: unkn
   const builder: Record<string, jest.Mock> = {};
 
   const terminators = ['single', 'maybeSingle'];
-  const chainMethods = ['select', 'insert', 'update', 'delete', 'upsert', 'eq', 'neq', 'gt', 'lt', 'gte', 'lte', 'in', 'is', 'order', 'limit', 'range', 'match', 'filter'];
+  const chainMethods = [
+    'select',
+    'insert',
+    'update',
+    'delete',
+    'upsert',
+    'eq',
+    'neq',
+    'gt',
+    'lt',
+    'gte',
+    'lte',
+    'in',
+    'is',
+    'order',
+    'limit',
+    'range',
+    'match',
+    'filter',
+  ];
 
   // Chain methods return `this`
   for (const method of chainMethods) {

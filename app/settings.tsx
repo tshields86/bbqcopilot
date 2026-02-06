@@ -4,15 +4,7 @@ import { useRouter } from 'expo-router';
 import { User, Mail, ChefHat, LogOut, ChevronLeft, Check } from 'lucide-react-native';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile, useUpdateProfile, SKILL_LEVELS } from '@/hooks';
-import {
-  H3,
-  Body,
-  Button,
-  Card,
-  Input,
-  ConfirmDialog,
-  FlameLoader,
-} from '@/components/ui';
+import { H3, Body, Button, Card, Input, ConfirmDialog, FlameLoader } from '@/components/ui';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SettingsScreen() {
@@ -98,12 +90,7 @@ export default function SettingsScreen() {
         </Pressable>
         <H3 className="flex-1 text-ash-white">Settings</H3>
         {hasChanges && (
-          <Button
-            variant="primary"
-            size="sm"
-            onPress={handleSave}
-            loading={isSaving}
-          >
+          <Button variant="primary" size="sm" onPress={handleSave} loading={isSaving}>
             Save
           </Button>
         )}
@@ -177,9 +164,7 @@ export default function SettingsScreen() {
                         : 'border-char-400'
                     }`}
                   >
-                    {skillLevel === level.value && (
-                      <Check size={12} color="#F5F5F0" />
-                    )}
+                    {skillLevel === level.value && <Check size={12} color="#F5F5F0" />}
                   </View>
                   <View className="flex-1">
                     <Text
@@ -189,9 +174,7 @@ export default function SettingsScreen() {
                     >
                       {level.label}
                     </Text>
-                    <Text className="font-body text-sm text-char-400">
-                      {level.description}
-                    </Text>
+                    <Text className="font-body text-sm text-char-400">{level.description}</Text>
                   </View>
                 </Pressable>
               ))}

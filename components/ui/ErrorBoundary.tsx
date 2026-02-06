@@ -122,12 +122,8 @@ export function EmptyState({ icon: Icon, title, message, action }: EmptyStatePro
           <Icon size={32} color="#B87333" />
         </View>
       )}
-      <Text className="font-display text-xl text-ash-white text-center mb-2">
-        {title}
-      </Text>
-      <Text className="font-body text-char-300 text-center mb-6">
-        {message}
-      </Text>
+      <Text className="font-display text-xl text-ash-white text-center mb-2">{title}</Text>
+      <Text className="font-body text-char-300 text-center mb-6">{message}</Text>
       {action && (
         <Pressable
           onPress={action.onPress}

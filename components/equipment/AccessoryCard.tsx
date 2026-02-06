@@ -18,9 +18,7 @@ export function AccessoryCard({ accessory, onDelete }: AccessoryCardProps) {
 
       {/* Content */}
       <View className="flex-1">
-        <Text className="font-body-medium text-sm text-ash-white">
-          {accessory.name}
-        </Text>
+        <Text className="font-body-medium text-sm text-ash-white">{accessory.name}</Text>
         <Text className="font-body text-xs text-char-300">
           {getAccessoryTypeName(accessory.accessory_type)}
           {accessory.brand && ` - ${accessory.brand}`}
@@ -29,11 +27,7 @@ export function AccessoryCard({ accessory, onDelete }: AccessoryCardProps) {
 
       {/* Delete */}
       {onDelete && (
-        <Pressable
-          onPress={onDelete}
-          hitSlop={8}
-          className="p-2"
-        >
+        <Pressable onPress={onDelete} hitSlop={8} className="p-2">
           <Trash2 size={18} color="#8B2635" />
         </Pressable>
       )}

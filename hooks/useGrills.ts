@@ -11,15 +11,19 @@ type GrillUpdate = UpdateTables<'grills'>;
 
 // Fetch all grills for the current user
 async function fetchGrills(): Promise<Grill[]> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   const { data, error } = await supabase
     .from('grills')
-    .select(`
+    .select(
+      `
       *,
       accessories (*)
-    `)
+    `
+    )
     .eq('user_id', user.id)
     .order('is_primary', { ascending: false })
     .order('created_at', { ascending: false });
@@ -32,10 +36,12 @@ async function fetchGrills(): Promise<Grill[]> {
 async function fetchGrill(id: string): Promise<Grill> {
   const { data, error } = await supabase
     .from('grills')
-    .select(`
+    .select(
+      `
       *,
       accessories (*)
-    `)
+    `
+    )
     .eq('id', id)
     .single();
 
@@ -45,7 +51,9 @@ async function fetchGrill(id: string): Promise<Grill> {
 
 // Create a new grill
 async function createGrill(grill: GrillInsert): Promise<Grill> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   // If this is the first grill, make it primary
@@ -63,10 +71,12 @@ async function createGrill(grill: GrillInsert): Promise<Grill> {
       user_id: user.id,
       is_primary: grill.is_primary ?? isFirstGrill,
     })
-    .select(`
+    .select(
+      `
       *,
       accessories (*)
-    `)
+    `
+    )
     .single();
 
   if (error) throw error;
@@ -79,10 +89,12 @@ async function updateGrill({ id, ...updates }: GrillUpdate & { id: string }): Pr
     .from('grills')
     .update(updates)
     .eq('id', id)
-    .select(`
+    .select(
+      `
       *,
       accessories (*)
-    `)
+    `
+    )
     .single();
 
   if (error) throw error;
@@ -97,25 +109,25 @@ async function deleteGrill(id: string): Promise<void> {
 
 // Set a grill as primary (unset others)
 async function setPrimaryGrill(id: string): Promise<Grill> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   // First, unset all other grills as primary
-  await supabase
-    .from('grills')
-    .update({ is_primary: false })
-    .eq('user_id', user.id)
-    .neq('id', id);
+  await supabase.from('grills').update({ is_primary: false }).eq('user_id', user.id).neq('id', id);
 
   // Then set the target grill as primary
   const { data, error } = await supabase
     .from('grills')
     .update({ is_primary: true })
     .eq('id', id)
-    .select(`
+    .select(
+      `
       *,
       accessories (*)
-    `)
+    `
+    )
     .single();
 
   if (error) throw error;

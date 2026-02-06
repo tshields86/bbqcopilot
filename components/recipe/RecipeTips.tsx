@@ -21,9 +21,7 @@ export function RecipeTips({ tips, servingSuggestions }: RecipeTipsProps) {
             {tips.map((tip, index) => (
               <View key={index} className="flex-row">
                 <Text className="font-body-semibold text-copper-glow mr-2">•</Text>
-                <Text className="font-body text-sm text-char-300 flex-1">
-                  {tip}
-                </Text>
+                <Text className="font-body text-sm text-char-300 flex-1">{tip}</Text>
               </View>
             ))}
           </View>
@@ -41,9 +39,7 @@ export function RecipeTips({ tips, servingSuggestions }: RecipeTipsProps) {
             {servingSuggestions.map((suggestion, index) => (
               <View key={index} className="flex-row">
                 <Text className="font-body-semibold text-copper-glow mr-2">•</Text>
-                <Text className="font-body text-sm text-char-300 flex-1">
-                  {suggestion}
-                </Text>
+                <Text className="font-body text-sm text-char-300 flex-1">{suggestion}</Text>
               </View>
             ))}
           </View>

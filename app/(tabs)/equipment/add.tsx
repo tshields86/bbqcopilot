@@ -9,7 +9,15 @@ export default function AddGrillScreen() {
 
   const handleSubmit = async (data: {
     name: string;
-    grill_type: 'kamado' | 'gas' | 'charcoal' | 'pellet' | 'offset' | 'kettle' | 'electric' | 'other';
+    grill_type:
+      | 'kamado'
+      | 'gas'
+      | 'charcoal'
+      | 'pellet'
+      | 'offset'
+      | 'kettle'
+      | 'electric'
+      | 'other';
     brand: string;
     model: string;
     notes: string;

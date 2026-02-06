@@ -17,10 +17,7 @@ export function GrillCard({ grill, onPress, showAccessories = true }: GrillCardP
   return (
     <Pressable onPress={onPress}>
       {({ pressed }) => (
-        <Card
-          variant="elevated"
-          className={`${pressed ? 'opacity-80 scale-[0.98]' : ''}`}
-        >
+        <Card variant="elevated" className={`${pressed ? 'opacity-80 scale-[0.98]' : ''}`}>
           <View className="flex-row items-center">
             {/* Icon */}
             <View className="w-14 h-14 rounded-xl bg-mesquite-brown/20 items-center justify-center mr-4">
@@ -30,12 +27,8 @@ export function GrillCard({ grill, onPress, showAccessories = true }: GrillCardP
             {/* Content */}
             <View className="flex-1">
               <View className="flex-row items-center gap-2">
-                <Text className="font-body-semibold text-base text-ash-white">
-                  {grill.name}
-                </Text>
-                {grill.is_primary && (
-                  <Star size={14} color="#B87333" fill="#B87333" />
-                )}
+                <Text className="font-body-semibold text-base text-ash-white">{grill.name}</Text>
+                {grill.is_primary && <Star size={14} color="#B87333" fill="#B87333" />}
               </View>
 
               <Text className="font-body text-sm text-char-300 mt-0.5">
@@ -55,9 +48,7 @@ export function GrillCard({ grill, onPress, showAccessories = true }: GrillCardP
             </View>
 
             {/* Arrow */}
-            {onPress && (
-              <ChevronRight size={20} color="#4A4A4A" />
-            )}
+            {onPress && <ChevronRight size={20} color="#4A4A4A" />}
           </View>
         </Card>
       )}

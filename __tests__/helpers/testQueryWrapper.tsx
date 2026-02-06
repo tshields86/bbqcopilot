@@ -18,12 +18,6 @@ export function createTestQueryClient() {
         gcTime: 0,
       },
     },
-    // Suppress React Query's logger in tests
-    logger: {
-      log: () => {},
-      warn: () => {},
-      error: () => {},
-    },
   });
 }
 

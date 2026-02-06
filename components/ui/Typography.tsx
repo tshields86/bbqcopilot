@@ -17,28 +17,15 @@ const colorStyles: Record<NonNullable<TypographyProps['color']>, string> = {
 };
 
 // Display/Header typography (Playfair Display)
-export function H1({
-  children,
-  color = 'default',
-  className = '',
-  ...props
-}: TypographyProps) {
+export function H1({ children, color = 'default', className = '', ...props }: TypographyProps) {
   return (
-    <Text
-      {...props}
-      className={`text-4xl font-display-bold ${colorStyles[color]} ${className}`}
-    >
+    <Text {...props} className={`text-4xl font-display-bold ${colorStyles[color]} ${className}`}>
       {children}
     </Text>
   );
 }
 
-export function H2({
-  children,
-  color = 'default',
-  className = '',
-  ...props
-}: TypographyProps) {
+export function H2({ children, color = 'default', className = '', ...props }: TypographyProps) {
   return (
     <Text
       {...props}
@@ -49,12 +36,7 @@ export function H2({
   );
 }
 
-export function H3({
-  children,
-  color = 'default',
-  className = '',
-  ...props
-}: TypographyProps) {
+export function H3({ children, color = 'default', className = '', ...props }: TypographyProps) {
   return (
     <Text
       {...props}
@@ -65,34 +47,18 @@ export function H3({
   );
 }
 
-export function H4({
-  children,
-  color = 'default',
-  className = '',
-  ...props
-}: TypographyProps) {
+export function H4({ children, color = 'default', className = '', ...props }: TypographyProps) {
   return (
-    <Text
-      {...props}
-      className={`text-xl font-display-medium ${colorStyles[color]} ${className}`}
-    >
+    <Text {...props} className={`text-xl font-display-medium ${colorStyles[color]} ${className}`}>
       {children}
     </Text>
   );
 }
 
 // Body typography (Source Sans 3)
-export function Body({
-  children,
-  color = 'default',
-  className = '',
-  ...props
-}: TypographyProps) {
+export function Body({ children, color = 'default', className = '', ...props }: TypographyProps) {
   return (
-    <Text
-      {...props}
-      className={`text-base font-body ${colorStyles[color]} ${className}`}
-    >
+    <Text {...props} className={`text-base font-body ${colorStyles[color]} ${className}`}>
       {children}
     </Text>
   );
@@ -105,10 +71,7 @@ export function BodyBold({
   ...props
 }: TypographyProps) {
   return (
-    <Text
-      {...props}
-      className={`text-base font-body-semibold ${colorStyles[color]} ${className}`}
-    >
+    <Text {...props} className={`text-base font-body-semibold ${colorStyles[color]} ${className}`}>
       {children}
     </Text>
   );
@@ -121,43 +84,24 @@ export function BodySmall({
   ...props
 }: TypographyProps) {
   return (
-    <Text
-      {...props}
-      className={`text-sm font-body ${colorStyles[color]} ${className}`}
-    >
+    <Text {...props} className={`text-sm font-body ${colorStyles[color]} ${className}`}>
       {children}
     </Text>
   );
 }
 
-export function Caption({
-  children,
-  color = 'muted',
-  className = '',
-  ...props
-}: TypographyProps) {
+export function Caption({ children, color = 'muted', className = '', ...props }: TypographyProps) {
   return (
-    <Text
-      {...props}
-      className={`text-xs font-body ${colorStyles[color]} ${className}`}
-    >
+    <Text {...props} className={`text-xs font-body ${colorStyles[color]} ${className}`}>
       {children}
     </Text>
   );
 }
 
 // Monospace typography (JetBrains Mono) - for temps, timers, etc.
-export function Mono({
-  children,
-  color = 'default',
-  className = '',
-  ...props
-}: TypographyProps) {
+export function Mono({ children, color = 'default', className = '', ...props }: TypographyProps) {
   return (
-    <Text
-      {...props}
-      className={`text-base font-mono ${colorStyles[color]} ${className}`}
-    >
+    <Text {...props} className={`text-base font-mono ${colorStyles[color]} ${className}`}>
       {children}
     </Text>
   );
@@ -170,10 +114,7 @@ export function MonoLarge({
   ...props
 }: TypographyProps) {
   return (
-    <Text
-      {...props}
-      className={`text-2xl font-mono-bold ${colorStyles[color]} ${className}`}
-    >
+    <Text {...props} className={`text-2xl font-mono-bold ${colorStyles[color]} ${className}`}>
       {children}
     </Text>
   );

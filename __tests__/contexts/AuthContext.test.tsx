@@ -252,9 +252,7 @@ describe('signUp', () => {
     });
 
     // Should only track once due to ref guard
-    const signupCalls = mockCapture.mock.calls.filter(
-      (call) => call[0] === 'user_signed_up'
-    );
+    const signupCalls = mockCapture.mock.calls.filter((call) => call[0] === 'user_signed_up');
     expect(signupCalls).toHaveLength(1);
   });
 
@@ -403,10 +401,9 @@ describe('resetPassword', () => {
       await result.current.resetPassword('test@example.com');
     });
 
-    expect(mockSupabase.auth.resetPasswordForEmail).toHaveBeenCalledWith(
-      'test@example.com',
-      { redirectTo: expect.stringContaining('auth/reset-password') }
-    );
+    expect(mockSupabase.auth.resetPasswordForEmail).toHaveBeenCalledWith('test@example.com', {
+      redirectTo: expect.stringContaining('auth/reset-password'),
+    });
   });
 
   it('throws on error', async () => {

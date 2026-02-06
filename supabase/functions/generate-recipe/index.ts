@@ -280,10 +280,7 @@ Please generate a detailed, equipment-specific recipe with a complete cook timel
           });
 
           for await (const event of response) {
-            if (
-              event.type === 'content_block_delta' &&
-              event.delta.type === 'text_delta'
-            ) {
+            if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
               controller.enqueue(
                 encoder.encode(`data: ${JSON.stringify({ text: event.delta.text })}\n\n`)
               );

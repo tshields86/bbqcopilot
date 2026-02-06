@@ -142,13 +142,7 @@ describe('LogCookForm', () => {
   });
 
   it('shows loading indicator when isLoading is true', () => {
-    render(
-      <LogCookForm
-        onSubmit={mockOnSubmit}
-        onCancel={mockOnCancel}
-        isLoading={true}
-      />
-    );
+    render(<LogCookForm onSubmit={mockOnSubmit} onCancel={mockOnCancel} isLoading={true} />);
 
     // Cancel button should still be visible
     expect(screen.getByText('Cancel')).toBeTruthy();

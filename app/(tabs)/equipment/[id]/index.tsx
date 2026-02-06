@@ -38,7 +38,15 @@ export default function GrillDetailScreen() {
 
   const handleUpdate = async (data: {
     name: string;
-    grill_type: 'kamado' | 'gas' | 'charcoal' | 'pellet' | 'offset' | 'kettle' | 'electric' | 'other';
+    grill_type:
+      | 'kamado'
+      | 'gas'
+      | 'charcoal'
+      | 'pellet'
+      | 'offset'
+      | 'kettle'
+      | 'electric'
+      | 'other';
     brand: string;
     model: string;
     notes: string;
@@ -139,13 +147,9 @@ export default function GrillDetailScreen() {
             <View className="flex-1">
               <View className="flex-row items-center gap-2">
                 <Text className="font-display text-xl text-ash-white">{grill.name}</Text>
-                {grill.is_primary && (
-                  <Star size={16} color="#B87333" fill="#B87333" />
-                )}
+                {grill.is_primary && <Star size={16} color="#B87333" fill="#B87333" />}
               </View>
-              <Text className="font-body text-char-300">
-                {getGrillTypeName(grill.grill_type)}
-              </Text>
+              <Text className="font-body text-char-300">{getGrillTypeName(grill.grill_type)}</Text>
             </View>
           </View>
 
@@ -205,9 +209,7 @@ export default function GrillDetailScreen() {
             </View>
           ) : (
             <Card variant="outlined" className="items-center py-6">
-              <Text className="font-body text-char-300 text-center">
-                No accessories added yet.
-              </Text>
+              <Text className="font-body text-char-300 text-center">No accessories added yet.</Text>
               <Button
                 variant="ghost"
                 size="sm"

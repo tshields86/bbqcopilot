@@ -27,13 +27,7 @@ describe('Input', () => {
   });
 
   it('hides hint when error is present', () => {
-    render(
-      <Input
-        label="Email"
-        hint="We'll never share your email"
-        error="Invalid email"
-      />
-    );
+    render(<Input label="Email" hint="We'll never share your email" error="Invalid email" />);
 
     expect(screen.queryByText("We'll never share your email")).toBeNull();
     expect(screen.getByText('Invalid email')).toBeTruthy();

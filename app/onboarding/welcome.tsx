@@ -53,9 +53,7 @@ export default function WelcomeScreen() {
               <View className="w-10 h-10 rounded-lg bg-copper-glow/20 items-center justify-center">
                 <feature.icon size={20} color="#B87333" />
               </View>
-              <Text className="text-ash-white font-body ml-4 flex-1">
-                {feature.text}
-              </Text>
+              <Text className="text-ash-white font-body ml-4 flex-1">{feature.text}</Text>
             </View>
           ))}
         </View>
@@ -63,12 +61,7 @@ export default function WelcomeScreen() {
 
       {/* CTA */}
       <View className="w-full mb-8 px-2">
-        <Button
-          variant="primary"
-          size="lg"
-          fullWidth
-          onPress={handleGetStarted}
-        >
+        <Button variant="primary" size="lg" fullWidth onPress={handleGetStarted}>
           Get Started
         </Button>
       </View>

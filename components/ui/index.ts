@@ -15,18 +15,7 @@ export { Badge, SuccessBadge, WarningBadge, ErrorBadge } from './Badge';
 export type { BadgeVariant, BadgeSize } from './Badge';
 
 // Typography
-export {
-  H1,
-  H2,
-  H3,
-  H4,
-  Body,
-  BodyBold,
-  BodySmall,
-  Caption,
-  Mono,
-  MonoLarge,
-} from './Typography';
+export { H1, H2, H3, H4, Body, BodyBold, BodySmall, Caption, Mono, MonoLarge } from './Typography';
 
 // Loading
 export { LoadingSpinner, FlameLoader, LoadingOverlay, LoadingState } from './Loading';

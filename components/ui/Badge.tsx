@@ -48,12 +48,7 @@ const sizeStyles: Record<BadgeSize, { container: string; text: string }> = {
   },
 };
 
-export function Badge({
-  children,
-  variant = 'default',
-  size = 'md',
-  icon,
-}: BadgeProps) {
+export function Badge({ children, variant = 'default', size = 'md', icon }: BadgeProps) {
   const variantStyle = variantStyles[variant];
   const sizeStyle = sizeStyles[size];
 
@@ -66,9 +61,7 @@ export function Badge({
       `}
     >
       {icon && <View className="mr-1">{icon}</View>}
-      <Text className={`font-body-medium ${sizeStyle.text} ${variantStyle.text}`}>
-        {children}
-      </Text>
+      <Text className={`font-body-medium ${sizeStyle.text} ${variantStyle.text}`}>{children}</Text>
     </View>
   );
 }

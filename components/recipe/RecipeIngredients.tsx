@@ -19,13 +19,10 @@ export function RecipeIngredients({ ingredients }: RecipeIngredientsProps) {
             </View>
             <View className="flex-1">
               <Text className="font-body text-ash-white">
-                <Text className="font-body-semibold">{ingredient.amount}</Text>
-                {' '}{ingredient.item}
+                <Text className="font-body-semibold">{ingredient.amount}</Text> {ingredient.item}
               </Text>
               {ingredient.notes && (
-                <Text className="font-body text-sm text-char-300">
-                  {ingredient.notes}
-                </Text>
+                <Text className="font-body text-sm text-char-300">{ingredient.notes}</Text>
               )}
             </View>
           </View>

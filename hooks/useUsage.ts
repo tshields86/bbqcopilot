@@ -6,7 +6,9 @@ const USAGE_KEY = ['usage'];
 
 // Fetch current usage status
 async function fetchUsageStatus(): Promise<UsageStatus> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   const now = new Date();

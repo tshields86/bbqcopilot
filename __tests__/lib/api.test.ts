@@ -184,9 +184,7 @@ describe('generateRecipe', () => {
   it('parses SSE data lines and calls onChunk for each text fragment', async () => {
     mockAuthSession(mockSession);
     fetchSpy.mockResolvedValue(
-      createStreamResponse([
-        'data: {"text":"Hello "}\ndata: {"text":"world"}\ndata: [DONE]\n',
-      ])
+      createStreamResponse(['data: {"text":"Hello "}\ndata: {"text":"world"}\ndata: [DONE]\n'])
     );
 
     const onChunk = jest.fn();
@@ -204,9 +202,7 @@ describe('generateRecipe', () => {
 
   it('calls onComplete when [DONE] signal is received', async () => {
     mockAuthSession(mockSession);
-    fetchSpy.mockResolvedValue(
-      createStreamResponse(['data: {"text":"chunk"}\ndata: [DONE]\n'])
-    );
+    fetchSpy.mockResolvedValue(createStreamResponse(['data: {"text":"chunk"}\ndata: [DONE]\n']));
 
     const onComplete = jest.fn();
     await generateRecipe(sampleGenerateParams, jest.fn(), onComplete, jest.fn());
@@ -267,9 +263,7 @@ describe('generateRecipe', () => {
   it('ignores lines that do not start with "data: "', async () => {
     mockAuthSession(mockSession);
     fetchSpy.mockResolvedValue(
-      createStreamResponse([
-        'event: message\ndata: {"text":"valid"}\nretry: 3000\ndata: [DONE]\n',
-      ])
+      createStreamResponse(['event: message\ndata: {"text":"valid"}\nretry: 3000\ndata: [DONE]\n'])
     );
 
     const onChunk = jest.fn();

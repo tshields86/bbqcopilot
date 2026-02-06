@@ -30,7 +30,9 @@ export default function ResetPasswordScreen() {
           // detectSessionInUrl may still be exchanging the PKCE code.
           // Wait briefly, then check again before showing an error.
           const timeout = setTimeout(async () => {
-            const { data: { session } } = await supabase.auth.getSession();
+            const {
+              data: { session },
+            } = await supabase.auth.getSession();
             if (!session) {
               setSessionError('Invalid or expired reset link. Please request a new one.');
             }
@@ -129,7 +131,9 @@ export default function ResetPasswordScreen() {
     return (
       <View className="flex-1 bg-char-800 items-center justify-center">
         <FlameLoader size="lg" />
-        <Body color="muted" className="mt-4">Verifying reset link...</Body>
+        <Body color="muted" className="mt-4">
+          Verifying reset link...
+        </Body>
       </View>
     );
   }
@@ -156,12 +160,7 @@ export default function ResetPasswordScreen() {
           >
             Request New Link
           </Button>
-          <Button
-            variant="ghost"
-            fullWidth
-            className="mt-3"
-            onPress={handleGoToLogin}
-          >
+          <Button variant="ghost" fullWidth className="mt-3" onPress={handleGoToLogin}>
             Back to Sign In
           </Button>
         </View>
@@ -195,10 +194,7 @@ export default function ResetPasswordScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       className="flex-1 bg-char-800"
     >
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-      >
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
         <View className="flex-1 p-6 justify-center">
           {/* Header */}
           <View className="mb-8">

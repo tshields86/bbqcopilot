@@ -35,10 +35,11 @@ export default function RecipesScreen() {
     // Search
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      result = result.filter((r) =>
-        r.title.toLowerCase().includes(query) ||
-        r.description?.toLowerCase().includes(query) ||
-        r.proteins?.some((p) => p.name.toLowerCase().includes(query))
+      result = result.filter(
+        (r) =>
+          r.title.toLowerCase().includes(query) ||
+          r.description?.toLowerCase().includes(query) ||
+          r.proteins?.some((p) => p.name.toLowerCase().includes(query))
       );
     }
 
@@ -84,11 +85,7 @@ export default function RecipesScreen() {
           <Text className="font-body text-char-300 text-center mb-6">
             Generate your first recipe to see it here.
           </Text>
-          <Button
-            variant="primary"
-            onPress={() => router.push('/(tabs)/cook')}
-            leftIcon={Plus}
-          >
+          <Button variant="primary" onPress={() => router.push('/(tabs)/cook')} leftIcon={Plus}>
             Start a New Cook
           </Button>
         </View>
@@ -179,11 +176,7 @@ export default function RecipesScreen() {
             keyExtractor={(item) => item.id}
             contentContainerClassName="p-4 pt-2 gap-3"
             refreshControl={
-              <RefreshControl
-                refreshing={isRefetching}
-                onRefresh={refetch}
-                tintColor="#B87333"
-              />
+              <RefreshControl refreshing={isRefetching} onRefresh={refetch} tintColor="#B87333" />
             }
             renderItem={({ item }) => (
               <RecipeCard

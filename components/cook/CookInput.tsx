@@ -24,9 +24,7 @@ export function CookInput({ value, onChange, onSubmit, isLoading, disabled }: Co
 
   return (
     <View>
-      <Text className="font-body text-sm text-char-300 mb-2">
-        What do you want to cook?
-      </Text>
+      <Text className="font-body text-sm text-char-300 mb-2">What do you want to cook?</Text>
 
       {/* Input */}
       <Card variant="elevated" className="mb-4">
@@ -48,9 +46,7 @@ export function CookInput({ value, onChange, onSubmit, isLoading, disabled }: Co
       {/* Suggestions */}
       {!value && (
         <View className="mb-6">
-          <Text className="font-body text-xs text-char-300 mb-2">
-            Or try one of these:
-          </Text>
+          <Text className="font-body text-xs text-char-300 mb-2">Or try one of these:</Text>
           <View className="flex-row flex-wrap gap-2">
             {SUGGESTIONS.map((suggestion) => (
               <Pressable

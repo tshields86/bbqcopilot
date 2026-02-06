@@ -13,9 +13,7 @@ interface GrillTypeSelectorProps {
 export function GrillTypeSelector({ value, onChange, label }: GrillTypeSelectorProps) {
   return (
     <View className="mb-4">
-      {label && (
-        <Text className="font-body-medium text-sm text-ash mb-3">{label}</Text>
-      )}
+      {label && <Text className="font-body-medium text-sm text-ash mb-3">{label}</Text>}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -29,10 +27,7 @@ export function GrillTypeSelector({ value, onChange, label }: GrillTypeSelectorP
               onPress={() => onChange(type.value)}
               className={`
                 w-24 p-3 rounded-xl border-2
-                ${isSelected
-                  ? 'border-ember-500 bg-ember-500/10'
-                  : 'border-char-500 bg-char-700'
-                }
+                ${isSelected ? 'border-ember-500 bg-ember-500/10' : 'border-char-500 bg-char-700'}
               `}
             >
               <View className="items-center">

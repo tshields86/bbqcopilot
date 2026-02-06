@@ -56,10 +56,7 @@ export function RecipeCard({ recipe, onPress, isFavorite, onToggleFavorite }: Re
   return (
     <Pressable onPress={onPress}>
       {({ pressed }) => (
-        <Card
-          variant="elevated"
-          className={`${pressed ? 'opacity-80 scale-[0.98]' : ''}`}
-        >
+        <Card variant="elevated" className={`${pressed ? 'opacity-80 scale-[0.98]' : ''}`}>
           <View className="flex-row items-start">
             {/* Content */}
             <View className="flex-1">
@@ -68,16 +65,11 @@ export function RecipeCard({ recipe, onPress, isFavorite, onToggleFavorite }: Re
               </Text>
 
               {proteinNames && (
-                <Text className="font-body text-sm text-copper-glow mb-2">
-                  {proteinNames}
-                </Text>
+                <Text className="font-body text-sm text-copper-glow mb-2">{proteinNames}</Text>
               )}
 
               {recipe.description && (
-                <Text
-                  className="font-body text-sm text-char-300 mb-3"
-                  numberOfLines={2}
-                >
+                <Text className="font-body text-sm text-char-300 mb-3" numberOfLines={2}>
                   {recipe.description}
                 </Text>
               )}
@@ -96,9 +88,7 @@ export function RecipeCard({ recipe, onPress, isFavorite, onToggleFavorite }: Re
                 {recipe.servings && (
                   <View className="flex-row items-center gap-1">
                     <Users size={12} color="#4A4A4A" />
-                    <Text className="font-body text-xs text-char-300">
-                      {recipe.servings}
-                    </Text>
+                    <Text className="font-body text-xs text-char-300">{recipe.servings}</Text>
                   </View>
                 )}
 

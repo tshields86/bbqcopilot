@@ -1,4 +1,14 @@
-import { Disc, ThermometerSun, Square, Shield, MoreHorizontal, Snowflake, Layers, CircleDot, Umbrella } from 'lucide-react-native';
+import {
+  Disc,
+  ThermometerSun,
+  Square,
+  Shield,
+  MoreHorizontal,
+  Snowflake,
+  Layers,
+  CircleDot,
+  Umbrella,
+} from 'lucide-react-native';
 import type { AccessoryType } from '@/lib/types';
 
 interface AccessoryIconProps {

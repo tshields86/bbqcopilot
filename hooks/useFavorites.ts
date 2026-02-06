@@ -8,17 +8,21 @@ const RECIPES_KEY = ['recipes'];
 
 // Fetch all favorite recipes for the current user
 async function fetchFavorites(): Promise<Recipe[]> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   const { data, error } = await supabase
     .from('favorites')
-    .select(`
+    .select(
+      `
       recipe:recipes(
         *,
         grill:grills(*)
       )
-    `)
+    `
+    )
     .eq('user_id', user.id)
     .order('created_at', { ascending: false });
 
@@ -34,7 +38,9 @@ async function fetchFavorites(): Promise<Recipe[]> {
 
 // Check if a recipe is favorited
 async function checkIsFavorite(recipeId: string): Promise<boolean> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) return false;
 
   const { data, error } = await supabase
@@ -50,7 +56,9 @@ async function checkIsFavorite(recipeId: string): Promise<boolean> {
 
 // Add a recipe to favorites
 async function addFavorite(recipeId: string): Promise<void> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   const { error } = await supabase
@@ -62,7 +70,9 @@ async function addFavorite(recipeId: string): Promise<void> {
 
 // Remove a recipe from favorites
 async function removeFavorite(recipeId: string): Promise<void> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   const { error } = await supabase

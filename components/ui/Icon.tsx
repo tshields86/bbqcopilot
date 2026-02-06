@@ -38,13 +38,7 @@ export function Icon({
   const pixelSize = sizeMap[size];
   const colorValue = colorMap[color];
 
-  return (
-    <IconComponent
-      size={pixelSize}
-      color={colorValue}
-      fill={filled ? colorValue : 'none'}
-    />
-  );
+  return <IconComponent size={pixelSize} color={colorValue} fill={filled ? colorValue : 'none'} />;
 }
 
 // Icon container with background
@@ -77,11 +71,7 @@ export function IconContainer({
       className={`items-center justify-center rounded-full ${bgMap[background]}`}
       style={{ width: containerSize, height: containerSize }}
     >
-      <IconComponent
-        size={pixelSize}
-        color={colorValue}
-        fill={filled ? colorValue : 'none'}
-      />
+      <IconComponent size={pixelSize} color={colorValue} fill={filled ? colorValue : 'none'} />
     </View>
   );
 }

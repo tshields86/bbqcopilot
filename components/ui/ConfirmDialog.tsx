@@ -26,16 +26,8 @@ export function ConfirmDialog({
   isLoading = false,
 }: ConfirmDialogProps) {
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={onClose}
-    >
-      <Pressable
-        className="flex-1 bg-black/60 items-center justify-center p-6"
-        onPress={onClose}
-      >
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+      <Pressable className="flex-1 bg-black/60 items-center justify-center p-6" onPress={onClose}>
         <Pressable
           className="bg-char-black rounded-2xl p-6 w-full max-w-sm border border-char-500/20"
           onPress={(e) => e.stopPropagation()}
@@ -48,23 +40,14 @@ export function ConfirmDialog({
           )}
 
           {/* Title */}
-          <Text className="font-display text-xl text-ash-white text-center mb-2">
-            {title}
-          </Text>
+          <Text className="font-display text-xl text-ash-white text-center mb-2">{title}</Text>
 
           {/* Message */}
-          <Text className="font-body text-sm text-char-300 text-center mb-6">
-            {message}
-          </Text>
+          <Text className="font-body text-sm text-char-300 text-center mb-6">{message}</Text>
 
           {/* Actions */}
           <View className="flex-row gap-3">
-            <Button
-              variant="secondary"
-              onPress={onClose}
-              disabled={isLoading}
-              className="flex-1"
-            >
+            <Button variant="secondary" onPress={onClose} disabled={isLoading} className="flex-1">
               {cancelLabel}
             </Button>
             <Button

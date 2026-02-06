@@ -78,27 +78,18 @@ export function CookLogCard({ log, onPress }: CookLogCardProps) {
               </View>
 
               {/* Rating */}
-              {log.rating && (
-                <View className="mb-2">
-                  {renderRating(log.rating)}
-                </View>
-              )}
+              {log.rating && <View className="mb-2">{renderRating(log.rating)}</View>}
 
               {/* Notes preview */}
               {log.notes && (
-                <Text
-                  className="font-body text-sm text-char-300"
-                  numberOfLines={2}
-                >
+                <Text className="font-body text-sm text-char-300" numberOfLines={2}>
                   {log.notes}
                 </Text>
               )}
             </View>
 
             {/* Arrow */}
-            {onPress && (
-              <ChevronRight size={20} color="#4A4A4A" className="ml-2" />
-            )}
+            {onPress && <ChevronRight size={20} color="#4A4A4A" className="ml-2" />}
           </View>
         </Card>
       )}

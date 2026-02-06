@@ -33,15 +33,15 @@ export function Hero() {
         <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-ash-white mb-6 leading-tight">
           <span className="whitespace-nowrap">Your AI Pitmaster,</span>
           <br className="lg:hidden" />
-          <span className="lg:inline">{' '}</span>
+          <span className="lg:inline"> </span>
           <span className="gradient-text whitespace-nowrap">Tailored to Your Grill</span>
         </h1>
 
         {/* Subheadline */}
         <p className="text-xl md:text-2xl text-char-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-          Stop searching for generic recipes. Get personalized BBQ recipes optimized
-          for <span className="text-ash-white font-medium">YOUR</span> equipment,
-          skill level, and time constraints.
+          Stop searching for generic recipes. Get personalized BBQ recipes optimized for{' '}
+          <span className="text-ash-white font-medium">YOUR</span> equipment, skill level, and time
+          constraints.
         </p>
 
         {/* CTA buttons */}

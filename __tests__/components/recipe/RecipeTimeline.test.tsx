@@ -77,9 +77,7 @@ describe('RecipeTimeline', () => {
   });
 
   it('uses initialEatingTime when provided', () => {
-    render(
-      <RecipeTimeline timeline={mockTimelineSteps} initialEatingTime="7:00 PM" />
-    );
+    render(<RecipeTimeline timeline={mockTimelineSteps} initialEatingTime="7:00 PM" />);
 
     expect(screen.getByText('7:00 PM')).toBeTruthy();
   });
@@ -134,10 +132,7 @@ describe('RecipeTimeline', () => {
 
   it('calls onEatingTimeChange when time is updated', async () => {
     render(
-      <RecipeTimeline
-        timeline={mockTimelineSteps}
-        onEatingTimeChange={mockOnEatingTimeChange}
-      />
+      <RecipeTimeline timeline={mockTimelineSteps} onEatingTimeChange={mockOnEatingTimeChange} />
     );
 
     fireEvent.press(screen.getByText('Adjust'));

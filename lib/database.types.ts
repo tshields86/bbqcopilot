@@ -44,7 +44,15 @@ export type Database = {
           name: string;
           brand: string | null;
           model: string | null;
-          grill_type: 'kamado' | 'gas' | 'charcoal' | 'pellet' | 'offset' | 'kettle' | 'electric' | 'other';
+          grill_type:
+            | 'kamado'
+            | 'gas'
+            | 'charcoal'
+            | 'pellet'
+            | 'offset'
+            | 'kettle'
+            | 'electric'
+            | 'other';
           notes: string | null;
           is_primary: boolean;
           created_at: string;
@@ -56,7 +64,15 @@ export type Database = {
           name: string;
           brand?: string | null;
           model?: string | null;
-          grill_type: 'kamado' | 'gas' | 'charcoal' | 'pellet' | 'offset' | 'kettle' | 'electric' | 'other';
+          grill_type:
+            | 'kamado'
+            | 'gas'
+            | 'charcoal'
+            | 'pellet'
+            | 'offset'
+            | 'kettle'
+            | 'electric'
+            | 'other';
           notes?: string | null;
           is_primary?: boolean;
           created_at?: string;
@@ -68,7 +84,15 @@ export type Database = {
           name?: string;
           brand?: string | null;
           model?: string | null;
-          grill_type?: 'kamado' | 'gas' | 'charcoal' | 'pellet' | 'offset' | 'kettle' | 'electric' | 'other';
+          grill_type?:
+            | 'kamado'
+            | 'gas'
+            | 'charcoal'
+            | 'pellet'
+            | 'offset'
+            | 'kettle'
+            | 'electric'
+            | 'other';
           notes?: string | null;
           is_primary?: boolean;
           created_at?: string;
@@ -365,7 +389,15 @@ export type Database = {
       };
     };
     Enums: {
-      grill_type: 'kamado' | 'gas' | 'charcoal' | 'pellet' | 'offset' | 'kettle' | 'electric' | 'other';
+      grill_type:
+        | 'kamado'
+        | 'gas'
+        | 'charcoal'
+        | 'pellet'
+        | 'offset'
+        | 'kettle'
+        | 'electric'
+        | 'other';
       accessory_type:
         | 'rotisserie'
         | 'griddle'

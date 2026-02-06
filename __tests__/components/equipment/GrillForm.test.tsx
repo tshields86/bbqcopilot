@@ -76,10 +76,7 @@ describe('GrillForm', () => {
     render(<GrillForm onSubmit={mockOnSubmit} />);
 
     // Enter name but no grill type
-    fireEvent.changeText(
-      screen.getByPlaceholderText('e.g., Big Joe, Backyard Beast'),
-      'My Grill'
-    );
+    fireEvent.changeText(screen.getByPlaceholderText('e.g., Big Joe, Backyard Beast'), 'My Grill');
 
     fireEvent.press(screen.getByText('Save Grill'));
 
@@ -162,13 +159,7 @@ describe('GrillForm', () => {
   });
 
   it('shows loading indicator when isLoading is true', () => {
-    render(
-      <GrillForm
-        onSubmit={mockOnSubmit}
-        onCancel={mockOnCancel}
-        isLoading={true}
-      />
-    );
+    render(<GrillForm onSubmit={mockOnSubmit} onCancel={mockOnCancel} isLoading={true} />);
 
     // Cancel button should still be visible but disabled
     expect(screen.getByText('Cancel')).toBeTruthy();

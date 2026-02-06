@@ -63,11 +63,7 @@ export function Logo({
         </View>
       )}
       <View className="flex-row">
-        <Text
-          className={`${styles.text} font-display-bold text-ember-500`}
-        >
-          BBQ
-        </Text>
+        <Text className={`${styles.text} font-display-bold text-ember-500`}>BBQ</Text>
         <Text
           className={`${styles.text} font-display-bold ${
             variant === 'dark' ? 'text-ash' : 'text-char-800'
@@ -81,10 +77,7 @@ export function Logo({
 
   if (onPress || linkToHome) {
     return (
-      <Pressable
-        onPress={handlePress}
-        className="active:opacity-80"
-      >
+      <Pressable onPress={handlePress} className="active:opacity-80">
         {content}
       </Pressable>
     );

@@ -56,16 +56,10 @@ export default function ForgotPasswordScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       className="flex-1 bg-char-800"
     >
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-      >
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
         <View className="flex-1 p-6">
           {/* Back Button */}
-          <Pressable
-            className="flex-row items-center mb-8 mt-12"
-            onPress={() => router.back()}
-          >
+          <Pressable className="flex-row items-center mb-8 mt-12" onPress={() => router.back()}>
             <ArrowLeft size={24} color="#F5F5F0" />
             <Body className="ml-2">Back</Body>
           </Pressable>

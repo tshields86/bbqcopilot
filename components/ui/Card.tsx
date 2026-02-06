@@ -1,10 +1,6 @@
 import { View, Pressable } from 'react-native';
 import type { ViewProps, PressableProps } from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -26,17 +22,9 @@ const variantStyles: Record<CardVariant, string> = {
   outlined: 'bg-transparent border border-char-500',
 };
 
-export function Card({
-  variant = 'default',
-  children,
-  className = '',
-  ...props
-}: CardProps) {
+export function Card({ variant = 'default', children, className = '', ...props }: CardProps) {
   return (
-    <View
-      {...props}
-      className={`rounded-card p-4 ${variantStyles[variant]} ${className}`}
-    >
+    <View {...props} className={`rounded-card p-4 ${variantStyles[variant]} ${className}`}>
       {children}
     </View>
   );
@@ -103,9 +91,5 @@ export function CardFooter({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <View className={`mt-3 pt-3 border-t border-char-600 ${className}`}>
-      {children}
-    </View>
-  );
+  return <View className={`mt-3 pt-3 border-t border-char-600 ${className}`}>{children}</View>;
 }

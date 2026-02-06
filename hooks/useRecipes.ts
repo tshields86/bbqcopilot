@@ -7,15 +7,19 @@ const RECIPES_KEY = ['recipes'];
 
 // Fetch all recipes for the current user
 async function fetchRecipes(): Promise<Recipe[]> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   const { data, error } = await supabase
     .from('recipes')
-    .select(`
+    .select(
+      `
       *,
       grill:grills(*)
-    `)
+    `
+    )
     .eq('user_id', user.id)
     .order('created_at', { ascending: false });
 
@@ -27,10 +31,12 @@ async function fetchRecipes(): Promise<Recipe[]> {
 async function fetchRecipe(id: string): Promise<Recipe> {
   const { data, error } = await supabase
     .from('recipes')
-    .select(`
+    .select(
+      `
       *,
       grill:grills(*)
-    `)
+    `
+    )
     .eq('id', id)
     .single();
 
@@ -49,7 +55,9 @@ async function saveRecipe(recipe: {
   totalTimeMinutes?: number;
   difficulty?: 'easy' | 'medium' | 'hard' | string;
 }): Promise<Recipe> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
 
   // Normalize difficulty to match DB constraint (easy, medium, hard)
@@ -60,7 +68,12 @@ async function saveRecipe(recipe: {
       normalizedDifficulty = 'easy';
     } else if (lower === 'medium' || lower === 'intermediate' || lower === 'moderate') {
       normalizedDifficulty = 'medium';
-    } else if (lower === 'hard' || lower === 'advanced' || lower === 'difficult' || lower === 'expert') {
+    } else if (
+      lower === 'hard' ||
+      lower === 'advanced' ||
+      lower === 'difficult' ||
+      lower === 'expert'
+    ) {
       normalizedDifficulty = 'hard';
     }
   }
@@ -80,10 +93,12 @@ async function saveRecipe(recipe: {
   const { data, error } = await supabase
     .from('recipes')
     .insert(insertData)
-    .select(`
+    .select(
+      `
       *,
       grill:grills(*)
-    `)
+    `
+    )
     .single();
 
   if (error) throw error;

@@ -37,9 +37,7 @@ export function ClarificationChat({
       {/* Header */}
       <View className="flex-row items-center gap-2 mb-4">
         <MessageCircle size={20} color="#B87333" />
-        <Text className="font-display text-lg text-ash-white">
-          A few quick questions...
-        </Text>
+        <Text className="font-display text-lg text-ash-white">A few quick questions...</Text>
       </View>
 
       {/* Questions */}
@@ -63,9 +61,10 @@ export function ClarificationChat({
                         onPress={() => onAnswer(question, option)}
                         className={`
                           flex-row items-center p-3 rounded-lg border
-                          ${isSelected
-                            ? 'border-ember-red bg-ember-red/10'
-                            : 'border-char-500/30 bg-char-black/30'
+                          ${
+                            isSelected
+                              ? 'border-ember-red bg-ember-red/10'
+                              : 'border-char-500/30 bg-char-black/30'
                           }
                         `}
                       >
@@ -90,7 +89,9 @@ export function ClarificationChat({
                 <View>
                   <TextInput
                     className="font-body text-base text-ash-white bg-char-black/30 border border-char-500/30 rounded-lg p-3"
-                    placeholder={question.type === 'number' ? 'Enter a number...' : 'Type your answer...'}
+                    placeholder={
+                      question.type === 'number' ? 'Enter a number...' : 'Type your answer...'
+                    }
                     placeholderTextColor="#4A4A4A"
                     value={textInputs[question.id] || currentAnswer || ''}
                     onChangeText={(text) => {
@@ -115,9 +116,7 @@ export function ClarificationChat({
       {isLoading && (
         <View className="items-center py-4">
           <FlameLoader size="sm" />
-          <Text className="font-body text-sm text-char-300 mt-2">
-            Processing your answers...
-          </Text>
+          <Text className="font-body text-sm text-char-300 mt-2">Processing your answers...</Text>
         </View>
       )}
 

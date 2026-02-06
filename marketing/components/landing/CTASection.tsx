@@ -28,8 +28,8 @@ export function CTASection() {
           Ready to Level Up Your BBQ Game?
         </h2>
         <p className="text-xl text-char-300 max-w-2xl mx-auto mb-10">
-          Join pitmasters who&apos;ve discovered the power of AI-assisted cook planning.
-          Your perfect brisket is just a few clicks away.
+          Join pitmasters who&apos;ve discovered the power of AI-assisted cook planning. Your
+          perfect brisket is just a few clicks away.
         </p>
 
         {/* Primary CTA */}

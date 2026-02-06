@@ -1,18 +1,11 @@
-import {
-  Flame,
-  Clock,
-  BarChart3,
-  History,
-  Thermometer,
-  Users,
-} from 'lucide-react';
+import { Flame, Clock, BarChart3, History, Thermometer, Users } from 'lucide-react';
 
 const features = [
   {
     icon: Flame,
     title: 'Equipment-Specific Recipes',
     description:
-      'Recipes tailored to your exact grill—whether it\'s a Kamado Joe, Weber Genesis, pellet smoker, or offset. No more adapting generic instructions.',
+      "Recipes tailored to your exact grill—whether it's a Kamado Joe, Weber Genesis, pellet smoker, or offset. No more adapting generic instructions.",
   },
   {
     icon: Clock,
@@ -42,7 +35,7 @@ const features = [
     icon: Users,
     title: 'Party-Size Scaling',
     description:
-      'Cooking for 4 or 40? Tell us how many mouths to feed and we\'ll scale everything—meat, time, and portions.',
+      "Cooking for 4 or 40? Tell us how many mouths to feed and we'll scale everything—meat, time, and portions.",
   },
 ];
 
@@ -79,9 +72,7 @@ export function Features() {
               <h3 className="font-display text-lg font-semibold text-ash-white mb-2">
                 {feature.title}
               </h3>
-              <p className="text-char-400 text-sm leading-relaxed">
-                {feature.description}
-              </p>
+              <p className="text-char-400 text-sm leading-relaxed">{feature.description}</p>
             </div>
           ))}
         </div>
