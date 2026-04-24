@@ -703,7 +703,7 @@ serve(async (req) => {
     const { userInput, equipment, existingAnswers } = await req.json()
 
     const response = await anthropic.messages.create({
-      model: 'claude-3-haiku-20240307',
+      model: 'claude-haiku-4-5-20251001',
       max_tokens: 500,
       system: `You are BBQCopilot's BBQ assistant. Based on the user's cook request, generate 1-3 clarifying questions to help create the perfect recipe. 
 

@@ -109,7 +109,7 @@ BBQCopilot uses a cost-optimized dual-model strategy:
 
 | Task | Model | Model ID | Cost |
 |------|-------|----------|------|
-| Clarifying questions | Haiku 3 | `claude-3-haiku-20240307` | $0.25/$1.25 per MTok |
+| Clarifying questions | Haiku 3 | `claude-haiku-4-5-20251001` | $0.25/$1.25 per MTok |
 | Recipe generation | Haiku 3.5 | `claude-3-5-haiku-20241022` | $0.80/$4.00 per MTok |
 
 **Estimated cost per recipe: ~$0.01**

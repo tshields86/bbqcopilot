@@ -10,7 +10,7 @@ BBQCopilot is a personalized BBQ recipe application that generates equipment-spe
 - **Styling:** NativeWind (Tailwind CSS for React Native)
 - **Backend/Auth:** Supabase (PostgreSQL, Auth with Google/Email, Row Level Security)
 - **AI:** Anthropic Claude API
-  - `claude-3-haiku-20240307` for clarifying questions, input parsing (cheapest)
+  - `claude-haiku-4-5-20251001` for clarifying questions, input parsing (cheapest)
   - `claude-3-5-haiku-20241022` for recipe generation (best cost/quality balance)
 - **State Management:** React Context + React Query (TanStack Query)
 
@@ -105,7 +105,7 @@ Status:
 
 ### Model Selection Strategy
 ```typescript
-// Use Haiku 3 (claude-3-haiku-20240307) for:
+// Use Haiku 3 (claude-haiku-4-5-20251001) for:
 - Parsing user input ("I want to smoke a brisket")
 - Generating clarifying questions
 - Simple lookups and validations
