@@ -111,7 +111,8 @@ ${existingAnswers?.length ? `Already answered: ${JSON.stringify(existingAnswers)
 
     const content = response.content[0];
     if (content.type === 'text') {
-      return new Response(content.text, {
+      const text = content.text.replace(/^```(?:json)?\s*\n?/, '').replace(/\n?```\s*$/, '');
+      return new Response(text, {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
