@@ -107,6 +107,10 @@ One-time setup in GitHub (**Settings** → **Secrets and variables** → **Actio
 - Secret `SUPABASE_ANON_KEY` = your anon key
 - Create the `keepalive` branch (target of the heartbeat commit)
 
+Both `vercel.json` files set `git.deploymentEnabled.keepalive` to `false`, and the
+`keepalive` branch carries its own opt-out config. Without that, each heartbeat
+commit triggers two preview builds that fail, since no app code lives on that branch.
+
 The repo-wide default workflow permission can stay read-only; the workflow requests
 `contents: write` for itself.
 

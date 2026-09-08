@@ -138,6 +138,10 @@ permission can stay read-only.
 
 Verify with `gh workflow run keepalive.yml`, then check the run logs for `HTTP 200`.
 
+Note: Vercel is configured to skip the `keepalive` branch (`git.deploymentEnabled`
+in `vercel.json` and `marketing/vercel.json`), so heartbeat commits do not trigger
+failing preview builds.
+
 ## Troubleshooting
 
 ### "Permission denied" errors
