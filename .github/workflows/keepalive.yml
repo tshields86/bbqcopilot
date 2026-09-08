@@ -1,0 +1,93 @@
+name: Keepalive
+
+# Supabase pauses Free plan projects after ~7 days without database activity.
+# This workflow pings the database twice a day so the project stays active.
+#
+# GitHub also disables scheduled workflows in public repos after 60 days of no
+# repository activity, which would silently kill the ping above. The weekly
+# refresh-schedule job pushes a heartbeat commit to the `keepalive` branch to
+# reset that clock.
+
+on:
+  schedule:
+    - cron: '13 6 * * *' # daily ping (UTC)
+    - cron: '13 18 * * *' # daily ping (UTC)
+    - cron: '11 3 * * 1' # weekly repo-activity heartbeat (Mondays, UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: keepalive
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    name: Ping Supabase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query keepalive table
+        env:
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${SUPABASE_URL:-}" ] || [ -z "${SUPABASE_ANON_KEY:-}" ]; then
+            echo "::error::SUPABASE_URL variable or SUPABASE_ANON_KEY secret is not set"
+            exit 1
+          fi
+
+          body=$(mktemp)
+          code=$(curl -sS -o "$body" -w '%{http_code}' \
+            --retry 3 --retry-delay 10 --max-time 30 \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            "$SUPABASE_URL/rest/v1/keepalive?select=id&limit=1")
+
+          echo "HTTP $code"
+          cat "$body"
+          echo
+
+          if [ "$code" != "200" ]; then
+            echo "::error::Supabase ping failed (HTTP $code)"
+            exit 1
+          fi
+
+          # Guard against a silent pass if the table or its SELECT policy is ever removed.
+          if ! grep -q '"id"' "$body"; then
+            echo "::error::keepalive row missing from response"
+            exit 1
+          fi
+
+          echo "Supabase project pinged successfully"
+
+  refresh-schedule:
+    name: Refresh Actions schedule
+    if: github.event.schedule == '11 3 * * 1' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout keepalive branch
+        uses: actions/checkout@v4
+        with:
+          ref: keepalive
+          fetch-depth: 1
+
+      - name: Commit heartbeat
+        run: |
+          set -euo pipefail
+
+          date -u +'%Y-%m-%dT%H:%M:%SZ' > last-run.txt
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add last-run.txt
+
+          if git diff --cached --quiet; then
+            echo "No change to commit"
+            exit 0
+          fi
+
+          git commit -m "chore: keepalive heartbeat"
+          git push origin keepalive

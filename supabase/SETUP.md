@@ -18,13 +18,17 @@ This guide walks you through setting up Supabase for BBQCopilot.
 2. Copy the contents of `migrations/00001_initial_schema.sql`
 3. Paste into the SQL Editor
 4. Click "Run" to execute
+5. Repeat for `migrations/00002_keepalive.sql`
 
-This creates:
+`00001_initial_schema.sql` creates:
 - All tables (profiles, grills, accessories, recipes, etc.)
 - Row Level Security policies
 - Indexes for performance
 - Triggers for automatic profile creation
 - Helper functions for usage tracking
+
+`00002_keepalive.sql` creates the `keepalive` ping target used to stop the project
+from pausing (see section 8).
 
 ## 3. Configure Authentication
 
@@ -111,6 +115,28 @@ EXPO_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key>
 3. Check the Supabase dashboard:
    - **Authentication** → **Users** should show your new user
    - **Table Editor** → **profiles** should have a row for the user
+
+## 8. Keep the Project From Pausing (Free plan)
+
+Supabase pauses Free plan projects after about a week without database activity. A
+low-traffic project will hit that on its own, so `.github/workflows/keepalive.yml`
+pings the `keepalive` table twice a day to keep it active.
+
+For that workflow to run, set up once in GitHub (**Settings** → **Secrets and
+variables** → **Actions**):
+
+| Kind | Name | Value |
+|------|------|-------|
+| Variable | `SUPABASE_URL` | Your project URL, e.g. `https://xxxxx.supabase.co` |
+| Secret | `SUPABASE_ANON_KEY` | The anon key from section 4 |
+
+Also required: a `keepalive` branch must exist. The workflow pushes a weekly
+timestamp commit to it, which keeps GitHub from auto-disabling scheduled workflows
+in public repos after 60 days of repository inactivity. The workflow declares
+`permissions: contents: write` for that push, so the repo-wide default workflow
+permission can stay read-only.
+
+Verify with `gh workflow run keepalive.yml`, then check the run logs for `HTTP 200`.
 
 ## Troubleshooting
 

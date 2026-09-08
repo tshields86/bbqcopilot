@@ -93,6 +93,27 @@ supabase functions deploy ask-clarification
 supabase secrets set ANTHROPIC_API_KEY=<your-anthropic-key>
 ```
 
+### 1.6 Prevent Free-Tier Pausing
+
+Supabase pauses Free plan projects after roughly a week without database activity,
+which a low-traffic project will hit on its own. `.github/workflows/keepalive.yml`
+prevents that by pinging the `keepalive` table (see `supabase/migrations/00002_keepalive.sql`)
+twice a day, and by pushing a weekly heartbeat commit to the `keepalive` branch so
+GitHub does not auto-disable the scheduled workflow after 60 days of repo inactivity.
+
+One-time setup in GitHub (**Settings** → **Secrets and variables** → **Actions**):
+
+- Variable `SUPABASE_URL` = your project URL
+- Secret `SUPABASE_ANON_KEY` = your anon key
+- Create the `keepalive` branch (target of the heartbeat commit)
+
+The repo-wide default workflow permission can stay read-only; the workflow requests
+`contents: write` for itself.
+
+If the workflow ever fails, GitHub emails you — the project is then about a week from
+being paused, so fix it promptly. Upgrading Supabase to Pro removes pausing entirely
+and makes this workflow unnecessary.
+
 ---
 
 ## Step 2: Anthropic API Setup
@@ -267,6 +288,7 @@ eas submit --platform android
 - [ ] Vercel Analytics enabled
 - [ ] Supabase Dashboard bookmarked for DB monitoring
 - [ ] Anthropic usage alerts configured
+- [ ] Keepalive workflow green (Actions → Keepalive), project status Active
 
 ### Testing
 - [ ] Test sign up flow (email + Google)
