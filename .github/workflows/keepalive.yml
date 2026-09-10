@@ -40,15 +40,25 @@ jobs:
           fi
 
           body=$(mktemp)
-          code=$(curl -sS -o "$body" -w '%{http_code}' \
+          # A failing curl still aborts the step via set -e, as during the
+          # 2026-09-10 outage; time_total additionally makes gradual slowdown
+          # visible in the run history before the instance goes fully dark.
+          out=$(curl -sS -o "$body" -w '%{http_code} %{time_total}' \
             --retry 3 --retry-delay 10 --max-time 30 \
             -H "apikey: $SUPABASE_ANON_KEY" \
             -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
             "$SUPABASE_URL/rest/v1/keepalive?select=id&limit=1")
 
-          echo "HTTP $code"
+          code=${out%% *}
+          elapsed=${out##* }
+
+          echo "HTTP $code in ${elapsed}s"
           cat "$body"
           echo
+
+          if awk "BEGIN{exit !($elapsed > 5)}"; then
+            echo "::warning::Supabase responded slowly (${elapsed}s) - check Observability -> Database Health"
+          fi
 
           if [ "$code" != "200" ]; then
             echo "::error::Supabase ping failed (HTTP $code)"
@@ -61,7 +71,7 @@ jobs:
             exit 1
           fi
 
-          echo "Supabase project pinged successfully"
+          echo "Supabase project pinged successfully in ${elapsed}s"
 
   refresh-schedule:
     name: Refresh Actions schedule
